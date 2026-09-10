@@ -132,7 +132,7 @@ def _is_valid_corpus_root(corpus_root: Path) -> bool:
 
 
 def resolve_scaffold_corpus_root(corpus_root: str | Path | None = None) -> ScaffoldCorpusResolution:
-    """Resolve scaffold corpus data with explicit, environment, sibling, packaged precedence."""
+    """Resolve scaffold corpus data with explicit, environment, packaged precedence."""
 
     attempted: list[Path] = []
     qlip_repo_root: Path | None = None
@@ -177,19 +177,6 @@ def resolve_scaffold_corpus_root(corpus_root: str | Path | None = None) -> Scaff
             attempted_paths=tuple(str(path) for path in attempted),
         )
 
-    if qlip_repo_root is not None:
-        skill_loop_repo_root = qlip_repo_root.parent / "Skill-Loop-CSP"
-        candidate = skill_loop_repo_root / "data" / "corpora"
-        attempted.append(candidate)
-        if _is_valid_corpus_root(candidate):
-            return ScaffoldCorpusResolution(
-                resolution_method="sibling_repository",
-                qlip_repo_root=str(qlip_repo_root),
-                skill_loop_repo_root=str(skill_loop_repo_root),
-                corpus_root=str(candidate),
-                attempted_paths=tuple(str(path) for path in attempted),
-            )
-
     packaged = Path(__file__).resolve().parent / "data" / "corpora"
     attempted.append(packaged)
     if _is_valid_corpus_root(packaged):
@@ -202,7 +189,7 @@ def resolve_scaffold_corpus_root(corpus_root: str | Path | None = None) -> Scaff
         )
 
     raise ScaffoldCorpusConfigurationError(
-        "No valid scaffold corpus was found by explicit, environment, sibling-repository, or packaged-data discovery",
+        "No valid scaffold corpus was found by explicit, environment, or packaged-data discovery",
         attempted_paths=attempted,
         qlip_repo_root=qlip_repo_root,
     )

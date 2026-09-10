@@ -7,7 +7,7 @@ import llm_csp.workflow.runner as runner
 from llm_csp.retrieval import EvidenceRecord, RetrievalStageResult
 from llm_csp.schemas import CSPWorkflowRequest, ValidationConfig, WorkflowConfig
 from llm_csp.validation import ValidationError, ValidationResult
-from qlip.core.models import SolveOutputs, SolveResult, SolveSummary, ValidationReport
+from qlip.core.models import SolveOutputs, SolveResult, SolveSummary, ValidationIssue, ValidationReport
 
 
 REQUEST = CSPWorkflowRequest(
@@ -179,3 +179,76 @@ def test_feasible_time_limit_is_not_relabelled_optimal(tmp_path, monkeypatch) ->
     assert result.status == "completed"
     assert result.stages["qlip"]["status"] == "FEASIBLE_TIME_LIMIT"
     assert result.stages["candidate"]["solver_status"] == "FEASIBLE_TIME_LIMIT"
+
+
+def test_gurobi_license_failure_is_normalized(tmp_path, monkeypatch) -> None:
+    import qlip
+    import qlip.core.validate
+
+    cif = _cif(tmp_path / "evidence.cif")
+    monkeypatch.setattr(runner, "prepare_spp_guidance", lambda **kwargs: _ready_spp(tmp_path))
+    monkeypatch.setattr(runner, "compile_qlip_request", lambda **kwargs: {"request": "fake"})
+    monkeypatch.setattr(
+        qlip.core.validate,
+        "validate_request",
+        lambda *args, **kwargs: ValidationReport(True, normalized_request={"request": "fake"}),
+    )
+    monkeypatch.setattr(qlip, "solve", lambda request: (_ for _ in ()).throw(RuntimeError("Gurobi license unavailable")))
+
+    result = runner.run_csp_workflow(
+        REQUEST,
+        WorkflowConfig(output_root=tmp_path / "runs", run_id="no-license", retrieval_provider=_success_retrieval(cif)),
+    )
+
+    assert result.status == "failed"
+    assert result.errors[0]["code"] == "qlip_backend_unavailable"
+    assert result.errors[0]["type"] == "RuntimeError"
+    assert "license unavailable" in result.errors[0]["message"]
+
+
+def test_missing_gurobi_preflight_is_backend_unavailable(tmp_path, monkeypatch) -> None:
+    import qlip.core.validate
+
+    cif = _cif(tmp_path / "evidence.cif")
+    monkeypatch.setattr(runner, "prepare_spp_guidance", lambda **kwargs: _ready_spp(tmp_path))
+    monkeypatch.setattr(runner, "compile_qlip_request", lambda **kwargs: {"request": "fake"})
+    monkeypatch.setattr(
+        qlip.core.validate,
+        "validate_request",
+        lambda *args, **kwargs: ValidationReport(
+            False,
+            errors=[ValidationIssue("gurobi_unavailable", "Gurobi is unavailable", "/solver/name")],
+        ),
+    )
+
+    result = runner.run_csp_workflow(
+        REQUEST,
+        WorkflowConfig(output_root=tmp_path / "runs", run_id="missing-gurobi", retrieval_provider=_success_retrieval(cif)),
+    )
+
+    assert result.status == "blocked"
+    assert result.errors[0]["code"] == "qlip_backend_unavailable"
+
+
+def test_spp_permission_failure_is_structured_and_stops_qlip(tmp_path, monkeypatch) -> None:
+    cif = _cif(tmp_path / "evidence.cif")
+    monkeypatch.setattr(
+        runner,
+        "prepare_spp_guidance",
+        lambda **kwargs: (_ for _ in ()).throw(PermissionError("SPP output is not writable")),
+    )
+    monkeypatch.setattr(
+        runner,
+        "compile_qlip_request",
+        lambda **kwargs: (_ for _ in ()).throw(AssertionError("QLIP must not run")),
+    )
+
+    result = runner.run_csp_workflow(
+        REQUEST,
+        WorkflowConfig(output_root=tmp_path / "runs", run_id="spp-permission", retrieval_provider=_success_retrieval(cif)),
+    )
+
+    assert result.status == "blocked"
+    assert result.errors[0]["code"] == "spp_error"
+    assert result.errors[0]["type"] == "PermissionError"
+    assert "qlip" not in result.stages

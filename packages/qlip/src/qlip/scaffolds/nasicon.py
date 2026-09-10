@@ -35,8 +35,10 @@ TOPOLOGY_TETRAHEDRAL_CATIONS = {"Si", "P"}
 
 
 def resolve_skill_loop_root(project_root: str | Path | None = None) -> Path:
-    """Resolve a configured Skill-Loop-CSP root or the verified sibling checkout."""
-    candidate = Path(project_root).expanduser().resolve() if project_root is not None else Path(__file__).resolve().parents[3].parent / "Skill-Loop-CSP"
+    """Resolve an explicitly configured external frozen-task root."""
+    if project_root is None:
+        raise ValueError("project_root is required; sibling source repositories are not discovered")
+    candidate = Path(project_root).expanduser().resolve()
     manifest = candidate / "benchmarks" / "paper_diversity_v2" / "EXP4_NASICON_32_TASKS.csv"
     if not manifest.is_file():
         raise FileNotFoundError(f"Frozen E4 task manifest not found beneath configured project root: {manifest}")

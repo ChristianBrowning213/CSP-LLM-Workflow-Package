@@ -5,6 +5,7 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import importlib
 from contextlib import contextmanager
 from importlib import metadata
 from pathlib import Path
@@ -42,6 +43,13 @@ def _run_id(request: CSPWorkflowRequest, config: WorkflowConfig) -> str:
 
 
 def _package_version(name: str) -> str | None:
+    module_name = name.replace("-", "_")
+    try:
+        module_version = getattr(importlib.import_module(module_name), "__version__", None)
+        if module_version is not None:
+            return str(module_version)
+    except ImportError:
+        pass
     try:
         return metadata.version(name)
     except metadata.PackageNotFoundError:
@@ -67,6 +75,10 @@ def _provenance() -> dict[str, Any]:
         "source_contract": {
             "entry_point": "sok_llm_orchestrator.workflow.runner.run_csp_workflow",
             "commit": "b2130661b4690623877e852dc03132506aa720dd",
+        },
+        "validation_contract": {
+            "package": "sca",
+            "commit": "e5b291312151f34949a5e6ef0f43bebfeb752bc9",
         },
         "packages": {
             "llm-csp": _package_version("llm-csp"),
@@ -197,10 +209,16 @@ def run_csp_workflow(request: CSPWorkflowRequest, config: WorkflowConfig) -> Wor
             stages["qlip_request_validation"] = validation_report.to_dict()
             _write_json(workspace / "qlip" / "request_validation.json", validation_report.to_dict())
             if not validation_report.valid:
+                validation_codes = {item.code for item in validation_report.errors}
+                code = (
+                    "qlip_backend_unavailable"
+                    if validation_codes & {"gurobi_unavailable", "validator_unavailable"}
+                    else "qlip_request_invalid"
+                )
                 errors.append(
                     {
                         "stage": "qlip_validate",
-                        "code": "qlip_request_invalid",
+                        "code": code,
                         "details": validation_report.to_dict(),
                     }
                 )
@@ -210,8 +228,16 @@ def run_csp_workflow(request: CSPWorkflowRequest, config: WorkflowConfig) -> Wor
                 )
             solved = solve(validation_report.normalized_request or qlip_request)
     except Exception as exc:
+        unavailable = isinstance(exc, (ImportError, ModuleNotFoundError)) or (
+            "license" in str(exc).lower() or "gurobi" in type(exc).__module__.lower()
+        )
         errors.append(
-            {"stage": "qlip_solve", "code": "qlip_error", "type": type(exc).__name__, "message": str(exc)}
+            {
+                "stage": "qlip_solve",
+                "code": "qlip_backend_unavailable" if unavailable else "qlip_error",
+                "type": type(exc).__name__,
+                "message": str(exc),
+            }
         )
         return _result(
             run_id=run_id, status="failed", request=request, stages=stages,

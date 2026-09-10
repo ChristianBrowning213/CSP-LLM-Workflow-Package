@@ -1,29 +1,29 @@
 # Reproducibility
 
-Reproducibility guidance, validated configurations, and provenance requirements
-are documented as each research subsystem is migrated and regression-tested.
+The canonical offline case is:
 
-Validation results record the external backend name, its reported installed
-version, the exact SCA revision against which the adapter was validated, and
-the adapter schema version. The validated SCA contract is commit
-`e5b291312151f34949a5e6ef0f43bebfeb752bc9`; upgrades require renewed direct
-SCA/adapter parity checks.
+~~~shell
+llm-csp demo --output ./runs
+~~~
 
-For deterministic comparisons, callers should provide `run_id` because SCA
-generates a UUID when it is omitted. Validation does not rewrite CIFs or emit
-reports. ALIGNN must remain disabled unless its separate model/runtime is part
-of the declared experiment. CHGNet is outside the supported validation path.
+It fixes the SrTiO3 request and design space, deterministic retrieval fixture,
+six bundled POT files, one solver thread, zero seed, 30-second limit, and unit
+SPP regulator/outer weights. It uses real QLIP solving and SCA validation.
 
-Scientific corpora, fitted potentials, benchmark products, model weights, and
-experiment outputs remain external or runtime-generated assets.
+The run manifest records the workflow schema, complete request/configuration,
+source workflow commit, package versions, pinned SCA revision, retrieval
+identity, required pairs, POT hashes, QLIP request and status, solver objective,
+candidate CIF hash, independent SPP score, and validation result.
 
-The workflow writes the structured request/configuration, normalized retrieval
-records and source IDs, evidence paths, required pairs, request/regulator POT
-hashes, exact QLIP request/result/status/objective, generated CIF hash, and
-validation provenance beneath one caller-owned run root. Deterministic run IDs
-hash scientific request/configuration but exclude the output location.
+Production reproduction additionally requires pinning and preserving:
 
-The offline regression fixes the SrTiO3 design space and six POT files, disables
-request fitting, uses unit regulator/outer weights, and verifies the QLIP
-objective and independent periodic score. Retrieval metadata is synthetic;
-QLIP, POT loading/scoring, and SCA validation remain real.
+- the Crystal-DB file and its hash;
+- text/index engine, view, model, model version, and embedding dimension;
+- the embedding server/model build;
+- every external POT file and its recorded hash;
+- Gurobi version and licence/runtime environment;
+- the SCA revision and any explicitly enabled optional model weights.
+
+Scientific corpora, broad fitted-potential collections, embedding models,
+production databases, and benchmark results are not bundled. The package does
+not download them.

@@ -69,7 +69,7 @@ class Allocation:
             raise ValueError("Stoichiometry must be initialized before enabling motifs.")
 
         if artifact_dir is None:
-            artifact_dir = Path(__file__).resolve().parent.parent.parent / "gen_artifacts"
+            raise ValueError("artifact_dir is required; generated motif artifacts are not bundled")
 
         catalog = load_motif_catalog(artifact_dir, self.types, include=include)
         self._raw_motif_catalog = catalog

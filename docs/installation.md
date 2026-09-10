@@ -1,49 +1,58 @@
 # Installation
 
-The repository currently contains three independently installable Python packages. From the repository root, install them in editable mode for development:
+## Requirements
 
-```shell
-python -m pip install -e .
-python -m pip install -e packages/crystal_db
-python -m pip install -e packages/qlip
-```
+- Python 3.11 or newer.
+- A supported Gurobi installation and usable licence for solving.
+- Git and network access while installing the optional pinned SCA extra.
 
-Crystal-DB's base retrieval package is standard-library only. Install
-`packages/crystal_db[mcp,schema]` when FastMCP and full JSON Schema validation
-are wanted. A compatible SQLite corpus/index and BGE-M3 embedding service remain
-external; see `crystal_db.md`.
+From a repository clone, the supported integrated installation is:
 
-The root `llm-csp` package includes the supported `llm_csp.spp` build, export,
-quality, and standalone-scoring APIs. Its direct dependencies are ASE, NumPy,
-and PyYAML. The migrated QLIP package remains separately installable from
-`packages/qlip`.
-
-Broad POT libraries are external. Supply their root explicitly to
-`export_required_pot_subset(..., source_pot_root=...)` or set
-`SPP_SOURCE_POT_ROOT`; always supply a separate caller-owned output directory.
-QLIP additionally requires its configured solver and, for production Gurobi
-runs, a working Gurobi installation and license.
-
-Validation uses Structured Crystal Analyser as an external optional backend:
-
-```shell
+~~~shell
 python -m pip install ".[validation]"
-```
+~~~
 
-The extra installs the exact validated SCA Git revision. Importing
-`llm_csp.validation` does not import or require SCA; calls return a structured
-`backend_unavailable` result when the backend cannot load. ALIGNN and CHGNet are
-not installed by this extra and are not required for the supported default
-validation path.
+This installs llm_csp, qlip, and crystal_db plus the pinned SCA backend.
+Developers may use:
 
-After installing all three monorepo packages and validation dependencies, run
-the deterministic workflow through Python or the thin CLI:
+~~~shell
+python -m pip install -e ".[validation,test]"
+~~~
 
-```shell
-llm-csp run --config request.json --output runs --json
-```
+The nested packages/qlip and packages/crystal_db projects remain independently
+buildable, but integrated users do not install them separately.
 
-Production configuration must supply a compatible Crystal-DB database/index,
-matching embedding backend, and broad regulator POT root. The output directory
-is mandatory; the workflow never defaults to a repository or installed-package
-location.
+## Offline verification
+
+~~~shell
+llm-csp demo --output ./runs
+~~~
+
+The command needs no production database, LM Studio endpoint, broad POT tree,
+or network. It does require Gurobi and, for a fully successful validation
+result, the validation extra.
+
+## Production configuration
+
+Copy configs/examples/srtio3_production.json, replace its obvious placeholders,
+then run llm-csp run --config CONFIG --json. Supply:
+
+- a Crystal-DB database containing the matching text/index identity;
+- the LM Studio-compatible endpoint settings from .env.example;
+- a broad regulator POT root with every required pair;
+- a finite QLIP design space and solver limits;
+- a caller-owned output root.
+
+No source-repository checkout is consulted at runtime. See
+docs/external_assets.md for the complete asset contract.
+
+## CLI exit codes
+
+| Code | Meaning |
+| ---: | --- |
+| 0 | completed successfully |
+| 2 | invalid command, JSON, or workflow configuration |
+| 3 | required runtime/backend unavailable, including validation unavailable |
+| 4 | scientific run blocked or failed |
+
+With --json, configuration errors and workflow results are machine-readable.

@@ -2,7 +2,13 @@ from pathlib import Path
 
 import pytest
 
-from llm_csp.schemas import CSPWorkflowRequest, SPPConfig, WorkflowConfig
+from llm_csp.schemas import (
+    CSPWorkflowRequest,
+    GenerationConfig,
+    RetrievalConfig,
+    SPPConfig,
+    WorkflowConfig,
+)
 
 
 DESIGN_SPACE = {
@@ -35,3 +41,23 @@ def test_request_rejects_implicit_design_space() -> None:
 def test_output_root_is_mandatory() -> None:
     with pytest.raises(TypeError):
         WorkflowConfig()  # type: ignore[call-arg]
+
+
+def test_invalid_retrieval_engine_is_rejected_at_boundary() -> None:
+    with pytest.raises(ValueError, match="embed_engine"):
+        RetrievalConfig(embed_engine="unknown")
+
+
+def test_unsupported_solver_is_rejected_at_boundary() -> None:
+    with pytest.raises(ValueError, match="solver_name"):
+        GenerationConfig(solver_name="not-a-solver")
+
+
+def test_unknown_configuration_field_is_rejected() -> None:
+    with pytest.raises(TypeError, match="unexpected"):
+        WorkflowConfig.from_dict({"output_root": "runs", "unknown": True})
+
+
+def test_non_path_output_root_is_rejected() -> None:
+    with pytest.raises(TypeError):
+        WorkflowConfig.from_dict({"output_root": {"not": "a path"}})

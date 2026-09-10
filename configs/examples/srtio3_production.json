@@ -1,0 +1,49 @@
+{
+  "request": {
+    "query": "cubic strontium titanate perovskite",
+    "formula": "SrTiO3",
+    "target_space_group": "Pm-3m",
+    "topology_family": "PEROVSKITE_3D",
+    "design_space": {
+      "template": {
+        "name": "cubic",
+        "lattice": {
+          "a": 3.9, "b": 3.9, "c": 3.9,
+          "alpha": 90.0, "beta": 90.0, "gamma": 90.0,
+          "units": "angstrom"
+        }
+      },
+      "sites": {"mode": "uniform_grid", "uniform_grid": {"density": 2}}
+    },
+    "constraints": []
+  },
+  "config": {
+    "output_root": "runs/production",
+    "retrieval": {
+      "db_path": "REPLACE_WITH_CRYSTAL_DB_PATH",
+      "k": 40,
+      "embed_engine": "lmstudio",
+      "model_name": "text-embedding-bge-m3",
+      "model_version": "REPLACE_WITH_INDEX_MODEL_VERSION",
+      "text_engine": "robocrys",
+      "text_view": "robocrys",
+      "demo_export": false
+    },
+    "spp": {
+      "request_mode": "fit",
+      "regulator_root": "REPLACE_WITH_BROAD_POT_ROOT",
+      "cutoff": 11.0,
+      "request_coefficient": 1.0,
+      "regulator_coefficient": 2.0,
+      "outer_objective_scale": 10.0
+    },
+    "generation": {
+      "solver_name": "gurobi",
+      "time_limit_s": 300,
+      "mip_gap": 0.0,
+      "threads": 1,
+      "seed": 0
+    },
+    "validation": {"enabled": true, "topology": true}
+  }
+}

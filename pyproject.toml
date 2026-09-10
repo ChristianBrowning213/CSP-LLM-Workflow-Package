@@ -4,15 +4,22 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "llm-csp"
-version = "0.0.0"
+version = "0.1.0"
 description = "A retrieval-guided, solver-backed crystal structure prediction framework."
 readme = "README.md"
-requires-python = ">=3.10"
-license = { file = "LICENSE" }
+requires-python = ">=3.11"
+license = "MIT"
+license-files = ["LICENSE", "packages/qlip/LICENSE"]
+authors = [{ name = "Christian Browning" }]
 dependencies = [
     "ase>=3.22",
     "numpy>=1.26",
+    "pymatgen",
+    "pyomo",
     "PyYAML>=6.0",
+    "scipy",
+    "gurobipy",
+    "jsonschema>=4",
 ]
 
 [project.scripts]
@@ -25,4 +32,13 @@ validation = [
 ]
 
 [tool.setuptools.packages.find]
-where = ["src"]
+where = ["src", "packages/qlip/src", "packages/crystal_db/src"]
+
+[tool.setuptools.package-data]
+qlip = [
+    "resources/*.json",
+    "resources/base/*.json",
+    "resources/schemas/*.json",
+    "resources/spp/*/*.POT",
+]
+crystal_db = ["schemas/*.json", "configs/*.json"]

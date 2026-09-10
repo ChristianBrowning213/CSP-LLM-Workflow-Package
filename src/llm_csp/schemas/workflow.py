@@ -59,6 +59,8 @@ class RetrievalConfig:
     def __post_init__(self) -> None:
         if self.k <= 0:
             raise ValueError("retrieval k must be positive")
+        if self.embed_engine not in {"default", "hash", "local", "lmstudio"}:
+            raise ValueError("retrieval embed_engine must be default, hash, local, or lmstudio")
 
 
 @dataclass(frozen=True, slots=True)
@@ -86,6 +88,8 @@ class GenerationConfig:
     seed: int = 0
 
     def __post_init__(self) -> None:
+        if self.solver_name != "gurobi":
+            raise ValueError("generation solver_name must be 'gurobi'")
         if self.time_limit_s <= 0 or self.threads <= 0 or self.mip_gap < 0:
             raise ValueError("invalid solver limits")
 
