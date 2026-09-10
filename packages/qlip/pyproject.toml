@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "qlip"
+version = "0.0.0"
+description = "Quantum lattice integer programming solver for LLM-CSP"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "ase",
+    "gurobipy",
+    "numpy",
+    "pymatgen",
+    "pyomo",
+    "scipy",
+]
+
+[project.optional-dependencies]
+mcp = ["jsonschema", "mcp"]
+test = ["jsonschema", "mcp", "pytest"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+qlip = [
+    "resources/*.json",
+    "resources/base/*.json",
+    "resources/schemas/*.json",
+    "resources/spp/*/*.POT",
+]

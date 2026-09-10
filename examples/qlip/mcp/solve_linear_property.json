@@ -1,0 +1,51 @@
+{
+  "version": "1.0",
+  "problem": {
+    "chemistry": {
+      "formula": "SrTiO3"
+    },
+    "design_space": {
+      "template": {
+        "lattice": {
+          "a": 3.9,
+          "b": 3.9,
+          "c": 3.9,
+          "alpha": 90.0,
+          "beta": 90.0,
+          "gamma": 90.0,
+          "units": "angstrom"
+        }
+      },
+      "sites": {
+        "mode": "uniform_grid",
+        "uniform_grid": {
+          "density": 2
+        }
+      }
+    },
+    "objective": {
+      "type": "linear_property",
+      "direction": "minimize",
+      "property": {
+        "name": "property_x_estimate",
+        "offset": 0.0,
+        "terms": [
+          {
+            "species": "Sr",
+            "site": 0,
+            "coefficient": 1.0
+          },
+          {
+            "site": 3,
+            "coefficient": -0.2
+          }
+        ]
+      }
+    }
+  },
+  "constraints": [],
+  "guidance": [],
+  "solver": {
+    "name": "gurobi"
+  }
+}

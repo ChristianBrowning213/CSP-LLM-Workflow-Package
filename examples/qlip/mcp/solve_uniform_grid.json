@@ -1,0 +1,31 @@
+{
+  "version": "1.0",
+  "problem": {
+    "chemistry": {
+      "formula": "SrTiO3"
+    },
+    "design_space": {
+      "template": {
+        "lattice": {
+          "a": 1.0,
+          "b": 1.0,
+          "c": 1.0,
+          "alpha": 1.0,
+          "beta": 1.0,
+          "gamma": 1.0
+        }
+      },
+      "sites": {
+        "mode": "uniform_grid",
+        "uniform_grid": {
+          "density": 1
+        }
+      }
+    }
+  },
+  "constraints": [],
+  "guidance": [],
+  "solver": {
+    "name": "gurobi"
+  }
+}

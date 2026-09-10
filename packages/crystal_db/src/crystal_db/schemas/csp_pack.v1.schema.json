@@ -1,0 +1,196 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Crystal-DB csp-pack response",
+  "type": "object",
+  "required": [
+    "run_id",
+    "status",
+    "query",
+    "neighbors",
+    "hints",
+    "export",
+    "errors",
+    "backend_status"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "enum": [
+        "csp_pack.v1"
+      ]
+    },
+    "run_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "status": {
+      "type": "string"
+    },
+    "query": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "neighbors": {
+      "type": "array"
+    },
+    "hints": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "family_candidates": {
+          "type": "array"
+        },
+        "connectivity_keywords": {
+          "type": "array"
+        },
+        "chemistry_tokens": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "symmetry_tokens": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "quantitative_clues": {
+          "type": "object"
+        },
+        "confidence": {
+          "type": "number"
+        }
+      },
+      "additionalProperties": true
+    },
+    "export": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "out_dir": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "manifest_path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "results_path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "cif_dir": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "structure_id",
+              "rank",
+              "score",
+              "source_id",
+              "export_status",
+              "cif_path",
+              "error"
+            ],
+            "properties": {
+              "structure_id": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "rank": {
+                "type": "integer"
+              },
+              "score": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "source_id": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "export_status": {
+                "type": "string"
+              },
+              "cif_path": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "error": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "additionalProperties": true
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "errors": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "backend_status": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "ready": {
+          "type": "boolean"
+        },
+        "state": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "db_path": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true
+    },
+    "corpus_selection": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false
+}

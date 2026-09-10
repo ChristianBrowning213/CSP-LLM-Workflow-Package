@@ -1,0 +1,27 @@
+# Python
+.venv/
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+build/
+dist/
+*.egg-info/
+.env
+
+# Data: documentation and tiny demo assets only
+data/*
+!data/README.md
+!data/demo/
+!data/demo/.gitkeep
+
+# Generated and local outputs
+artifacts/
+runs/
+local_runs/
+outputs/
+scratch/
+tmp/
+

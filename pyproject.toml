@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "llm-csp"
+version = "0.0.0"
+description = "A retrieval-guided, solver-backed crystal structure prediction framework."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+dependencies = [
+    "ase>=3.22",
+    "numpy>=1.26",
+    "PyYAML>=6.0",
+]
+
+[project.scripts]
+llm-csp = "llm_csp.cli.main:main"
+
+[project.optional-dependencies]
+test = ["pytest>=8"]
+validation = [
+    "sca @ git+https://github.com/ChristianBrowning213/Structured_Crystal_Analyser.git@e5b291312151f34949a5e6ef0f43bebfeb752bc9",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]

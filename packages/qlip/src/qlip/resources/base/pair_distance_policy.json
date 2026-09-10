@@ -1,0 +1,17 @@
+{
+  "allow_synthetic_fallback": false,
+  "default_scale": 1.0,
+  "formula": "min_distance_angstrom = scale * (radius_a + radius_b)",
+  "notes": [
+    "This is a QLIP operational proximity policy, not empirical bond-length data.",
+    "The radius values come from radius_policy_id; scale is a user/request parameter."
+  ],
+  "policy_id": "qlip_pair_distance_policy_v1",
+  "radius_policy_id": "qlip_radius_policy_v1",
+  "schema_version": "1.1",
+  "source_id": "qlip_policy_v1",
+  "valid_scale_range": [
+    0.0,
+    null
+  ]
+}

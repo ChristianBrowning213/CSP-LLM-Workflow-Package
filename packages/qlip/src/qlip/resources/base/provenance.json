@@ -1,0 +1,106 @@
+{
+  "field_source_map": {
+    "elements.source_id": [
+      "pymatgen_element",
+      "mendeleev_element",
+      "ase_elements_iupac2016"
+    ],
+    "ionic_radii.method=mendeleev_ionic_radius": "mendeleev_ionic_radius",
+    "ionic_radii.method=pymatgen_ionic_radii": "pymatgen_ionic_radii",
+    "ionic_radii.method=smact_shannon": "smact_shannon_radii",
+    "radii.covalent_radius_ase_cordero_angstrom": "ase_covalent_radii_cordero2008",
+    "radii.covalent_radius_mendeleev_cordero_angstrom": "mendeleev_covalent_radius_cordero",
+    "radii.covalent_radius_mendeleev_pyykko_angstrom": "mendeleev_covalent_radius_pyykko",
+    "radii.pymatgen_atomic_radius_angstrom": "pymatgen_atomic_radius",
+    "radii.pymatgen_atomic_radius_calculated_angstrom": "pymatgen_atomic_radius",
+    "radii.vdw_radius_ase_angstrom": "ase_vdw_radii",
+    "radii.vdw_radius_mendeleev_angstrom": "mendeleev_vdw_radius"
+  },
+  "generated_at_utc": "2026-08-05T12:34:33+00:00",
+  "generator": "scripts/build_base_data.py",
+  "package_versions": {
+    "ase": "3.27.0",
+    "mendeleev": "1.1.0",
+    "pymatgen": "2026.5.4",
+    "smact": "4.0.0"
+  },
+  "schema_version": "1.1",
+  "sources": {
+    "ase_covalent_radii_cordero2008": {
+      "citation": "Cordero et al. Covalent radii revisited, Dalton Trans., 2008, 2832-2838. DOI:10.1039/B801115J.",
+      "description": "Covalent radii exposed by ase.data.covalent_radii.",
+      "package": "ase",
+      "package_version": "3.27.0"
+    },
+    "ase_elements_iupac2016": {
+      "citation": "Meija et al. Atomic weights of the elements 2013, Pure and Applied Chemistry 88(3), 2016. DOI:10.1515/pac-2015-0305.",
+      "description": "Element symbols, names, and atomic masses exposed by ase.data.",
+      "package": "ase",
+      "package_version": "3.27.0",
+      "url": "https://wiki.fysik.dtu.dk/ase/ase/data.html"
+    },
+    "ase_vdw_radii": {
+      "description": "Van der Waals radii exposed by ase.data.vdw_radii.",
+      "package": "ase",
+      "package_version": "3.27.0",
+      "url": "https://wiki.fysik.dtu.dk/ase/ase/data.html"
+    },
+    "mendeleev_covalent_radius_cordero": {
+      "citation": "Cordero et al. Covalent radii revisited, Dalton Trans., 2008, 2832-2838. DOI:10.1039/B801115J.",
+      "description": "Cordero covalent radius exposed by mendeleev, normalized from pm to angstrom.",
+      "package": "mendeleev",
+      "package_version": "1.1.0"
+    },
+    "mendeleev_covalent_radius_pyykko": {
+      "citation": "Pyykko and Atsumi, Molecular Single-Bond Covalent Radii for Elements 1-118, Chem. Eur. J. 2009. DOI:10.1002/chem.200901472.",
+      "description": "Pyykko covalent radius exposed by mendeleev, normalized from pm to angstrom.",
+      "package": "mendeleev",
+      "package_version": "1.1.0"
+    },
+    "mendeleev_element": {
+      "description": "Element metadata from mendeleev.element.",
+      "package": "mendeleev",
+      "package_version": "1.1.0",
+      "url": "https://mendeleev.readthedocs.io/"
+    },
+    "mendeleev_ionic_radius": {
+      "citation": "Shannon ionic radii as distributed by mendeleev.",
+      "description": "IonicRadius rows exposed by mendeleev.element(...).ionic_radii, normalized from pm to angstrom.",
+      "package": "mendeleev",
+      "package_version": "1.1.0"
+    },
+    "mendeleev_vdw_radius": {
+      "description": "Van der Waals radius exposed by mendeleev, normalized from pm to angstrom.",
+      "package": "mendeleev",
+      "package_version": "1.1.0"
+    },
+    "pymatgen_atomic_radius": {
+      "description": "Atomic radius fields exposed by pymatgen.core.Element.",
+      "package": "pymatgen",
+      "package_version": "2026.5.4",
+      "url": "https://pymatgen.org/"
+    },
+    "pymatgen_element": {
+      "description": "Element metadata from pymatgen.core.Element.",
+      "package": "pymatgen",
+      "package_version": "2026.5.4",
+      "url": "https://pymatgen.org/"
+    },
+    "pymatgen_ionic_radii": {
+      "description": "Element.ionic_radii fallback exposed by pymatgen.core.Element.",
+      "package": "pymatgen",
+      "package_version": "2026.5.4"
+    },
+    "qlip_policy_v1": {
+      "description": "QLIP default radius and pair-distance policy for proximity constraints.",
+      "kind": "qlip_policy"
+    },
+    "smact_shannon_radii": {
+      "citation": "Shannon, Revised effective ionic radii and systematic studies of interatomic distances in halides and chalcogenides, Acta Cryst. A32, 751-767 (1976).",
+      "description": "Shannon ionic radius lookup exposed by smact.data_loader.lookup_element_shannon_radius_data.",
+      "package": "smact",
+      "package_version": "4.0.0",
+      "url": "https://smact.readthedocs.io/"
+    }
+  }
+}

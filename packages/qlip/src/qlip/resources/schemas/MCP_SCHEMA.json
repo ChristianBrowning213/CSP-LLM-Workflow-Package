@@ -1,0 +1,1031 @@
+{
+  "solve_request": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "qlip://schemas/solve_request/v1.json",
+    "title": "QLIP SolveRequest v1",
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "version",
+      "problem",
+      "constraints",
+      "guidance",
+      "solver"
+    ],
+    "properties": {
+      "version": {
+        "type": "string",
+        "const": "1.0"
+      },
+      "problem": {
+        "$ref": "#/$defs/ProblemSpec"
+      },
+      "constraints": {
+        "type": "array",
+        "description": "Hard constraints (feasibility). Applied in order.",
+        "items": {
+          "$ref": "#/$defs/ConstraintInvocation"
+        },
+        "default": []
+      },
+      "guidance": {
+        "type": "array",
+        "description": "Soft preferences / objective shaping. Applied in order, subject to guidance_mode.",
+        "items": {
+          "$ref": "#/$defs/GuidanceInvocation"
+        },
+        "default": []
+      },
+      "guidance_mode": {
+        "type": "string",
+        "description": "How multiple guidance contributions are combined.",
+        "enum": [
+          "weighted_sum",
+          "lexicographic",
+          "epsilon_constraints"
+        ],
+        "default": "weighted_sum"
+      },
+      "solver": {
+        "$ref": "#/$defs/SolverConfig"
+      },
+      "artifacts": {
+        "$ref": "#/$defs/ArtifactSpec"
+      },
+      "runtime": {
+        "$ref": "#/$defs/RuntimeLimits"
+      },
+      "context": {
+        "$ref": "#/$defs/ContextSpec"
+      },
+      "search": {
+        "$ref": "#/$defs/SearchSpec"
+      }
+    },
+    "$defs": {
+      "SearchSpec": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "requested_k": {
+            "type": "integer",
+            "minimum": 1,
+            "default": 1
+          },
+          "distinctness_policy": {
+            "type": "string",
+            "enum": [
+              "ASSIGNMENT_DISTINCT",
+              "HASH_DISTINCT",
+              "STRUCTURE_DISTINCT"
+            ],
+            "default": "STRUCTURE_DISTINCT"
+          },
+          "scaffold_ids": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        }
+      },
+      "ProblemSpec": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "chemistry",
+          "design_space"
+        ],
+        "properties": {
+          "chemistry": {
+            "$ref": "#/$defs/ChemistrySpec"
+          },
+          "design_space": {
+            "$ref": "#/$defs/DesignSpaceSpec"
+          },
+          "objective": {
+            "$ref": "#/$defs/BaseObjectiveSpec"
+          }
+        }
+      },
+      "ChemistrySpec": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "formula"
+        ],
+        "properties": {
+          "formula": {
+            "type": "string",
+            "description": "Stoichiometric target (e.g., SrTiO3)."
+          },
+          "charge_model": {
+            "type": "string",
+            "description": "Optional charge model choice for constraints/guidance that need it.",
+            "enum": [
+              "none",
+              "formal_oxidation_states",
+              "user_supplied"
+            ],
+            "default": "none"
+          },
+          "oxidation_states": {
+            "type": "object",
+            "description": "Used only when charge_model=user_supplied. Keys are element symbols.",
+            "additionalProperties": {
+              "type": "integer"
+            }
+          },
+          "charge_policy": {
+            "type": "string",
+            "enum": [
+              "EXPLICIT_REQUIRED",
+              "EXPLICIT_INFORMATIONAL",
+              "NOT_ENFORCED"
+            ],
+            "default": "NOT_ENFORCED"
+          },
+          "compensation_operation": {
+            "type": "string"
+          },
+          "assumptions_source": {
+            "type": "string"
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "charge_model": {
+                  "const": "user_supplied"
+                }
+              },
+              "required": [
+                "charge_model"
+              ]
+            },
+            "then": {
+              "required": [
+                "oxidation_states"
+              ]
+            }
+          }
+        ]
+      },
+      "DesignSpaceSpec": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "template",
+          "sites"
+        ],
+        "properties": {
+          "template": {
+            "$ref": "#/$defs/TemplateSpec"
+          },
+          "sites": {
+            "$ref": "#/$defs/SitesSpec"
+          }
+        }
+      },
+      "TemplateSpec": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "lattice"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Optional template identifier (e.g., perovskite_A-site)."
+          },
+          "lattice": {
+            "$ref": "#/$defs/LatticeSpec"
+          }
+        }
+      },
+      "LatticeSpec": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "a",
+          "b",
+          "c",
+          "alpha",
+          "beta",
+          "gamma"
+        ],
+        "properties": {
+          "a": {
+            "type": "number"
+          },
+          "b": {
+            "type": "number"
+          },
+          "c": {
+            "type": "number"
+          },
+          "alpha": {
+            "type": "number"
+          },
+          "beta": {
+            "type": "number"
+          },
+          "gamma": {
+            "type": "number"
+          },
+          "units": {
+            "type": "string",
+            "enum": [
+              "angstrom",
+              "bohr"
+            ],
+            "default": "angstrom"
+          }
+        }
+      },
+      "SitesSpec": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "mode"
+        ],
+        "properties": {
+          "mode": {
+            "type": "string",
+            "description": "How candidate sites are defined.",
+            "enum": [
+              "uniform_grid",
+              "explicit_fractional_sites"
+            ]
+          },
+          "uniform_grid": {
+            "$ref": "#/$defs/UniformGridSpec"
+          },
+          "explicit_fractional_sites": {
+            "type": "array",
+            "description": "Explicit fractional coordinate sites.",
+            "items": {
+              "$ref": "#/$defs/FractionalVec3"
+            }
+          },
+          "vacancy_count": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Exact number of explicit vacancy states in the candidate-site domain."
+          },
+          "ordered_orbits": {
+            "type": "array",
+            "description": "Optional symmetry-closed groups of explicit sites. Every site in a group receives the same species assignment.",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "orbit_id",
+                "site_indices",
+                "allowed_species"
+              ],
+              "properties": {
+                "orbit_id": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "site_indices": {
+                  "type": "array",
+                  "minItems": 1,
+                  "uniqueItems": true,
+                  "items": {
+                    "type": "integer",
+                    "minimum": 0
+                  }
+                },
+                "allowed_species": {
+                  "type": "array",
+                  "minItems": 1,
+                  "uniqueItems": true,
+                  "items": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required_occupancy": {
+                  "type": "boolean",
+                  "default": true
+                },
+                "fixed_species": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "required_state": {
+                  "type": "string",
+                  "enum": [
+                    "AUTO",
+                    "FULL",
+                    "EMPTY"
+                  ],
+                  "default": "AUTO"
+                },
+                "vacancy_allowed": {
+                  "type": "boolean",
+                  "default": false
+                },
+                "allow_partial_occupation": {
+                  "type": "boolean",
+                  "default": false
+                }
+              }
+            }
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "mode": {
+                  "const": "uniform_grid"
+                }
+              },
+              "required": [
+                "mode"
+              ]
+            },
+            "then": {
+              "required": [
+                "uniform_grid"
+              ]
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "mode": {
+                  "const": "explicit_fractional_sites"
+                }
+              },
+              "required": [
+                "mode"
+              ]
+            },
+            "then": {
+              "required": [
+                "explicit_fractional_sites"
+              ]
+            }
+          }
+        ]
+      },
+      "UniformGridSpec": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "density"
+        ],
+        "properties": {
+          "density": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Uniform grid density per axis (e.g., 2 means 2x2x2)."
+          },
+          "jitter": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.5,
+            "description": "Optional small jitter magnitude in fractional coords.",
+            "default": 0
+          },
+          "seed": {
+            "type": "integer",
+            "description": "Seed for any randomized site perturbations."
+          }
+        }
+      },
+      "FractionalVec3": {
+        "type": "array",
+        "minItems": 3,
+        "maxItems": 3,
+        "items": {
+          "type": "number"
+        },
+        "description": "Fractional coordinate [x,y,z]."
+      },
+      "BaseObjectiveSpec": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Runtime objective family. Guidance may augment/scale only compatible objectives.",
+            "enum": [
+              "none",
+              "spp_energy",
+              "density_packing",
+              "linear_property",
+              "threshold_tradeoff"
+            ]
+          },
+          "direction": {
+            "type": "string",
+            "description": "Optimization direction for objective families whose native property value is not already a minimization objective.",
+            "enum": [
+              "minimize",
+              "maximize"
+            ]
+          },
+          "proxy": {
+            "type": "string",
+            "description": "density_packing proxy implementation. pair_distance_packing optimizes a native contact score sum((r_i+r_j)/d_ij * occupancy_pair).",
+            "enum": [
+              "pair_distance_packing"
+            ],
+            "default": "pair_distance_packing"
+          },
+          "property": {
+            "$ref": "#/$defs/LinearPropertySpec"
+          },
+          "base_objective": {
+            "type": "string",
+            "description": "Base objective for threshold_tradeoff.",
+            "enum": [
+              "none",
+              "spp_energy"
+            ],
+            "default": "spp_energy"
+          },
+          "threshold": {
+            "$ref": "#/$defs/ThresholdSpec"
+          },
+          "tradeoff_direction": {
+            "type": "string",
+            "description": "Direction for the threshold_tradeoff property term when tradeoff_weight is non-zero.",
+            "enum": [
+              "minimize",
+              "maximize"
+            ]
+          },
+          "tradeoff_weight": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Non-negative property tradeoff weight. The live objective is base +/- tradeoff_weight * property according to tradeoff_direction.",
+            "default": 0
+          }
+        },
+        "default": {
+          "type": "spp_energy"
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "type": {
+                  "const": "density_packing"
+                }
+              },
+              "required": [
+                "type"
+              ]
+            },
+            "then": {
+              "required": [
+                "direction"
+              ]
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "type": {
+                  "const": "linear_property"
+                }
+              },
+              "required": [
+                "type"
+              ]
+            },
+            "then": {
+              "required": [
+                "direction",
+                "property"
+              ]
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "type": {
+                  "const": "threshold_tradeoff"
+                }
+              },
+              "required": [
+                "type"
+              ]
+            },
+            "then": {
+              "required": [
+                "property",
+                "threshold"
+              ]
+            }
+          }
+        ]
+      },
+      "LinearPropertySpec": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "terms"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Caller-facing property identifier, e.g. property_x_estimate."
+          },
+          "offset": {
+            "type": "number",
+            "description": "Constant offset added to the linear property expression.",
+            "default": 0
+          },
+          "terms": {
+            "type": "array",
+            "minItems": 1,
+            "description": "Linear occupancy terms. A term with species and site targets x[species,site]; species-only sums all sites for that species; site-only sums all species at that site.",
+            "items": {
+              "$ref": "#/$defs/LinearPropertyTerm"
+            }
+          }
+        }
+      },
+      "LinearPropertyTerm": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "coefficient"
+        ],
+        "properties": {
+          "species": {
+            "type": "string",
+            "description": "Optional element symbol present in chemistry.formula."
+          },
+          "site": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Optional candidate site index in the live model."
+          },
+          "coefficient": {
+            "type": "number"
+          }
+        },
+        "anyOf": [
+          {
+            "required": [
+              "species"
+            ]
+          },
+          {
+            "required": [
+              "site"
+            ]
+          }
+        ]
+      },
+      "ThresholdSpec": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "sense",
+          "value"
+        ],
+        "properties": {
+          "sense": {
+            "type": "string",
+            "description": "Bound direction for the property expression: >=/min means property >= value; <=/max means property <= value.",
+            "enum": [
+              ">=",
+              "<=",
+              "min",
+              "max"
+            ]
+          },
+          "value": {
+            "type": "number"
+          }
+        }
+      },
+      "ConstraintInvocation": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "params"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Registered constraint identifier, e.g., 'proximity.atomic_radii'."
+          },
+          "name": {
+            "type": "string",
+            "description": "Optional human-readable label (ignored by solver)."
+          },
+          "enabled": {
+            "type": "boolean",
+            "default": true
+          },
+          "priority": {
+            "type": "integer",
+            "description": "Optional application ordering hint. Lower applies earlier.",
+            "default": 100
+          },
+          "params": {
+            "type": "object",
+            "description": "Constraint parameters validated by the constraint's own params_schema.",
+            "additionalProperties": true,
+            "default": {}
+          }
+        }
+      },
+      "GuidanceInvocation": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "params"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Registered guidance identifier, e.g., 'objective.energy_spp'."
+          },
+          "name": {
+            "type": "string"
+          },
+          "enabled": {
+            "type": "boolean",
+            "default": true
+          },
+          "weight": {
+            "type": "number",
+            "description": "Used only in guidance_mode=weighted_sum; otherwise ignored unless the plugin uses it.",
+            "default": 1.0
+          },
+          "level": {
+            "type": "integer",
+            "description": "Used in lexicographic mode: smaller level optimizes earlier.",
+            "default": 0
+          },
+          "epsilon": {
+            "type": "number",
+            "description": "Used in epsilon_constraints mode: plugin interpreted bound.",
+            "default": 0
+          },
+          "params": {
+            "type": "object",
+            "description": "Guidance parameters validated by the guidance's own params_schema.",
+            "additionalProperties": true,
+            "default": {}
+          }
+        }
+      },
+      "SolverConfig": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "const": "gurobi",
+            "description": "Solver is fixed to Gurobi."
+          },
+          "time_limit_s": {
+            "type": "integer",
+            "minimum": 1,
+            "default": 60
+          },
+          "mip_gap": {
+            "type": "number",
+            "minimum": 0,
+            "default": 0.0
+          },
+          "threads": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "seed": {
+            "type": "integer"
+          },
+          "parameters": {
+            "type": "object",
+            "description": "Optional raw Gurobi parameter map (advanced).",
+            "additionalProperties": {
+              "type": [
+                "string",
+                "number",
+                "integer",
+                "boolean"
+              ]
+            },
+            "default": {}
+          }
+        }
+      },
+      "ArtifactSpec": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "return_cif": {
+            "type": "boolean",
+            "default": true
+          },
+          "return_decoder_debug": {
+            "type": "boolean",
+            "default": false
+          },
+          "render_vesta": {
+            "type": "boolean",
+            "default": false
+          },
+          "vesta_path": {
+            "type": "string",
+            "description": "Optional VESTA executable path; only used if render_vesta=true."
+          },
+          "supercell": {
+            "type": "array",
+            "minItems": 3,
+            "maxItems": 3,
+            "items": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "description": "Optional supercell replication factors [nx, ny, nz]."
+          }
+        },
+        "default": {}
+      },
+      "RuntimeLimits": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "max_sites": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Hard safety cap; reject requests exceeding this many candidate sites."
+          },
+          "max_binary_vars": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Hard safety cap; reject requests exceeding this many binaries."
+          },
+          "max_constraints": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Hard safety cap; reject requests exceeding this many constraints."
+          },
+          "export_gurobi_visuals": {
+            "type": "boolean",
+            "default": false,
+            "description": "When true, write real Gurobi/Pyomo MILP visual diagnostics without changing solve semantics."
+          },
+          "gurobi_visuals_dir": {
+            "type": "string",
+            "description": "Optional output directory for Gurobi/MILP visual diagnostic artifacts."
+          }
+        },
+        "default": {}
+      },
+      "ContextSpec": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "run_id": {
+            "type": "string",
+            "description": "Optional client-provided run identifier."
+          },
+          "pot_root": {
+            "type": "string",
+            "description": "Optional override for SPP POT root; should point to interactions/SPP/SPP."
+          },
+          "motif_root": {
+            "type": "string",
+            "description": "Optional motif artifacts root (motifs.json/instances.json, etc.)."
+          },
+          "gurobi_visuals_dir": {
+            "type": "string",
+            "description": "Optional output directory for Gurobi/MILP visual diagnostic artifacts."
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "default": []
+          }
+        },
+        "default": {}
+      }
+    }
+  },
+  "solve_result": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "qlip://schemas/solve_result/v1.json",
+    "title": "QLIP SolveResult v1",
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "status",
+      "summary",
+      "outputs"
+    ],
+    "properties": {
+      "status": {
+        "type": "string",
+        "enum": [
+          "OPTIMAL",
+          "FEASIBLE",
+          "INFEASIBLE",
+          "ERROR"
+        ]
+      },
+      "summary": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "solver",
+          "timing_ms"
+        ],
+        "properties": {
+          "solver": {
+            "type": "string",
+            "const": "gurobi"
+          },
+          "timing_ms": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "objective_value": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "best_bound": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "mip_gap": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "termination": {
+            "type": "string"
+          }
+        }
+      },
+      "outputs": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "cif": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "CIF text if requested."
+          },
+          "decoder_debug": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "artifacts": {
+            "type": "array",
+            "description": "Optional additional artifacts (e.g., images) as base64 or references.",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "kind",
+                "data"
+              ],
+              "properties": {
+                "kind": {
+                  "type": "string"
+                },
+                "mime": {
+                  "type": "string",
+                  "default": "application/octet-stream"
+                },
+                "data": {
+                  "type": "string",
+                  "description": "Base64 or textual payload."
+                }
+              }
+            },
+            "default": []
+          }
+        },
+        "default": {}
+      },
+      "certificates": {
+        "type": "object",
+        "additionalProperties": true,
+        "description": "Optional proof/witness material: bounds, infeasibility witness, IIS summary, etc.",
+        "default": {}
+      },
+      "errors": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "code",
+            "message"
+          ],
+          "properties": {
+            "code": {
+              "type": "string"
+            },
+            "message": {
+              "type": "string"
+            },
+            "details": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        },
+        "default": []
+      },
+      "logs": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "default": []
+      }
+    }
+  },
+  "plugin_catalog_entry": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "qlip://schemas/plugin_catalog_entry/v1.json",
+    "title": "QLIP PluginCatalogEntry v1",
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "id",
+      "kind",
+      "title",
+      "description",
+      "params_schema"
+    ],
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "kind": {
+        "type": "string",
+        "enum": [
+          "constraint",
+          "guidance"
+        ]
+      },
+      "title": {
+        "type": "string"
+      },
+      "description": {
+        "type": "string"
+      },
+      "tags": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "default": []
+      },
+      "params_schema": {
+        "type": "object",
+        "description": "A JSON Schema (draft 2020-12 compatible) describing invocation.params for this plugin.",
+        "additionalProperties": true
+      },
+      "capabilities": {
+        "type": "object",
+        "description": "Optional machine-readable metadata about what the plugin touches.",
+        "additionalProperties": true,
+        "default": {}
+      },
+      "version": {
+        "type": "string",
+        "description": "Plugin version string (independent of SolveRequest version).",
+        "default": "1.0"
+      }
+    }
+  }
+}

@@ -1,0 +1,215 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Crystal-DB text-search response",
+  "type": "object",
+  "required": [
+    "status",
+    "query",
+    "neighbors",
+    "errors",
+    "backend_status"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "enum": [
+        "text_search.v1"
+      ]
+    },
+    "status": {
+      "type": "string"
+    },
+    "query": {
+      "type": "object",
+      "required": [
+        "embed_engine",
+        "model_name",
+        "model_version",
+        "k"
+      ],
+      "properties": {
+        "text": {
+          "type": "string"
+        },
+        "embed_engine": {
+          "type": "string"
+        },
+        "model_name": {
+          "type": "string"
+        },
+        "model_version": {
+          "type": "string"
+        },
+        "text_engine": {
+          "type": "string"
+        },
+        "text_view": {
+          "type": "string"
+        },
+        "hybrid": {
+          "type": "boolean"
+        },
+        "w_text": {
+          "type": "number"
+        },
+        "w_fp": {
+          "type": "number"
+        },
+        "k": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": true
+    },
+    "neighbors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "rank",
+          "structure_id",
+          "score",
+          "provenance",
+          "redacted"
+        ],
+        "properties": {
+          "rank": {
+            "type": "integer"
+          },
+          "structure_id": {
+            "type": "string"
+          },
+          "score": {
+            "type": "number"
+          },
+          "text_score": {
+            "type": "number"
+          },
+          "fp_score": {
+            "type": "number"
+          },
+          "final_score": {
+            "type": "number"
+          },
+          "redacted": {
+            "type": "boolean"
+          },
+          "provenance": {
+            "type": "object",
+            "properties": {
+              "source": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "source_id": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "retrieved_at": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "allow_export": {
+                "type": [
+                  "integer",
+                  "boolean",
+                  "null"
+                ]
+              }
+            },
+            "additionalProperties": true
+          },
+          "text_doc": {
+            "type": "object",
+            "required": [
+              "status"
+            ],
+            "properties": {
+              "text_doc_id": {
+                "type": [
+                  "integer",
+                  "null"
+                ]
+              },
+              "text_engine": {
+                "type": "string"
+              },
+              "text_view": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "error": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "text": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": true
+          },
+          "cif_export": {
+            "type": "object",
+            "required": [
+              "status"
+            ],
+            "properties": {
+              "status": {
+                "type": "string"
+              },
+              "path": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "error": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "additionalProperties": true
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "errors": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "backend_status": {
+      "type": "object",
+      "properties": {
+        "ready": {
+          "type": "boolean"
+        },
+        "state": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "db_path": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false
+}

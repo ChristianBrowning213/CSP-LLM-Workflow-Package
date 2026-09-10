@@ -1,0 +1,81 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Crystal-DB backend readiness status",
+  "type": "object",
+  "required": [
+    "ready",
+    "state",
+    "message",
+    "surface",
+    "query_mode",
+    "db_path",
+    "db_exists",
+    "schema_present",
+    "missing_tables",
+    "corpus",
+    "requested_space",
+    "embedding_space",
+    "fingerprint_index"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "enum": [
+        "backend_status.v1"
+      ]
+    },
+    "ready": {
+      "type": "boolean"
+    },
+    "state": {
+      "type": "string"
+    },
+    "message": {
+      "type": "string"
+    },
+    "surface": {
+      "type": "string"
+    },
+    "query_mode": {
+      "type": "string"
+    },
+    "db_path": {
+      "type": "string"
+    },
+    "db_exists": {
+      "type": "boolean"
+    },
+    "db_size_bytes": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "schema_present": {
+      "type": "boolean"
+    },
+    "missing_tables": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "corpus": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "requested_space": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "embedding_space": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "fingerprint_index": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use LLM-CSP, please cite this software."
+title: "LLM-CSP"
+type: software
+authors:
+  - family-names: "Browning"
+    given-names: "Christian"
+version: 0.0.0
+license: MIT
+
