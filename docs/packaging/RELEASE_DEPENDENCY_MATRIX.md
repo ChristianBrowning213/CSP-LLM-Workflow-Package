@@ -19,7 +19,7 @@ extras control validation, MCP surfaces, schema validation, and tests.
 | pandas, pydantic, rich, tqdm, typer | OPTIONAL | SCA | Transitive validation extra | Only when SCA loads | Yes with validation | No | No | |
 | ALIGNN | OPTIONAL | SCA model evaluation | Separate SCA alignn extra | No | No | No | No | Not supported by default path |
 | jsonschema | CORE | QLIP request validation | pip | No for top-level import | Yes | No | Before solve | Crystal-DB can also use it for full schema validation |
-| mcp | OPTIONAL | Crystal-DB and QLIP MCP servers | mcp extras | No | No | No | No | MCP is not used by workflow |
+| mcp | OPTIONAL/TEST | Crystal-DB and QLIP MCP servers/tests | component mcp extras or root test extra | No | No | No | No | MCP is not used by workflow |
 | pytest | TEST | Test suite | test extras | No | No | No | No | |
 | setuptools, wheel, build | BUILD | Distribution build | Isolated build environment | No | No | No | No | Not runtime dependencies |
 | Gurobi native runtime/licence | EXTERNAL_SYSTEM | QLIP | Gurobi vendor | No | Yes | No | Yes | No fallback solver |
