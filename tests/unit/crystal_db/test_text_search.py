@@ -150,3 +150,28 @@ def test_lmstudio_failure_is_deferred_until_retrieval(tmp_path, monkeypatch):
     assert result["status"] == "error"
     assert result["errors"]["code"] == "query_embedding_failed"
     assert "CRYSTALDB_EMBED_BASE_URL" in result["errors"]["remediation"]["env_vars"]
+
+
+def test_embedding_dimension_mismatch_stops_before_similarity(tmp_path, monkeypatch):
+    db_path = tmp_path / "dimension-mismatch.db"
+    _seed(db_path)
+    monkeypatch.setattr(
+        "crystal_db.retrieval._cosine_similarity",
+        lambda *args: (_ for _ in ()).throw(AssertionError("similarity must not run")),
+    )
+
+    result = text_search(
+        query_text="probe",
+        db_path=str(db_path),
+        k=2,
+        embed_engine="hash",
+        model_name="hash-embed",
+        model_version="v1",
+        text_engine="caption",
+        text_view="caption",
+        query_vector=[1.0, 0.0, 0.0],
+    )
+
+    assert result["status"] == "error"
+    assert result["errors"]["code"] == "candidate_vectors_unusable"
+    assert result["errors"]["diagnostics"]["dim_mismatch"] == 3
