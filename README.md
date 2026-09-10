@@ -49,5 +49,16 @@ outputs are not bundled and are not downloaded automatically.
 
 This is the deterministic scientific workflow. It does not claim autonomous
 materials discovery, agentic CSP, or experimental validation of novel
-materials. Release readiness and unresolved upstream licensing are documented
-in docs/packaging/RELEASE_READINESS_AUDIT.md.
+materials.
+
+## Upstream software and attribution
+
+QLIP-derived material retains its upstream MIT notice. Other migrated
+components and bundled scientific resources still require explicit owner and
+data-rights confirmation before public redistribution. See
+`THIRD_PARTY_NOTICES.md`, `docs/packaging/SOURCE_ATTRIBUTION_MATRIX.csv`, and
+`docs/packaging/LICENSING_RELEASE_DECISION.md` for the exact boundaries.
+
+Release readiness remains `NOT_READY`; this repository must not be tagged or
+published until those licensing blockers are resolved. The full packaging
+assessment is in `docs/packaging/RELEASE_READINESS_AUDIT.md`.

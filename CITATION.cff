@@ -6,7 +6,6 @@ authors:
   - family-names: "Browning"
     given-names: "Christian"
 version: 0.1.0
-license: MIT
 repository-code: "https://github.com/ChristianBrowning213/CSP-LLM-Workflow-Package"
 preferred-citation:
   type: software

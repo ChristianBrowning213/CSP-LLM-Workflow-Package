@@ -207,13 +207,13 @@ the demo also passed. Generated clone-local audit files were not copied back.
 
 ## Licence and citation status
 
-LICENSE_AUDIT.md records the evidence. QLIP's observed MIT notice is now carried
-by both its wheel and the integrated wheel. However, Crystal-DB,
-SPP-Maker-QLIP, Skill-Loop-CSP, and SCA do not establish upstream licence files
-at the audited commits. The root MIT declaration cannot supply rights that were
-not established upstream. Scientific contributor attribution is also
-incomplete beyond the evidence available for the maintainer and upstream QLIP
-author.
+Ticket 10's `LICENSE_AUDIT.md`, `SOURCE_ATTRIBUTION_MATRIX.csv`, and
+`LICENSING_RELEASE_DECISION.md` record the exact-revision and blob-level
+evidence. QLIP's observed MIT notice is carried by both its wheel and the
+integrated wheel. Crystal-DB, SPP-Maker-QLIP, Skill-Loop-CSP, and SCA have
+`NO_EXPLICIT_LICENSE` at the audited revisions. The root MIT declaration cannot
+supply rights that were not established upstream. The six bundled POTs and
+derived base-data tables also require explicit asset-rights confirmation.
 
 ## Release blockers
 
@@ -223,6 +223,8 @@ author.
 | SPP-Maker-QLIP migrated-code licence not established | CRITICAL | Yes | Establish licence and file-level attribution, including ipcsp-spp lineage |
 | Skill-Loop-CSP workflow licence not established | CRITICAL | Yes | Establish permission/licence and contributors |
 | Pinned SCA has no observed licence | HIGH | Yes | Add upstream licence before making it an advertised public dependency |
+| Bundled POT authority/generation provenance unresolved | HIGH | Yes | Confirm licensing authority and record source/generation provenance |
+| Derived base chemistry/radii data rights unresolved | HIGH | Yes | Review upstream package/data terms and record permission or replace the tables |
 | Full scientific contributor list unresolved | HIGH | Yes | Confirm contributors and update CITATION/third-party notices |
 | Production data, BGE-M3 service, broad POT corpus, and Gurobi licence are external | MEDIUM | No | Clearly documented and fail-closed |
 | Optional deprecated QLIP constraint warnings | LOW | No | Remove compatibility aliases in a later breaking cleanup |
