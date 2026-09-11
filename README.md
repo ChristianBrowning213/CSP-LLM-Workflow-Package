@@ -17,15 +17,18 @@ namespaces with one command. Python 3.11 or newer is required.
 Clone this repository and, from its root, run:
 
 ~~~shell
-python -m pip install ".[validation]"
+python -m pip install .
 llm-csp demo --output ./runs
 ~~~
 
 The demo uses deterministic synthetic SrTiO3 retrieval evidence and six bundled
 SrTiO3 POT files. It exercises the real workflow, QLIP/Gurobi solver, generated
-CIF, and SCA validation. It needs a working Gurobi runtime/licence but no
-production database, embedding server, network, or broad POT corpus after
-installation.
+CIF, and the validation boundary. It needs a working Gurobi runtime/licence but
+no production database, embedding server, network, or broad POT corpus after
+installation. SCA is not installed or advertised by this public package while
+its upstream licence is unresolved. Without a separately authorized compatible
+SCA installation, the candidate is preserved with validation reported as
+unavailable and the CLI exits with backend-unavailable status `3`.
 
 ## Production requirements
 
@@ -34,7 +37,8 @@ installation.
 - A user-supplied broad regulator POT library covering every required pair.
 - An explicit finite QLIP design space.
 - Gurobi and a usable licence.
-- The pinned SCA dependency when validation is enabled.
+- A separately authorized compatible validation backend when validation is
+  required; this repository does not install SCA.
 
 Start from configs/examples/srtio3_production.json and run:
 

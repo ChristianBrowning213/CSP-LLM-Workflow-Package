@@ -27,9 +27,6 @@ llm-csp = "llm_csp.cli.main:main"
 
 [project.optional-dependencies]
 test = ["pytest>=8", "mcp>=1.0,<2"]
-validation = [
-    "sca @ git+https://github.com/ChristianBrowning213/Structured_Crystal_Analyser.git@e5b291312151f34949a5e6ef0f43bebfeb752bc9",
-]
 
 [tool.setuptools.packages.find]
 where = ["src", "packages/qlip/src", "packages/crystal_db/src"]

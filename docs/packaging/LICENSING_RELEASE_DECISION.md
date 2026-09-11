@@ -11,7 +11,7 @@ migration tickets and does not infer permission from public availability.
 | Crystal-DB | Yes, including exact modules and schemas | No | No permission established | No | **Yes** |
 | SPP-Maker-QLIP | Yes, exact and adapted modules | No | No permission established | No; relationship to `ipcsp-spp` also unstated | **Yes** |
 | Skill-Loop-CSP workflow | Adapted rather than copied verbatim | No | No permission established for derivative redistribution | No | **Yes** |
-| Structured Crystal Analyser (SCA) | No implementation copied | No | Git-based acquisition is technically possible, but permission to redistribute or modify is not established | Generic contributor label only | **Yes** for the advertised validation extra/release contract |
+| Structured Crystal Analyser (SCA) | No implementation copied | No | Not established | Generic contributor label only | No after Ticket 11 exclusion: Git dependency/validation extra removed from public metadata |
 | Six bundled SrTiO3 POT files | Yes, exact QLIP assets | QLIP root MIT; no asset-specific terms | Repository licence indicates permission, but underlying parameter/generation provenance is not documented sufficiently for a confident asset release | No | **Yes**, pending asset-origin confirmation |
 | Bundled QLIP base chemistry/radii resources | Yes, exact generated tables | QLIP root MIT; source-package/data terms not recorded | Not confidently established for the derived compilation | Scientific citations exist; rights provenance does not | **Yes**, pending data-rights review or replacement |
 | QLIP MCP schemas and radii policy | Yes | MIT | Yes with QLIP notice | Yes to available evidence | No |
@@ -28,8 +28,11 @@ migration tickets and does not infer permission from public availability.
    separate repository or establish its file lineage.
 3. Skill-Loop-CSP has no licence evidence for the adapted workflow contracts
    and policy.
-4. SCA has no licence evidence. Although its source is not bundled, the release
-   advertises and directs installation from that repository.
+
+SCA remains unlicensed, but Ticket 11 isolated that issue by removing the Git
+dependency and validation extra from public installation metadata. The lazy
+adapter does not copy SCA and reports `backend_unavailable` when no separately
+authorized compatible backend is present.
 
 ## Asset and data blockers
 
@@ -83,9 +86,9 @@ software licence permission.
 1. The owner(s), employer, or institution with authority must add explicit
    licences at the frozen revisions (or provide written permission covering
    this redistribution) for Crystal-DB, SPP-Maker-QLIP, and Skill-Loop-CSP.
-2. The SCA rights holder must add an explicit licence/permission covering the
-   advertised Git installation, or the public release contract must omit that
-   dependency until resolved.
+2. The SCA rights holder must add an explicit licence/permission before an SCA
+   installer or advertised dependency can be restored; it is currently
+   excluded from the public release contract.
 3. The QLIP/SPP asset owner must document the source and licensing authority
    for the six POTs.
 4. Review ASE, mendeleev, pymatgen, and SMACT source/data terms for the bundled
@@ -100,6 +103,12 @@ software licence permission.
 The exact copied and adapted components cannot currently be released under the
 root MIT notice because explicit upstream permission is absent. Documentation
 cannot substitute for that permission.
+
+Ticket 11 removed SCA from public installation metadata. Crystal-DB,
+SPP-Maker-QLIP, Skill-Loop-CSP, the bundled POT files, and the derived
+chemistry/radii tables remain blocked; none has been relabelled as resolved or
+excluded without evidence. See `LICENSING_REMEDIATION_MATRIX.md` for exact
+statuses, hashes, fallbacks, and request templates.
 
 LICENSING_BLOCKED
 

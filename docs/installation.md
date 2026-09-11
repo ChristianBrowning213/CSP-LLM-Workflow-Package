@@ -4,19 +4,21 @@
 
 - Python 3.11 or newer.
 - A supported Gurobi installation and usable licence for solving.
-- Git and network access while installing the optional pinned SCA extra.
 
 From a repository clone, the supported integrated installation is:
 
 ~~~shell
-python -m pip install ".[validation]"
+python -m pip install .
 ~~~
 
-This installs llm_csp, qlip, and crystal_db plus the pinned SCA backend.
+This installs llm_csp, qlip, and crystal_db. It does not install SCA: the
+upstream SCA revision has no explicit licence, so Ticket 11 removed its Git URL
+from the public package metadata. The lazy validation adapter remains usable
+only with a separately authorized compatible backend supplied by the user.
 Developers may use:
 
 ~~~shell
-python -m pip install -e ".[validation,test]"
+python -m pip install -e ".[test]"
 ~~~
 
 The nested packages/qlip and packages/crystal_db projects remain independently
@@ -29,8 +31,10 @@ llm-csp demo --output ./runs
 ~~~
 
 The command needs no production database, LM Studio endpoint, broad POT tree,
-or network. It does require Gurobi and, for a fully successful validation
-result, the validation extra.
+or network. It requires Gurobi. With no separately authorized compatible SCA
+installation, candidate generation is preserved, validation reports
+backend_unavailable, and the CLI exits `3`; the public package does not provide
+an installation command for that backend.
 
 ## Production configuration
 

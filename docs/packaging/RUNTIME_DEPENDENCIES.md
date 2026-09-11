@@ -26,11 +26,13 @@ No scientific dependency should be copied blindly from these source metadata fil
 - **Gurobi installation and valid license.** The production solve path constructs `pyomo.SolverFactory("gurobi")`; package importability alone is insufficient.
 - **SQLite database backend.** Python's `sqlite3` is sufficient as an engine, but a populated and schema-compatible Crystal-DB database/index is external data.
 - **LM Studio/OpenAI-compatible embeddings endpoint.** The canonical configuration selects `lmstudio`, `text-embedding-bge-m3`, and `lmstudio_v1`, defaulting to `http://127.0.0.1:1234/v1`. Hash embeddings exist for local/demo paths but are not equivalent to the canonical indexed embedding space.
-- **Structured Crystal Analyser (`sca`).** Kept external and pinned by the root
-  `validation` extra to commit `e5b2913`, exposing
+- **Structured Crystal Analyser (`sca`).** The adapter was validated against
+  commit `e5b2913`, exposing
   `sca.pipelines.evaluate_one_cif` and
   `sca.evaluators.topology.family_topology_metrics`. SCA is not copied into this
-  monorepo and is imported lazily by `llm_csp.validation`.
+  monorepo and is imported lazily by `llm_csp.validation`. Ticket 11 removed
+  the unlicensed Git dependency from public package metadata; users must not be
+  directed to install it without separate authorization.
 
 ## Optional dependencies
 

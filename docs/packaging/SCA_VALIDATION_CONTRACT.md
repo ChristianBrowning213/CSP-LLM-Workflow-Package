@@ -10,10 +10,12 @@
 - Reported version: `0.1.0`
 - Source status at both migration gates: clean
 
-SCA remains an external scientific dependency. No SCA implementation, model,
-benchmark, report, corpus, or cache is copied into this repository. The root
-`validation` extra pins the external Git source to the validated commit rather
-than assuming that an unrelated public-index package named `sca` is compatible.
+SCA remains an external scientific interface. No SCA implementation, model,
+benchmark, report, corpus, or cache is copied into this repository. Ticket 11
+removed the root Git dependency and `validation` extra because the frozen SCA
+repository has no explicit licence. The commit below remains compatibility
+provenance only; public users are not directed to install it. The adapter loads
+a separately authorized compatible installation lazily when one is present.
 
 ## Actual supported interfaces
 

@@ -2,6 +2,12 @@
 
 Audit date: 2026-09-10.
 
+Ticket 11 updated the public installation boundary on 2026-09-11 by removing
+the unlicensed SCA Git dependency. Wheel hashes and fresh-install results below
+are retained as the Ticket 9 historical audit; they are not current release
+artifacts. No replacement release artifact is declared while licensing remains
+blocked.
+
 Baseline was created before the audit as required:
 
 ~~~text
@@ -50,7 +56,7 @@ e5b291312151f34949a5e6ef0f43bebfeb752bc9.
 
 | Distribution | Version | Python | Backend | Discovery/data | Runtime and extras | Scripts | Licence/author |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| llm-csp | 0.1.0 | >=3.11 | setuptools.build_meta | Finds llm_csp, qlip, crystal_db from three source roots; includes both component resource sets | Scientific solver stack is core; validation and test extras | llm-csp | MIT assertion, Christian Browning; upstream QLIP notice included |
+| llm-csp | 0.1.0 | >=3.11 | setuptools.build_meta | Finds llm_csp, qlip, crystal_db from three source roots; includes both component resource sets | Scientific solver stack is core; test extra only; SCA installer excluded | llm-csp | MIT assertion for original work, Christian Browning; upstream QLIP notice included; integrated licensing blocked |
 | crystal-db | 0.1.0 | >=3.10 | setuptools.build_meta | src discovery; schemas/config defaults included | mcp, schema, test extras | crystal-db-mcp | Christian Browning; licence intentionally unresolved |
 | qlip | 0.1.0 | >=3.11 | setuptools.build_meta | src discovery; chemistry, schema, and POT resources included | Solver stack core; MCP 1.x and test extras | none | MIT upstream file; Vladimir V. Gusev and Christian Browning listed |
 
@@ -69,13 +75,13 @@ component versioning can begin later if the root records the embedded versions.
 Normal integrated installation:
 
 ~~~shell
-python -m pip install ".[validation]"
+python -m pip install .
 ~~~
 
 Developer/test installation:
 
 ~~~shell
-python -m pip install -e ".[validation,test]"
+python -m pip install -e ".[test]"
 ~~~
 
 Environment results:
@@ -85,8 +91,8 @@ Environment results:
 | A, root wheel without extras | llm_csp, llm_csp.spp, workflow, validation, qlip, and crystal_db import from site-packages |
 | B, solver-enabled | qlip.solve and qlip.core.validate_request import; Gurobi preflight works |
 | C, Crystal-DB-only wheel | crystal_db imports with no DB or LM Studio; missing DB returns missing_db and creates no file |
-| D, validation absent/present | validation imports without SCA and returns backend_unavailable; pinned extra imports sca and evaluates |
-| E, full stack | installed-wheel offline demo completes with QLIP and SCA |
+| D, Ticket 9 validation experiment | validation imported without SCA and returned backend_unavailable; the then-present pinned extra imported SCA and evaluated |
+| E, Ticket 9 full-stack experiment | installed-wheel offline demo completed with QLIP and SCA before the public dependency was removed |
 
 The integrated root wheel removes the need for users to understand the nested
 package graph. No editable install or sibling checkout was used for its test.
@@ -164,9 +170,10 @@ to stderr under --json, leaving valid JSON on stdout.
 External users must provide a compatible production Crystal-DB SQLite/index,
 the exact embedding identity and LM Studio-compatible BGE-M3 service, exportable
 CIF data rights, a broad regulator POT root covering all formula pairs, an
-explicit finite QLIP design space, Gurobi runtime/licence, and the pinned SCA
-extra when validation is enabled. Optional scaffold corpora, motif catalogs,
-and ALIGNN weights are separate user assets. No downloader is claimed.
+explicit finite QLIP design space, and Gurobi runtime/licence. Validation needs
+a separately authorized compatible backend; the public package does not
+install SCA. Optional scaffold corpora and motif catalogs are separate user
+assets. No downloader is claimed.
 
 The full classification is in RELEASE_DEPENDENCY_MATRIX.md and all supported
 environment variables/assets are in docs/external_assets.md and .env.example.
@@ -179,13 +186,14 @@ A no-local clone of committed packaging state 0e1940c was created at:
 C:\Users\brown\AppData\Local\Temp\ticket9-fresh-b555cb794120421e93671dbdfb993e9a
 ~~~
 
-From that clone, a new virtual environment ran a non-editable:
+From that clone, a new virtual environment ran the then-documented non-editable:
 
 ~~~shell
 python -m pip install ".[validation,test]"
 ~~~
 
-The installed CLI demo passed from outside the repository. The unit,
+This command is historical and was superseded by Ticket 11's `pip install .`
+boundary. The installed CLI demo passed from outside the repository. The unit,
 integration, and E2E suites then reported 163 passed and 2 skipped. Replacing
 the installed distribution with the separately built final wheel and rerunning
 the demo also passed. Generated clone-local audit files were not copied back.
@@ -222,7 +230,7 @@ derived base-data tables also require explicit asset-rights confirmation.
 | Crystal-DB redistribution licence not established | CRITICAL | Yes | Obtain and commit an upstream licence/contributor approval; then update package metadata |
 | SPP-Maker-QLIP migrated-code licence not established | CRITICAL | Yes | Establish licence and file-level attribution, including ipcsp-spp lineage |
 | Skill-Loop-CSP workflow licence not established | CRITICAL | Yes | Establish permission/licence and contributors |
-| Pinned SCA has no observed licence | HIGH | Yes | Add upstream licence before making it an advertised public dependency |
+| SCA has no observed licence | HIGH | No after Ticket 11 isolation | Git dependency/validation extra removed; require permission before restoration |
 | Bundled POT authority/generation provenance unresolved | HIGH | Yes | Confirm licensing authority and record source/generation provenance |
 | Derived base chemistry/radii data rights unresolved | HIGH | Yes | Review upstream package/data terms and record permission or replace the tables |
 | Full scientific contributor list unresolved | HIGH | Yes | Confirm contributors and update CITATION/third-party notices |

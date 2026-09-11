@@ -38,12 +38,14 @@ sibling repositories are never discovered.
 
 ## Validation
 
-The supported backend is SCA commit
-e5b291312151f34949a5e6ef0f43bebfeb752bc9, installed by the validation extra.
-SCA is not bundled in the wheel. ALIGNN is optional, its weights/runtime are
-not bundled, and it is not used by the canonical validation path. With SCA
-absent, llm_csp.validation still imports and returns a structured
-backend_unavailable result; a generated candidate is preserved.
+The adapter was validated against SCA commit
+e5b291312151f34949a5e6ef0f43bebfeb752bc9. SCA has no explicit licence at that
+revision, so it is neither bundled nor referenced by an installation extra in
+the public package metadata. A user may supply a separately authorized
+compatible backend, but this project does not advertise an SCA installation
+command while rights remain unresolved. ALIGNN and its weights/runtime are not
+bundled. With SCA absent, llm_csp.validation imports normally and returns a
+structured backend_unavailable result; a generated candidate is preserved.
 
 ## Supported environment variables
 

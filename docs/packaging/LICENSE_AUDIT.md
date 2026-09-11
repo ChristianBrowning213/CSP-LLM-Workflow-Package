@@ -12,7 +12,7 @@ examined at the exact frozen revision, without changing its checkout.
 | [Crystal-DB](https://github.com/ChristianBrowning213/Crystal-DB/tree/e33d5cc55be01f800a7cf055cc1793d982deb5bc) `e33d5cc55be01f800a7cf055cc1793d982deb5bc` | Complete tree names; `pyproject.toml`; available READMEs; source headers | No `LICENSE`, `LICENCE`, `COPYING`, `NOTICE`, project licence metadata, README licence statement, copyright header, or author metadata found. Git history contains Christian Browning identities but does not by itself prove authorship or licensing authority. | `NO_EXPLICIT_LICENSE`; copied modules, schemas, and defaults block release. |
 | [SPP-Maker-QLIP](https://github.com/ChristianBrowning213/SPP-Maker-QLIP/tree/3a2d557811973265f3373ec881cc8057a89789d2) `3a2d557811973265f3373ec881cc8057a89789d2` | Complete tree names; `pyproject.toml`; README; source/rule headers | No licence file, metadata, statement, or source header found. Git history contains Christian Browning identities but does not resolve rights or earlier method/code lineage. | `NO_EXPLICIT_LICENSE`; exact/adapted SPP code and the covalent-rules example block release. |
 | [Skill-Loop-CSP](https://github.com/ChristianBrowning213/Skill-Loop-CSP/tree/b2130661b4690623877e852dc03132506aa720dd) `b2130661b4690623877e852dc03132506aa720dd` | Complete tree names; `pyproject.toml`; repository documentation; source headers | No licence file, metadata, README statement, or source header found. Git history contains Christian Browning identities; employment, institutional ownership, and contributor scope are not established. | `NO_EXPLICIT_LICENSE`; adapted workflow contracts/policy block release. |
-| [Structured Crystal Analyser](https://github.com/ChristianBrowning213/Structured_Crystal_Analyser/tree/e5b291312151f34949a5e6ef0f43bebfeb752bc9) `e5b291312151f34949a5e6ef0f43bebfeb752bc9` | Complete tree names; `pyproject.toml`; README; source headers | No licence file, metadata, README statement, or source header found. Pyproject names only “Structured Crystal Analyser contributors.” | `NO_EXPLICIT_LICENSE`; no implementation is copied, but permission for the advertised pinned Git installation is unresolved. |
+| [Structured Crystal Analyser](https://github.com/ChristianBrowning213/Structured_Crystal_Analyser/tree/e5b291312151f34949a5e6ef0f43bebfeb752bc9) `e5b291312151f34949a5e6ef0f43bebfeb752bc9` | Complete tree names; `pyproject.toml`; README; source headers | No licence file, metadata, README statement, or source header found. Pyproject names only “Structured Crystal Analyser contributors.” | `NO_EXPLICIT_LICENSE`; no implementation is copied. Ticket 11 removed the Git dependency/validation extra from public metadata and retains only the lazy adapter. |
 | [ipcsp-spp](https://github.com/lrcfmd/ipcsp-spp/tree/ef9c5cc2924fae6ee35d0c5e526c132c17e1a014) `ef9c5cc2924fae6ee35d0c5e526c132c17e1a014` | Root `LICENSE`; `setup.py`; README | MIT, Copyright (c) 2026 Leverhulme Research Centre for Functional Materials Design. Setup metadata names Vladimir Gusev. README names an under-review manuscript without final DOI. | Permissive for that repository with notice, but no packaged runtime blob matches it and SPP-Maker lineage is not documented. It cannot supply the missing SPP-Maker licence. |
 
 The exact checks included conventional licence filenames (`LICENSE`,
@@ -71,6 +71,12 @@ QLIP, SPP-Maker-QLIP, or SCA at the frozen revisions. The related `ipcsp-spp`
 paper was still under review and lacked a final DOI.
 
 The release decision and smallest required owner actions are recorded in
-`LICENSING_RELEASE_DECISION.md`.
+`LICENSING_RELEASE_DECISION.md`; Ticket 11's component paths and unsent request
+templates are in `LICENSING_REMEDIATION_MATRIX.md` and
+`permission_requests/`.
+
+Ticket 11 isolated SCA by removing its Git dependency and public validation
+extra. No other blocker received permission evidence or an upstream licensing
+commit, so no other component is marked resolved or excluded.
 
 LICENSING_BLOCKED

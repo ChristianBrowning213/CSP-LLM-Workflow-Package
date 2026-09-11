@@ -50,7 +50,7 @@ source-file licence headers.
 | Crystal-DB | `e33d5cc55be01f800a7cf055cc1793d982deb5bc` | code, schemas, and defaults copied/adapted into `packages/crystal_db/` | `NO_EXPLICIT_LICENSE`; redistribution blocked |
 | SPP-Maker-QLIP | `3a2d557811973265f3373ec881cc8057a89789d2` | code and one policy example copied/adapted into `src/llm_csp/spp/` and `configs/examples/` | `NO_EXPLICIT_LICENSE`; redistribution blocked |
 | Skill-Loop-CSP | `b2130661b4690623877e852dc03132506aa720dd` | workflow contracts and policy adapted into `src/llm_csp/{workflow,retrieval,generation,schemas}/` | `NO_EXPLICIT_LICENSE`; redistribution blocked |
-| Structured Crystal Analyser | `e5b291312151f34949a5e6ef0f43bebfeb752bc9` | external Git dependency; implementation not copied | `NO_EXPLICIT_LICENSE`; advertised installation rights unresolved |
+| Structured Crystal Analyser | `e5b291312151f34949a5e6ef0f43bebfeb752bc9` | external interface; implementation not copied | `NO_EXPLICIT_LICENSE`; excluded from public installation metadata by Ticket 11 |
 
 Public repository visibility is not treated as permission. See
 `docs/packaging/LICENSING_RELEASE_DECISION.md` for the required owner actions.
