@@ -1,8 +1,9 @@
 # Release dependency matrix
 
-The integrated llm-csp wheel contains llm_csp, qlip, and crystal_db. The public
-metadata provides only the test extra. Ticket 11 removed the unlicensed SCA Git
-dependency; MCP extras remain available only on the component projects.
+The integrated llm-csp wheel contains llm_csp, qlip, and crystal_db. Public
+metadata provides test and validation extras. The validation extra pins the
+separately maintained, MIT-licensed SCA 0.1.1 package; MCP extras remain
+available only on the component projects.
 
 | Dependency | Class | Required by | Installation | Import? | Offline demo? | Production retrieval? | Solver? | Extra / notes |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -16,8 +17,8 @@ dependency; MCP extras remain available only on the component projects.
 | gurobipy | CORE | QLIP | pip | QLIP | Yes | No | Yes | Native runtime/licence also required |
 | Crystal-DB code | CORE | Retrieval adapter | Included namespace | No (lazy workflow use) | Fixture bypasses production call | Yes | No | |
 | QLIP code | CORE | Workflow | Included namespace | Workflow surface | Yes | No | Yes | |
-| SCA | EXTERNAL_SYSTEM | Validation adapter | No public installer; separately authorized user-supplied backend only | No (lazy) | Yes for successful validation | No | No | Candidate is preserved if absent; audited revision remains provenance only |
-| pandas, pydantic, rich, tqdm, typer | EXTERNAL_SYSTEM | User-supplied SCA | Not declared by this distribution | Only when SCA loads | Yes with external validation | No | No | Not public package dependencies |
+| SCA 0.1.1 | OPTIONAL | Validation adapter | Root `validation` extra, pinned to licensed commit `3ede1ee2ad1a972b7c0a0809a9ec7bdab9b1b6af` | No (lazy) | Optional | No | No | Candidate is preserved if absent |
+| pandas, pydantic, rich, tqdm, typer | OPTIONAL | SCA | Installed transitively only by the validation extra | Only when SCA loads | Optional | No | No | SCA base dependencies |
 | ALIGNN | EXTERNAL_SYSTEM | External SCA model evaluation | Not declared by this distribution | No | No | No | No | Not supported by default path |
 | jsonschema | CORE | QLIP request validation | pip | No for top-level import | Yes | No | Before solve | Crystal-DB can also use it for full schema validation |
 | mcp | OPTIONAL/TEST | Crystal-DB and QLIP MCP servers/tests | component mcp extras or root test extra | No | No | No | No | MCP is not used by workflow |
@@ -30,6 +31,5 @@ dependency; MCP extras remain available only on the component projects.
 | Broad regulator POT tree | EXTERNAL_DATA | SPP/QLIP | User supplied | No | No | Indirectly | Yes for production chemistry | No scientific POT is bundled; an explicit compatible root is required |
 
 Version strategy: llm-csp, crystal-db, and qlip use synchronized 0.1.0 versions
-for the first integrated contract. Independent semantic versioning may begin
-after 0.1.0; the root distribution must then document the exact component
-versions it embeds.
+for the first integrated contract. SCA is independently versioned at 0.1.1 and
+is pinned by exact licensed Git revision.

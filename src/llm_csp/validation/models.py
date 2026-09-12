@@ -7,7 +7,7 @@ from typing import Any
 
 
 ADAPTER_SCHEMA_VERSION = "llm_csp.validation.v1"
-SCA_VALIDATED_REVISION = "e5b291312151f34949a5e6ef0f43bebfeb752bc9"
+SCA_VALIDATED_REVISION = "3ede1ee2ad1a972b7c0a0809a9ec7bdab9b1b6af"
 
 
 @dataclass(frozen=True)

@@ -8,6 +8,7 @@ advice or an approval record. No box below has been completed automatically.
 - [x] Christian has authority to license Crystal-DB
 - [x] Christian has authority to license SPP-Maker-QLIP
 - [x] Christian has authority to license Skill-Loop-CSP
+- [x] Christian has authority to license Structured Crystal Analyser code
 - [x] MIT is acceptable
 - [x] University/institutional authority gate is satisfied by the supplied owner authorization
 - [x] POT provenance decision reviewed
@@ -17,12 +18,13 @@ advice or an approval record. No box below has been completed automatically.
 
 The proposed public software repository contains Crystal-DB retrieval, SPP
 construction, QLIP integration, a deterministic LLM-CSP workflow, and a
-validation adapter. QLIP is already covered by its retained upstream MIT
-licence. The adapter does not bundle SCA source.
+validation adapter. QLIP is covered by its retained upstream MIT licence. SCA
+is a separately maintained MIT package installed only by the validation extra;
+its implementation is not copied into the integrated wheel.
 
 The proposed release does **not** contain the production Crystal-DB corpus,
-restricted CIF collections, embedding models, the broad POT corpus, SCA source
-code, agentic research code, or paper/benchmark artifacts. The six small
+restricted CIF collections, embedding models, the broad POT corpus, SCA
+benchmark/data/model assets, agentic research code, or paper artifacts. The six small
 SrTiO3 demonstration POTs and bundled chemistry resources are reviewed
 separately below and in the linked provenance records.
 
@@ -34,9 +36,10 @@ different people.
 
 | Repository | Git contributors observed | Commits | Other named authors found? | Third-party copied code found? | Current licence |
 | --- | --- | ---: | --- | --- | --- |
-| Crystal-DB | Christian Browning (`ChristianBrowning213`) | 16 | No | None identified in the migrated paths; this is not an originality warranty | None |
-| SPP-Maker-QLIP | Christian Browning (`ChristianBrowning213`) | 12 | No | No copied/derived code expression identified in the comparison with `ipcsp-spp` | None |
-| Skill-Loop-CSP | Christian Browning (`ChristianBrowning213`) | 61 | No | None identified in the migrated workflow paths; this is not an originality warranty | None |
+| Crystal-DB | Christian Browning (`ChristianBrowning213`) | 16 | No | None identified in the migrated paths; this is not an originality warranty | MIT |
+| SPP-Maker-QLIP | Christian Browning (`ChristianBrowning213`) | 12 | No | No copied/derived code expression identified in the comparison with `ipcsp-spp` | MIT |
+| Skill-Loop-CSP | Christian Browning (`ChristianBrowning213`) | 61 | No | None identified in the migrated workflow paths; this is not an originality warranty | MIT |
+| Structured Crystal Analyser | Christian Browning (`ChristianBrowning213`) | Audited at scientific revision | No additional owner identified for packaged code | Optional third-party ML assets remain separate | MIT |
 
 Git evidence indicates sole authorship by Christian Browning, but this does
 not itself establish legal ownership or authority to license
@@ -63,6 +66,10 @@ Ticket 14 supplied Christian Browning's explicit ownership and MIT
 authorization and directed that it be used as the licensing authority for all
 three repositories. The upstream licence-only commits are recorded in
 `CODE_LICENSING_STATUS.md`.
+
+Ticket 15 separately records Christian Browning's confirmation that SCA code
+is his code and authorization to distribute it under MIT. SCA's licensing and
+0.1.1 packaging commits are recorded separately from its scientific revision.
 
 ## Proposed action after approval only
 

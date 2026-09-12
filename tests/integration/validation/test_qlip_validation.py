@@ -59,4 +59,4 @@ def test_packaged_qlip_cif_is_accepted_by_validation(tmp_path, monkeypatch) -> N
     assert validated.status == "evaluated"
     assert validated.parseable is True
     assert validated.composition["target_formula_match"] is True
-    assert validated.backend.version == "0.1.0"
+    assert validated.backend.version == "0.1.1"

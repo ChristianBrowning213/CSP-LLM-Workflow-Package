@@ -193,10 +193,19 @@ Add a narrow adapter and version-pinned optional/required SCA dependency for the
 `llm_csp.validation` now lazily wraps the external frozen SCA interfaces
 `sca.pipelines.evaluate_one_cif` and
 `sca.evaluators.topology.family_topology_metrics`. SCA remains
-`DEPENDENCY_EXTERNAL`; the optional root extra points to commit `e5b2913`, and
+`DEPENDENCY_EXTERNAL`; at Ticket 7 the optional root extra pointed to scientific
+commit `e5b2913`, and
 the adapter preserves exact scientific records/metrics while normalizing
 backend absence, parse failure, evaluation failure, and unsupported topology
 policy. ALIGNN remains opt-in and CHGNet is outside the selected call graph.
+
+#### Ticket 15 resolution
+
+SCA remains separately maintained, but its ownership and MIT licence are now
+resolved. The public `validation` extra pins SCA 0.1.1 package commit
+`3ede1ee2ad1a972b7c0a0809a9ec7bdab9b1b6af`; the independently recorded
+scientific baseline remains `e5b291312151f34949a5e6ef0f43bebfeb752bc9`.
+Third-party ML systems, weights, and datasets remain external and optional.
 
 ### Batch 6 — high-level LLM-CSP workflow
 

@@ -41,14 +41,14 @@ sibling repositories are never discovered.
 
 ## Validation
 
-The adapter was validated against SCA commit
-e5b291312151f34949a5e6ef0f43bebfeb752bc9. SCA has no explicit licence at that
-revision, so it is neither bundled nor referenced by an installation extra in
-the public package metadata. A user may supply a separately authorized
-compatible backend, but this project does not advertise an SCA installation
-command while rights remain unresolved. ALIGNN and its weights/runtime are not
-bundled. With SCA absent, llm_csp.validation imports normally and returns a
-structured backend_unavailable result; a generated candidate is preserved.
+SCA is the supported validation backend and is available through
+`pip install ".[validation]"`. LLM-CSP 0.1.0 pins licensed SCA 0.1.1 revision
+`3ede1ee2ad1a972b7c0a0809a9ec7bdab9b1b6af`; its unchanged scientific baseline
+is `e5b291312151f34949a5e6ef0f43bebfeb752bc9`. No SCA implementation is copied
+into this repository. ALIGNN, CHGNet, other optional ML packages, model weights,
+and their datasets are not installed by the validation extra. With SCA absent,
+`llm_csp.validation` imports normally and returns a structured
+`backend_unavailable` result; a generated candidate is preserved.
 
 ## Supported environment variables
 

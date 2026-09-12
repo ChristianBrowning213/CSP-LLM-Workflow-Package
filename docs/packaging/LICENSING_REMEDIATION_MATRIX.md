@@ -8,7 +8,7 @@ Audit date: 2026-09-12.
 | Crystal-DB | Christian Browning authorization | Upstream MIT licence-only commit `f8b087896eb5a5b3a8ea6d0fffcf53e927d93f31`; scientific revision remains `e33d5cc55be01f800a7cf055cc1793d982deb5bc` | `RESOLVED` |
 | SPP-Maker-QLIP | Christian Browning authorization; no copied `ipcsp-spp` expression found | Upstream MIT licence-only commit `82114cd05f0cb40149d13c20adeafe4c437a03ae`; scientific revision remains `3a2d557811973265f3373ec881cc8057a89789d2` | `RESOLVED` |
 | Skill-Loop-CSP | Christian Browning authorization | Upstream MIT licence-only commit `36f6280e47387643853ac0cfc510e20c5d595834`; scientific revision remains `b2130661b4690623877e852dc03132506aa720dd` | `RESOLVED` |
-| Structured Crystal Analyser | No established licence | No source/dependency/extra; lazy interface only | `EXCLUDED_FROM_PUBLIC_RELEASE` |
+| Structured Crystal Analyser | Christian Browning owner authorization | MIT licence commit `0382742a169507bcc356d60c73ae575063fc5af1`; independently versioned 0.1.1 package commit `3ede1ee2ad1a972b7c0a0809a9ec7bdab9b1b6af`; validation extra restored | `RESOLVED` |
 | Six SrTiO3 POT files | Hard-coded parameter provenance unresolved | Removed; user-supplied compatible POT root required | `EXCLUDED_FROM_PUBLIC_RELEASE` |
 | Generated chemistry tables | Upstream package versions and citations known; compiled-table redistribution avoided | Generate lazily in memory from pinned dependencies; full-table parity test | `DERIVED_AT_RUNTIME` |
 | QLIP policy/provenance resources | QLIP-authored under retained MIT | Retained | `RESOLVED` |
@@ -17,9 +17,10 @@ Audit date: 2026-09-12.
 ## Authorization scope
 
 The supplied statement authorizes only the identified Crystal-DB,
-SPP-Maker-QLIP, and Skill-Loop-CSP code under MIT. It does not authorize QLIP,
-SCA, third-party data, POT parameters, or chemistry datasets. Each of those is
-handled independently above.
+SPP-Maker-QLIP, and Skill-Loop-CSP code under MIT. Ticket 15 separately
+authorizes SCA code. Neither authorization covers QLIP, third-party data, POT
+parameters, chemistry datasets, or optional ML packages, weights, and data.
+Each is handled independently above.
 
 ## Removed POT identity
 

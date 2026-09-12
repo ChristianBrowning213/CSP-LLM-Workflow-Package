@@ -12,10 +12,15 @@ From a repository clone, the supported integrated installation is:
 python -m pip install .
 ~~~
 
-This installs llm_csp, qlip, and crystal_db. It does not install SCA: the
-upstream SCA revision has no explicit licence, so Ticket 11 removed its Git URL
-from the public package metadata. The lazy validation adapter remains usable
-only with a separately authorized compatible backend supplied by the user.
+This installs llm_csp, qlip, and crystal_db. Validation remains optional. To
+install the supported MIT-licensed SCA 0.1.1 backend, use:
+
+~~~shell
+python -m pip install ".[validation]"
+~~~
+
+The base installation still imports `llm_csp.validation` without SCA and
+returns `backend_unavailable` if validation is invoked.
 Developers may use:
 
 ~~~shell
@@ -33,8 +38,9 @@ llm-csp demo --output ./runs
 
 The command needs no production database, LM Studio endpoint, POT tree,
 Gurobi, or network. It validates software boundaries and writes `smoke.json`;
-it performs no optimization and produces no scientific prediction. The public
-package does not provide an SCA installation command.
+it performs no optimization and produces no scientific prediction. With the
+validation extra installed, production and synthetic CIF validation use SCA;
+the smoke itself remains valid with or without SCA.
 
 ## Production configuration
 

@@ -1,19 +1,23 @@
 # First-release readiness audit
 
-Audit date: 2026-09-12. Ticket 14 supersedes the historical Ticket 9 audit.
+Audit date: 2026-09-12. Ticket 15 supersedes the historical Ticket 9 and
+Ticket 14 audits.
 
 ## Release boundary
 
 The public distributions contain the MIT-licensed integrated workflow,
 Crystal-DB, SPP-Maker-derived software, and the separately attributed upstream
-MIT QLIP code. SCA implementation code, scientific POT files, and opaque
-chemistry tables are outside the distribution.
+MIT QLIP code. SCA remains a separate MIT-licensed package and is pinned by the
+optional `validation` extra; its implementation is not copied into llm-csp.
+Scientific POT files and opaque chemistry tables remain outside the
+distribution.
 
-Production solving requires a compatible user-supplied POT root. SCA remains
-an optional, separately authorized validator backend and is not an install
-dependency or extra. The public `llm-csp demo` command is a non-solving,
-no-network installation smoke and explicitly reports that it did not produce a
-scientific prediction.
+Production solving requires a compatible user-supplied POT root. Base installs
+remain usable without SCA and report `backend_unavailable` when validation is
+invoked. `pip install ".[validation]"` adds supported SCA 0.1.1 from commit
+`3ede1ee2ad1a972b7c0a0809a9ec7bdab9b1b6af`. The public `llm-csp demo`
+command is a non-solving, no-network installation smoke and explicitly reports
+that it did not produce a scientific prediction.
 
 ## Licensing gate
 
@@ -26,10 +30,13 @@ distribution. The source/licensing commit pairs are:
 | Crystal-DB | `e33d5cc55be01f800a7cf055cc1793d982deb5bc` | `f8b087896eb5a5b3a8ea6d0fffcf53e927d93f31` |
 | SPP-Maker-QLIP | `3a2d557811973265f3373ec881cc8057a89789d2` | `82114cd05f0cb40149d13c20adeafe4c437a03ae` |
 | Skill-Loop-CSP | `b2130661b4690623877e852dc03132506aa720dd` | `36f6280e47387643853ac0cfc510e20c5d595834` |
+| SCA | `e5b291312151f34949a5e6ef0f43bebfeb752bc9` | `0382742a169507bcc356d60c73ae575063fc5af1` |
 
-QLIP retains its own upstream MIT notice in `packages/qlip/LICENSE`. SCA is
-`EXCLUDED_FROM_PUBLIC_RELEASE`. The licensing audit classification for every
-file actually included is `LICENSING_RESOLVED`.
+QLIP retains its own upstream MIT notice in `packages/qlip/LICENSE`. Christian
+Browning confirmed ownership of the SCA code and authorized MIT distribution.
+That authorization does not cover third-party models, weights, datasets, or
+other external assets. SCA is `RESOLVED - MIT`; the licensing classification
+for everything distributed is `LICENSING_RESOLVED`.
 
 ## Assets and deterministic chemistry
 
@@ -57,25 +64,30 @@ were written outside the repository.
 
 | Distribution | Entries | Bytes | SHA-256 |
 | --- | ---: | ---: | --- |
-| llm-csp 0.1.0 | 103 | 211954 | `94b41415e9993e56e154a00c6c1a180bf2a9cf1cc49c34c8587fc32267994db3` |
-| crystal-db 0.1.0 | 26 | 54059 | `f43ac533f238fe55b9b603f575910cadb3863b2e520b047c4d8030c7a5cb0b4b` |
-| qlip 0.1.0 | 49 | 109533 | `884f89565ed985a259e113dec28b3f86dc84266eea212dd10639229e7404f207` |
+| llm-csp 0.1.0 | 103 | 212155 | `4a71446b3e1b39e2a66723b8014555bceff9ca1b3b0bf5052bf25e141f075dc1` |
+| crystal-db 0.1.0 | 26 | 54059 | `b80e3fac312deccfd50e01bfdf4924c5c41f0dfd6c36d5a0e96803b3e204b3fe` |
+| qlip 0.1.0 | 49 | 109533 | `83c86bacd6be9273d963c0ab54afc6adba42cfa97514b8f426164b3754e0b3cd` |
+| SCA 0.1.1 wheel | 89 | 175305 | `f68e38fe376e0ce05197a3a0189f3ab2bf99019c4e6710a6f52f703419111cad` |
+| SCA 0.1.1 sdist | 95 | 141226 | `eb2f239a5bdc32acf35cbeb78bff58da9e3db9790a0c539804d407c918373187` |
 
 Archive inspection found no `.POT` file, legacy radii file, former generated
-table JSON, or `__pycache__` entry. The integrated wheel carries both the root
-MIT license and QLIP's separate license; both standalone wheels carry their
-own license.
+table JSON, model weight, benchmark/report dataset, cache, bytecode, Git
+metadata, or entry over 1 MiB. The integrated wheel carries both the root MIT
+license and QLIP's separate license; both standalone wheels carry their own
+license. The SCA wheel and sdist carry SCA's MIT license and exclude repository
+CIF fixtures, datasets, tests, models, reports, and paper artifacts.
 
 ## Installed-wheel gate
 
 A clean virtual environment installed the root wheel non-editably, with
 `PYTHONPATH` cleared and execution outside the checkout. `llm_csp`, `qlip`, and
-`crystal_db` all resolved from that environment's `site-packages`. The public
-demo passed with configuration, retrieval fixture, required-pair, QLIP request,
-and lazy validation-adapter checks. It required no database, embedding service,
-POT, Gurobi license, validator, or network. Runtime chemistry generation in the
-installed wheel reproduced all three hashes above, and missing bundled POTs
-failed explicitly.
+`crystal_db` all resolved from that environment's `site-packages`; SCA was
+absent, both validation imports worked, an invocation returned
+`backend_unavailable`, and the public demo passed. Installing the same wheel's
+`validation` extra fetched exact SCA commit
+`3ede1ee2ad1a972b7c0a0809a9ec7bdab9b1b6af`; `sca` then also resolved from
+that environment's `site-packages`. Synthetic NaCl general validation and
+ROCKSALT topology matched direct SCA output exactly.
 
 ## Test gates
 
@@ -86,8 +98,9 @@ failed explicitly.
 | Public no-external-assets E2E | 3 passed |
 | Repository-wide | 163 passed, 5 skipped |
 | Optional external scientific assets | 3 skipped when `LLM_CSP_EXTERNAL_POT_ROOT` was absent |
-| Installed wheel | import/resource/parity audit and public CLI smoke passed |
-| Fresh clone | Non-editable install and CLI smoke passed; 159 passed, 6 skipped without SCA or external POTs |
+| Installed wheel | 163 passed, 5 skipped; import/path/parity audit and public CLI smoke passed |
+| SCA upstream | 191 passed |
+| Fresh clone | Core route: 159 passed, 6 skipped plus CLI smoke; validation route: 10 passed, 1 skipped with direct parity |
 
 The optional external tests cover the retained scientific workflow boundary
 when a lawful POT root is supplied. The historical validated SrTiO3 objective
@@ -95,9 +108,9 @@ when a lawful POT root is supplied. The historical validated SrTiO3 objective
 
 ## Hygiene and failure behavior
 
-The tracked-plus-new-file audit scanned 233 files: no `.POT` remained, no file
-exceeded 1 MiB (largest 53,120 bytes), and scans found no private-key header,
-credential-bearing URL, or assigned API-key/secret/password/token candidate.
+The tracked-file audit scanned 223 files: no `.POT` remained and no file
+exceeded 1 MiB. Scans found no private-key header, credential-bearing URL, or
+assigned API-key/secret/password/token candidate.
 Generated build directories containing stale assets were removed before wheel
 and installed-package tests.
 
@@ -114,7 +127,9 @@ A production user supplies, as applicable:
 - a compatible POT library, or POTs fitted/generated from evidence they are
   entitled to use;
 - a Gurobi runtime and license;
-- a separately authorized compatible validator backend, if desired.
+- SCA through the validation extra when validation is required;
+- separately installed third-party ML packages, weights, and datasets only
+  when their optional SCA evaluators are explicitly selected.
 
 ## Recommendation
 

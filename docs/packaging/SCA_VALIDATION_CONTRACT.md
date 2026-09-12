@@ -5,17 +5,17 @@
 - Repository: `Structured_Crystal_Analyser`
 - Remote: `https://github.com/ChristianBrowning213/Structured_Crystal_Analyser.git`
 - Branch inspected: `main`
-- Commit: `e5b291312151f34949a5e6ef0f43bebfeb752bc9`
+- Scientific commit: `e5b291312151f34949a5e6ef0f43bebfeb752bc9`
+- MIT licensing commit: `0382742a169507bcc356d60c73ae575063fc5af1`
+- Supported package commit: `3ede1ee2ad1a972b7c0a0809a9ec7bdab9b1b6af`
 - Distribution/import name: `sca`
-- Reported version: `0.1.0`
+- Reported version: `0.1.1`
 - Source status at both migration gates: clean
 
-SCA remains an external scientific interface. No SCA implementation, model,
-benchmark, report, corpus, or cache is copied into this repository. Ticket 11
-removed the root Git dependency and `validation` extra because the frozen SCA
-repository has no explicit licence. The commit below remains compatibility
-provenance only; public users are not directed to install it. The adapter loads
-a separately authorized compatible installation lazily when one is present.
+SCA remains a separately maintained scientific package. No SCA implementation,
+model, benchmark, report, corpus, or cache is copied into this repository. Its
+MIT-licensed 0.1.1 package is installed through `pip install ".[validation]"`.
+The adapter still loads SCA lazily, so base imports work without that extra.
 
 ## Actual supported interfaces
 
@@ -97,7 +97,7 @@ metric is used.
 
 ## Dependencies, network, and artifacts
 
-SCA 0.1.0 declares pandas, Pydantic, Pymatgen, Rich, tqdm, and Typer. General
+SCA 0.1.1 declares pandas, Pydantic, Pymatgen, Rich, tqdm, and Typer. General
 validation and topology are local/in-memory after installation and require no
 network access. Reference novelty is evaluated only when caller-supplied
 structures are provided.
@@ -106,7 +106,10 @@ structures are provided.
 it true opts into SCA's separately optional ALIGNN package/model or configured
 subprocess and may entail external model availability. CHGNet is not called by
 either supported interface and remains a separate optional SCA feature. No
-CHGNet/ALIGNN weights are packaged here.
+CHGNet/ALIGNN weights are packaged here. SCA's wheel and sdist contain package
+source and essential metadata only. Repository benchmark corpora, reference
+CIFs, fixtures, generated reports, paper artifacts, caches, and context exports
+are excluded from both artifacts.
 
 The calls do not write artifacts. If later SCA APIs add report output, the
 LLM-CSP boundary must require a caller-owned output root before exposing it.
@@ -134,3 +137,12 @@ tests before changing the pinned revision.
 Installed paths were beneath
 `C:\Users\brown\AppData\Local\Temp\ticket7-installed-e8f5573dd4654e239ad9e8784c43870c\venv\Lib\site-packages`
 for `llm_csp`, `llm_csp.validation`, `qlip`, and `sca`.
+
+## Ticket 15 verification
+
+SCA 0.1.1 was built from a clean no-local clone and installed from its wheel
+alone. Synthetic NaCl general validation retained parse success, formula match,
+geometry validity, bond score `1.0`, and rank score `11000.0`. ROCKSALT topology
+returned `PASS` with binary species, six-coordinate species, and periodic 3D
+network checks all true. Direct SCA records/metrics remained exactly equal to
+the `llm_csp.validation` adapter values.

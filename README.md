@@ -25,7 +25,11 @@ The demo is a no-network software installation smoke. It checks package import,
 configuration, synthetic retrieval-fixture handling, SPP required-pair logic,
 QLIP request construction, and the lazy validation adapter. It does not solve,
 does not require Gurobi or POT assets, and labels its output as not a scientific
-prediction. SCA is not installed by this public package.
+prediction. Install the supported SCA validation backend separately through:
+
+~~~shell
+python -m pip install ".[validation]"
+~~~
 
 ## Production requirements
 
@@ -35,8 +39,8 @@ prediction. SCA is not installed by this public package.
   pair, or POTs fitted from evidence the user is entitled to use.
 - An explicit finite QLIP design space.
 - Gurobi and a usable licence.
-- A separately authorized compatible validation backend when validation is
-  required; this repository does not install SCA.
+- SCA 0.1.1 through the `validation` extra when supported validation is
+  required. Optional ML models and their assets remain separate SCA extras.
 
 Start from configs/examples/srtio3_production.json and run:
 
@@ -56,7 +60,7 @@ materials.
 ## Upstream software and attribution
 
 QLIP-derived material retains its upstream MIT notice. Crystal-DB,
-SPP-Maker-QLIP, and Skill-Loop-CSP are distributed under MIT with Christian
+SPP-Maker-QLIP, Skill-Loop-CSP, and SCA are distributed under MIT with Christian
 Browning's explicit authorization. Blocked scientific resources are excluded. See
 `THIRD_PARTY_NOTICES.md`, `docs/packaging/SOURCE_ATTRIBUTION_MATRIX.csv`, and
 `docs/packaging/LICENSING_RELEASE_DECISION.md` for the exact boundaries.

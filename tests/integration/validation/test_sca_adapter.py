@@ -7,7 +7,7 @@ import pytest
 
 from llm_csp.validation import validate_cif, validate_family_topology
 
-pytest.importorskip("sca", reason="SCA is an excluded optional backend")
+pytest.importorskip("sca", reason="install the validation extra to test SCA")
 
 from sca.evaluators.topology import family_topology_metrics
 from sca.pipelines import evaluate_one_cif
@@ -28,7 +28,7 @@ def test_valid_cif_normalization_and_direct_sca_parity(tmp_path) -> None:
     assert adapted.status == "evaluated"
     assert adapted.parseable is True
     assert adapted.composition["target_formula_match"] is True
-    assert adapted.backend.version == "0.1.0"
+    assert adapted.backend.version == "0.1.1"
     assert adapted.details["sca_record"] == direct.model_dump(mode="python")
     assert adapted.general_metrics["bond_reasonableness_score"] == direct.bond_reasonableness_score
     assert adapted.general_metrics["pre_dft_rank_score"] == direct.pre_dft_rank_score
