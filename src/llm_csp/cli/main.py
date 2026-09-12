@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 from contextlib import nullcontext, redirect_stdout
+from importlib.metadata import version
 import json
 import sys
 from pathlib import Path
@@ -29,13 +30,24 @@ def _parser() -> argparse.ArgumentParser:
         prog="llm-csp",
         description="Run the deterministic Crystal-DB -> SPP -> QLIP -> validation workflow.",
     )
+    parser.add_argument(
+        "--version", action="version", version=f"%(prog)s {version('llm-csp')}"
+    )
     commands = parser.add_subparsers(dest="command", required=True)
     run = commands.add_parser("run", help="run from a validated JSON request/configuration")
     run.add_argument("--config", required=True, type=Path, help="workflow JSON configuration")
     run.add_argument("--output", type=Path, help="override config.output_root")
     run.add_argument("--json", action="store_true", dest="json_output", help="emit only JSON")
-    demo = commands.add_parser("demo", help="run a no-network software installation smoke check")
-    demo.add_argument("--output", required=True, type=Path, help="new parent directory for demo results")
+    demo = commands.add_parser(
+        "demo",
+        help="run an offline installation/workflow smoke test; no optimization or prediction",
+    )
+    demo.add_argument(
+        "--output",
+        type=Path,
+        default=Path("runs/demo"),
+        help="new parent directory for demo results (default: runs/demo)",
+    )
     demo.add_argument("--json", action="store_true", dest="json_output", help="emit only JSON")
     return parser
 
@@ -122,7 +134,10 @@ def _public_smoke(output: Path) -> dict[str, Any]:
     payload = {
         "status": "installation_smoke_passed",
         "scientific_prediction": False,
-        "notice": "No optimization was run; no scientific POT assets are bundled.",
+        "notice": (
+            "No optimization is run. No scientific POT library is bundled. "
+            "The result is not a crystal prediction."
+        ),
         "checks": {
             "configuration": True,
             "retrieval_fixture": len(retrieval.records) == 1,

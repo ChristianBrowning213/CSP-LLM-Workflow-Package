@@ -1,0 +1,15 @@
+LLM-CSP v0.1.0 release-candidate artifact inventory
+
+Generated with python -m build from clean no-local candidate checkout
+471db709f80b4ce89fa2b94d2a780a008de78c0f. SOURCE_DATE_EPOCH was fixed at
+1789240185. Fields are:
+package | filename | version | size_bytes | sha256
+
+llm-csp | llm_csp-0.1.0-py3-none-any.whl | 0.1.0 | 212719 | 6291c476c60dcf4a34f6e2ff860cd6e5a7b7d58e7b2e0594a7976de10dac4eb3
+llm-csp | llm_csp-0.1.0.tar.gz | 0.1.0 | 177086 | df9c00068f606174596cea0f1fe0e0bfec65c62726290473a1e3184dfa186acf
+crystal-db | crystal_db-0.1.0-py3-none-any.whl | 0.1.0 | 54098 | efb5575b0592994f7b6d51252a734eb26c84a43bb554fe02da30f70a9f79d020
+crystal-db | crystal_db-0.1.0.tar.gz | 0.1.0 | 46683 | bce2253f3cf7632b1ebf5b22f922676cdd19e5e9b4f761249e4e26132178ee55
+qlip | qlip-0.1.0-py3-none-any.whl | 0.1.0 | 109416 | 18345261f3e9de3ba15dacffdbf003e6ffbcc33052ef3cc6a2aa77fe1d43f5db
+qlip | qlip-0.1.0.tar.gz | 0.1.0 | 93831 | de8ba28b90853065902dad28172cf6464b8ed8a7bbe295185e451069d7b96b43
+sca | sca-0.1.1-py3-none-any.whl | 0.1.1 | 175305 | f68e38fe376e0ce05197a3a0189f3ab2bf99019c4e6710a6f52f703419111cad
+sca | sca-0.1.1.tar.gz | 0.1.1 | 141226 | eb2f239a5bdc32acf35cbeb78bff58da9e3db9790a0c539804d407c918373187

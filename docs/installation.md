@@ -33,19 +33,20 @@ buildable, but integrated users do not install them separately.
 ## Offline verification
 
 ~~~shell
-llm-csp demo --output ./runs
+llm-csp demo
 ~~~
 
 The command needs no production database, LM Studio endpoint, POT tree,
-Gurobi, or network. It validates software boundaries and writes `smoke.json`;
-it performs no optimization and produces no scientific prediction. With the
+Gurobi, or network. It validates software boundaries and writes
+`runs/demo/smoke.json`. No optimization is run. No scientific POT library is
+bundled. The result is not a crystal prediction. With the
 validation extra installed, production and synthetic CIF validation use SCA;
 the smoke itself remains valid with or without SCA.
 
 ## Production configuration
 
 Copy configs/examples/srtio3_production.json, replace its obvious placeholders,
-then run llm-csp run --config CONFIG --json. Supply:
+then run `llm-csp run --config <config> --output <dir>`. Supply:
 
 - a Crystal-DB database containing the matching text/index identity;
 - the LM Studio-compatible endpoint settings from .env.example;

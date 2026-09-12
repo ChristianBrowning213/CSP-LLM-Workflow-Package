@@ -1,4 +1,7 @@
 import json
+from importlib.metadata import version
+
+import pytest
 
 from llm_csp.cli import main as cli_module
 from llm_csp.schemas import WorkflowResult
@@ -63,6 +66,14 @@ def test_help_is_ascii_console_safe() -> None:
     assert all(ord(char) < 128 for char in cli_module._parser().format_help())
 
 
+def test_cli_version_comes_from_distribution_metadata(capsys) -> None:
+    with pytest.raises(SystemExit) as raised:
+        cli_module.main(["--version"])
+
+    assert raised.value.code == 0
+    assert capsys.readouterr().out.strip() == f"llm-csp {version('llm-csp')}"
+
+
 def test_public_demo_is_no_network_non_scientific_smoke(tmp_path, capsys) -> None:
     output = tmp_path / "smoke"
 
@@ -72,7 +83,17 @@ def test_public_demo_is_no_network_non_scientific_smoke(tmp_path, capsys) -> Non
     assert code == 0
     assert payload["status"] == "installation_smoke_passed"
     assert payload["scientific_prediction"] is False
+    assert payload["notice"] == (
+        "No optimization is run. No scientific POT library is bundled. "
+        "The result is not a crystal prediction."
+    )
     assert payload["checks"]["required_pairs"] == [
         "O-O", "O-Sr", "O-Ti", "Sr-Sr", "Sr-Ti", "Ti-Ti"
     ]
     assert (output / "smoke.json").is_file()
+
+
+def test_demo_has_a_public_default_output_path() -> None:
+    args = cli_module._parser().parse_args(["demo"])
+
+    assert args.output.as_posix() == "runs/demo"

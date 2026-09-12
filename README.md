@@ -1,16 +1,21 @@
 # LLM-CSP
 
-LLM-CSP is a deterministic, retrieval-guided crystal-structure prediction
-workflow. It turns an explicit scientific request into retrieved evidence,
-statistical pair-potential (SPP) guidance, a QLIP mixed-integer solve, and
-structured validation.
+LLM-CSP 0.1.0 is a deterministic, retrieval-guided crystal-structure
+prediction workflow. It turns an explicit crystallographic request into
+retrieved structural evidence, request-specific statistical pair-potential
+(SPP) guidance, a QLIP mixed-integer CSP solve, a candidate structure, and
+structured SCA validation with provenance.
 
 ~~~text
-request -> Crystal-DB -> SPP -> QLIP -> validation -> candidate + provenance
+Request -> Crystal-DB -> SPP -> QLIP -> candidate CIF -> SCA validation
+                                                        -> result + provenance
 ~~~
 
-The integrated repository installs the separate llm_csp, qlip, and crystal_db
-namespaces with one command. Python 3.11 or newer is required.
+The major components are Crystal-DB retrieval, SPP preparation, QLIP
+integer-programming CSP, the deterministic `llm_csp.workflow` coordinator, and
+the optional SCA validation backend. The integrated repository installs the
+`llm_csp`, `qlip`, and `crystal_db` namespaces with one command. Python 3.11 or
+newer is required.
 
 ## Quick start
 
@@ -18,14 +23,14 @@ Clone this repository and, from its root, run:
 
 ~~~shell
 python -m pip install .
-llm-csp demo --output ./runs
+llm-csp demo
 ~~~
 
-The demo is a no-network software installation smoke. It checks package import,
+The demo is an offline installation/workflow smoke test. It checks package import,
 configuration, synthetic retrieval-fixture handling, SPP required-pair logic,
-QLIP request construction, and the lazy validation adapter. It does not solve,
-does not require Gurobi or POT assets, and labels its output as not a scientific
-prediction. Install the supported SCA validation backend separately through:
+QLIP request construction, and the lazy validation adapter. No optimization is
+run. No scientific POT library is bundled. The result is not a crystal
+prediction. Install the supported SCA validation backend through:
 
 ~~~shell
 python -m pip install ".[validation]"
@@ -50,6 +55,10 @@ llm-csp run --config configs/examples/srtio3_production.json --output ./runs --j
 
 Production corpora, embeddings, broad POT trees, model weights, and benchmark
 outputs are not bundled and are not downloaded automatically.
+
+Reproducibility requirements and exact source/dependency provenance are in
+`docs/reproducibility.md`, `docs/packaging/RELEASE_DEPENDENCY_MATRIX.md`, and
+`docs/packaging/SCA_VALIDATION_CONTRACT.md`.
 
 ## Status
 

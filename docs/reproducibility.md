@@ -3,13 +3,13 @@
 The public no-external-assets software smoke is:
 
 ~~~shell
-llm-csp demo --output ./runs
+llm-csp demo
 ~~~
 
 It deterministically checks configuration, a newly authored synthetic
 retrieval fixture, required-pair derivation, QLIP request construction, and the
-lazy validation boundary. It performs no solve and is explicitly not a
-scientific prediction.
+lazy validation boundary. No optimization is run. No scientific POT library
+is bundled. The result is not a crystal prediction.
 
 The historical migration regression used a fixed SrTiO3 request/design space,
 six now-excluded POT assets, one solver thread, seed zero, a 30-second limit,

@@ -2,14 +2,52 @@ cff-version: 1.2.0
 message: "If you use LLM-CSP, please cite this software."
 title: "LLM-CSP"
 type: software
+abstract: >-
+  A deterministic, retrieval-guided crystal-structure prediction workflow
+  integrating Crystal-DB, statistical pair-potential guidance, QLIP solving,
+  and optional SCA validation.
 authors:
   - family-names: "Browning"
     given-names: "Christian"
 version: 0.1.0
+date-released: 2026-09-12
+license: MIT
 repository-code: "https://github.com/ChristianBrowning213/CSP-LLM-Workflow-Package"
+url: "https://github.com/ChristianBrowning213/CSP-LLM-Workflow-Package"
+keywords:
+  - crystal structure prediction
+  - materials informatics
+  - integer programming
 preferred-citation:
   type: software
   title: "LLM-CSP"
   authors:
     - family-names: "Browning"
       given-names: "Christian"
+  version: 0.1.0
+  repository-code: "https://github.com/ChristianBrowning213/CSP-LLM-Workflow-Package"
+references:
+  - type: software
+    title: "QLIP"
+    authors:
+      - family-names: "Gusev"
+        given-names: "Vladimir V."
+    repository-code: "https://github.com/vlgusev/qlip"
+  - type: article
+    title: "Covalent radii revisited"
+    authors:
+      - family-names: "Cordero"
+        given-names: "Beatriz"
+    doi: "10.1039/B801115J"
+  - type: article
+    title: "Molecular Single-Bond Covalent Radii for Elements 1-118"
+    authors:
+      - family-names: "Pyykko"
+        given-names: "Pekka"
+    doi: "10.1002/chem.200901472"
+  - type: article
+    title: "Atomic weights of the elements 2013"
+    authors:
+      - family-names: "Meija"
+        given-names: "Juris"
+    doi: "10.1515/pac-2015-0305"

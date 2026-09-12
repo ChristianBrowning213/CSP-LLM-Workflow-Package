@@ -1,0 +1,28 @@
+LLM-CSP v0.1.0 verification dependency snapshot
+
+This is a verification-environment snapshot, not a fully locked production
+environment.
+
+Python==3.12.10
+llm-csp==0.1.0
+crystal-db==0.1.0
+qlip==0.1.0
+sca==0.1.1
+numpy==2.5.3
+scipy==1.18.1
+ase==3.27.0
+pymatgen==2026.5.4
+pymatgen-core==2026.8.30
+pyomo==6.10.1
+gurobipy==13.0.3
+PyYAML==6.0.3
+mendeleev==1.1.0
+smact==4.0.0
+pandas==2.3.3
+pydantic==2.13.5
+rich==15.0.0
+tqdm==4.70.1
+typer==0.24.2
+click==8.5.0
+jsonschema==4.26.0
+mcp==1.30.0
