@@ -1,18 +1,17 @@
-import shutil
-
 from llm_csp.schemas import SPPConfig
 from llm_csp.workflow.spp_policy import prepare_spp_guidance
-from qlip.resources import bundled_spp_root
+from tests.pot_fixtures import write_synthetic_pot_root
 
 
 PAIRS = ["O-O", "O-Sr", "O-Ti", "Sr-Sr", "Sr-Ti", "Ti-Ti"]
 
 
 def test_regulator_only_policy_preserves_all_pair_hashes(tmp_path) -> None:
+    source_root = write_synthetic_pot_root(tmp_path / "source", PAIRS)
     result = prepare_spp_guidance(
         formula="SrTiO3",
         evidence=(),
-        config=SPPConfig(request_mode="disabled", regulator_root=bundled_spp_root()),
+        config=SPPConfig(request_mode="disabled", regulator_root=source_root),
         output_root=tmp_path / "spp",
     )
     assert result["ready"] is True
@@ -23,12 +22,7 @@ def test_regulator_only_policy_preserves_all_pair_hashes(tmp_path) -> None:
 
 
 def test_missing_regulator_pair_blocks_before_qlip(tmp_path) -> None:
-    incomplete = tmp_path / "source"
-    for pair in PAIRS[:-1]:
-        source = bundled_spp_root() / pair / f"{pair}.POT"
-        destination = incomplete / pair / f"{pair}.POT"
-        destination.parent.mkdir(parents=True)
-        shutil.copyfile(source, destination)
+    incomplete = write_synthetic_pot_root(tmp_path / "source", PAIRS[:-1])
 
     result = prepare_spp_guidance(
         formula="SrTiO3",
@@ -54,12 +48,7 @@ def test_missing_source_root_has_distinct_configuration_error(tmp_path) -> None:
 
 
 def test_invalid_regulator_pot_blocks_before_qlip(tmp_path) -> None:
-    source_root = tmp_path / "source"
-    for pair in PAIRS:
-        source = bundled_spp_root() / pair / f"{pair}.POT"
-        destination = source_root / pair / f"{pair}.POT"
-        destination.parent.mkdir(parents=True)
-        shutil.copyfile(source, destination)
+    source_root = write_synthetic_pot_root(tmp_path / "source", PAIRS)
     (source_root / "O-O" / "O-O.POT").write_text("not a POT\n", encoding="utf-8")
 
     result = prepare_spp_guidance(

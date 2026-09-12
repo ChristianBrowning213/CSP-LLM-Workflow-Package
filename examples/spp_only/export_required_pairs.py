@@ -1,16 +1,15 @@
-"""Export the six canonical SrTiO3 POTs from packaged QLIP resources."""
+"""Export required SrTiO3 pairs from a user-supplied POT library."""
 
 import argparse
 import json
 from pathlib import Path
 
 from llm_csp.spp import export_required_pot_subset
-from qlip.resources import bundled_spp_root
 
 
 parser = argparse.ArgumentParser()
 parser.add_argument("output_root", type=Path, help="Empty writable output directory")
-parser.add_argument("--source-pot-root", type=Path, default=bundled_spp_root())
+parser.add_argument("--source-pot-root", type=Path, required=True)
 args = parser.parse_args()
 
 result = export_required_pot_subset(

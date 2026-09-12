@@ -90,7 +90,9 @@ when YAML covalent-exclusion rules are loaded, but it is declared rather than
 being left as an undeclared dynamic dependency. No Pydantic, plotting, notebook,
 benchmark, MCP, or paper dependency is pulled in by this selected API.
 
-The bundled QLIP SrTiO3 six-POT set remains a QLIP test/example resource. No
+The historical QLIP SrTiO3 six-POT set was a QLIP test/example resource. Ticket
+14 removed it from the public tree because parameter provenance remained
+unresolved. No
 broad POT library, generated statistical potential, production CIF corpus, or
 SPP benchmark artifact was added.
 
@@ -104,7 +106,7 @@ SPP benchmark artifact was added.
 - The synthetic NaCl source/package parity probe matched required, fitted, and
   missing pairs, pair statistics, exported POT SHA-256 values, and standalone
   score diagnostics exactly.
-- The exact six bundled SrTiO3 POTs were exported and accepted by installed
+- Historically, the exact six SrTiO3 POTs were exported and accepted by installed
   QLIP; its optimal objective and independent periodic score agreed to floating
   precision (`4.883033620558714` versus `4.883033620558713`).
 

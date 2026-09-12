@@ -12,12 +12,15 @@ license = "MIT"
 license-files = ["LICENSE", "packages/qlip/LICENSE"]
 authors = [{ name = "Christian Browning" }]
 dependencies = [
-    "ase>=3.22",
+    "ase==3.27.0",
+    "mendeleev==1.1.0",
     "numpy>=1.26",
-    "pymatgen",
+    "pymatgen==2026.5.4",
+    "pymatgen-core==2026.8.30",
     "pyomo",
     "PyYAML>=6.0",
     "scipy",
+    "smact==4.0.0",
     "gurobipy",
     "jsonschema>=4",
 ]
@@ -33,9 +36,12 @@ where = ["src", "packages/qlip/src", "packages/crystal_db/src"]
 
 [tool.setuptools.package-data]
 qlip = [
-    "resources/*.json",
     "resources/base/*.json",
     "resources/schemas/*.json",
-    "resources/spp/*/*.POT",
 ]
 crystal_db = ["schemas/*.json", "configs/*.json"]
+
+[tool.pytest.ini_options]
+markers = [
+    "requires_external_scientific_assets: optional scientific E2E requiring a lawful user POT root",
+]

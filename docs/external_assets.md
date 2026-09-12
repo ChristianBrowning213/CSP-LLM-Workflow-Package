@@ -19,8 +19,9 @@ database path.
 
 ## SPP
 
-The six SrTiO3 regulator POT files needed by the offline demo are bundled.
-Production chemistry requires a separate broad regulator/source POT root.
+No scientific POT file is bundled. Production chemistry requires a compatible
+user-supplied regulator/source POT root, or POTs fitted/generated from evidence
+the user is entitled to use.
 Every unordered elemental pair derived from the target formula must exist and
 pass the POT quality audit. Missing or invalid pairs block QLIP.
 
@@ -29,8 +30,10 @@ SPP_SOURCE_POT_ROOT. No broad corpus is bundled or downloaded.
 
 ## QLIP
 
-QLIP chemistry JSON, schemas, and the six demo POTs are bundled. Each request
-must provide a finite explicit design space. Solving requires gurobipy, the
+QLIP schemas and resolved policy/provenance JSON are bundled. Element, radii,
+and ionic-radii tables are generated lazily in memory from pinned dependencies;
+no cache file or network is used. Each solving request must provide a finite
+explicit design space and compatible POT root. Solving requires gurobipy, the
 Gurobi native runtime, and a usable licence. There is no fallback solver.
 Optional NASICON/scaffold corpora and generated motif catalogs are user-supplied
 through explicit arguments (or QLIP_SCAFFOLD_CORPUS_ROOT for scaffold data);
@@ -67,8 +70,8 @@ structured backend_unavailable result; a generated candidate is preserved.
 | CRYSTALDB_EMBED_CHUNKING | Crystal-DB | No | true | Long-document chunking |
 | SPP_SOURCE_POT_ROOT | SPP | Production unless config root supplied | Below explicit regulator_root | Broad POT root |
 | QLIP_SOLVER | QLIP standalone | No | gurobi | Solver selector; integrated workflow accepts only gurobi |
-| QLIP_BASE_DATA_DIR | QLIP standalone | No | Bundled base chemistry | Explicit chemistry-data override |
-| QLIP_SPP_POT_DIR | QLIP standalone | No | Request context, then bundled demo POTs | Primary POT root |
+| QLIP_BASE_DATA_DIR | QLIP standalone | No | In-memory generated chemistry plus bundled policy/provenance | Explicit complete chemistry-data override |
+| QLIP_SPP_POT_DIR | QLIP standalone | For an SPP solve unless request context supplies a root | No default | Primary user-supplied POT root |
 | QLIP_SPP_REGULARISATION_DIR | QLIP standalone | No | Request context | Regulator POT root; REGULARIZATION spelling is a supported alias |
 | QLIP_SCAFFOLD_CORPUS_ROOT | QLIP scaffold registry | Optional | None | Explicit external scaffold corpus |
 

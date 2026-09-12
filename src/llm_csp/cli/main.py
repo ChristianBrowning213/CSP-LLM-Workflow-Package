@@ -34,7 +34,7 @@ def _parser() -> argparse.ArgumentParser:
     run.add_argument("--config", required=True, type=Path, help="workflow JSON configuration")
     run.add_argument("--output", type=Path, help="override config.output_root")
     run.add_argument("--json", action="store_true", dest="json_output", help="emit only JSON")
-    demo = commands.add_parser("demo", help="run the bundled offline SrTiO3 workflow")
+    demo = commands.add_parser("demo", help="run a no-network software installation smoke check")
     demo.add_argument("--output", required=True, type=Path, help="new parent directory for demo results")
     demo.add_argument("--json", action="store_true", dest="json_output", help="emit only JSON")
     return parser
@@ -89,22 +89,52 @@ def _offline_provider(**kwargs: Any) -> RetrievalStageResult:
     )
 
 
-def _offline_config(output: Path) -> WorkflowConfig:
-    from qlip.resources import bundled_spp_root
+def _public_smoke(output: Path) -> dict[str, Any]:
+    """Exercise public software boundaries without POT assets or solving."""
 
-    return WorkflowConfig(
-        output_root=output,
-        spp=SPPConfig(
-            request_mode="disabled",
-            regulator_root=bundled_spp_root(),
-            request_coefficient=1.0,
-            regulator_coefficient=1.0,
-            outer_objective_scale=1.0,
-        ),
+    from llm_csp.generation import compile_qlip_request
+    from llm_csp.spp.required_pairs import derive_required_pairs, parse_formula_elements
+    from llm_csp.validation import validate_cif
+
+    output.mkdir(parents=True, exist_ok=False)
+    retrieval_dir = output / "retrieval"
+    retrieval_dir.mkdir()
+    retrieval = _offline_provider(export_dir=retrieval_dir)
+    request = _offline_request()
+    pairs = derive_required_pairs(parse_formula_elements(request.formula))
+    external_root = "/path/to/your/pot/library"
+    spp = {
+        "ready": True,
+        "required_pairs": pairs,
+        "request_supported_pairs": [],
+        "regulator_fallback_pairs": pairs,
+        "request_root": None,
+        "regulator_root": external_root,
+    }
+    compiled = compile_qlip_request(
+        request=request,
+        spp=spp,
+        spp_config=SPPConfig(request_mode="disabled", regulator_root=Path(external_root)),
         generation=GenerationConfig(time_limit_s=30),
-        retrieval_provider=_offline_provider,
-        run_id="offline-srtio3",
+        run_id="public-installation-smoke",
     )
+    validation = validate_cif(retrieval.records[0].cif_path, target_formula=request.formula)
+    payload = {
+        "status": "installation_smoke_passed",
+        "scientific_prediction": False,
+        "notice": "No optimization was run; no scientific POT assets are bundled.",
+        "checks": {
+            "configuration": True,
+            "retrieval_fixture": len(retrieval.records) == 1,
+            "required_pairs": pairs,
+            "qlip_request_constructed": compiled["context"]["pot_root"] == external_root,
+            "validation_adapter_status": validation.status,
+        },
+    }
+    (output / "smoke.json").write_text(
+        json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+    )
+    return payload
 
 
 def _error(message: str, *, json_output: bool, error_type: str = "invalid_input") -> None:
@@ -129,8 +159,9 @@ def main(argv: Sequence[str] | None = None) -> int:
     args = _parser().parse_args(argv)
     try:
         if args.command == "demo":
-            request = _offline_request()
-            config = _offline_config(args.output)
+            payload = _public_smoke(args.output)
+            print(json.dumps(payload, indent=None if args.json_output else 2, sort_keys=True))
+            return EXIT_SUCCESS
         else:
             payload = json.loads(args.config.read_text(encoding="utf-8"))
             if not isinstance(payload, dict) or "request" not in payload or "config" not in payload:

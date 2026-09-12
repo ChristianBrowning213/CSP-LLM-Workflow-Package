@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import io
+from pathlib import Path
+import tempfile
 from typing import Any
 
 import numpy as np
@@ -8,8 +10,15 @@ import pyomo.environ as pyo
 from ase import Atoms
 from ase.io import write
 
-from qlip.resources import bundled_spp_root
+from tests.pot_fixtures import write_synthetic_pot_root
 
+
+_TEST_POT_TEMP = tempfile.TemporaryDirectory(
+    prefix=".llm-csp-test-pots-", dir=Path.cwd()
+)
+_TEST_POT_ROOT = write_synthetic_pot_root(
+    Path(_TEST_POT_TEMP.name), ["O-O", "O-Sr", "O-Ti", "Sr-Sr", "Sr-Ti", "Ti-Ti"]
+)
 
 def base_request(formula: str = "SrTiO3", density: int = 2) -> dict[str, Any]:
     return {
@@ -35,7 +44,7 @@ def base_request(formula: str = "SrTiO3", density: int = 2) -> dict[str, Any]:
         "guidance": [],
         "solver": {"name": "gurobi"},
         "context": {
-            "pot_root": str(bundled_spp_root()),
+            "pot_root": str(_TEST_POT_ROOT),
         },
     }
 

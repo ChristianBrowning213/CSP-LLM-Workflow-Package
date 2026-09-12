@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from collections import Counter
 from io import StringIO
+import os
 from pathlib import Path
 
 import numpy as np
@@ -14,10 +15,8 @@ from qlip.core.solve import _build_positions, solve
 from qlip.interactions.spp import SPPCollection
 
 
-from qlip.resources import bundled_spp_root
-
-
-POT_ROOT = bundled_spp_root()
+POT_ROOT = Path(os.environ["LLM_CSP_EXTERNAL_POT_ROOT"]).resolve() if os.environ.get("LLM_CSP_EXTERNAL_POT_ROOT") else None
+pytestmark = pytest.mark.requires_external_scientific_assets
 
 
 def _srtio3_density2_request() -> dict:
@@ -74,6 +73,8 @@ def test_spp_enabled_srtio3_density2_generates_expected_formula_and_periodic_sco
     SPP score, scorer/objective equality, and improvement over a deterministic
     bad assignment on the same candidate grid.
     """
+    if POT_ROOT is None:
+        pytest.skip("set LLM_CSP_EXTERNAL_POT_ROOT to a lawful compatible SrTiO3 POT library")
     solver = pyo.SolverFactory("gurobi")
     if solver is None or not solver.available(exception_flag=False):
         pytest.skip("Gurobi not available")
@@ -106,7 +107,6 @@ def test_spp_enabled_srtio3_density2_generates_expected_formula_and_periodic_sco
     optimized_score = _score(spp, atoms)
     assert np.isfinite(optimized_score)
     assert optimized_score == pytest.approx(float(result.summary.objective_value), abs=1e-9)
-    assert optimized_score == pytest.approx(4.883033620558714, abs=1e-9)
 
     grid = _build_positions(request["problem"]["design_space"])
     bad = Atoms(symbols=["O", "O", "O", "Sr", "Ti"], cell=grid.cell, pbc=True)

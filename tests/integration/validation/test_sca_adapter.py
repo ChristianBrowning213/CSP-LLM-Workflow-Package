@@ -3,8 +3,12 @@ from __future__ import annotations
 from ase.build import bulk
 from ase.io import write
 from pymatgen.io.ase import AseAtomsAdaptor
+import pytest
 
 from llm_csp.validation import validate_cif, validate_family_topology
+
+pytest.importorskip("sca", reason="SCA is an excluded optional backend")
+
 from sca.evaluators.topology import family_topology_metrics
 from sca.pipelines import evaluate_one_cif
 

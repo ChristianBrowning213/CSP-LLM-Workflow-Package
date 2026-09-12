@@ -3,8 +3,6 @@ from pathlib import Path
 import numpy as np
 from scipy.interpolate import interp1d
 
-from qlip.resources import bundled_spp_root
-
 DEFAULT_SPP_CUTOFF = 11.0
 ZERO_DISTANCE_TOL = 1e-12
 SOFT_MISSING_PAIR_R0 = 2.0
@@ -12,17 +10,16 @@ SOFT_MISSING_PAIR_POWER = 6.0
 SOFT_MISSING_PAIR_MAX = 100.0
 REGULARISATION_ENV_VARS = ("QLIP_SPP_REGULARISATION_DIR", "QLIP_SPP_REGULARIZATION_DIR")
 
-def _default_spp_dir() -> Path:
-    return bundled_spp_root()
-
-
 def _resolve_spp_dir(cli_or_arg=None) -> Path:
     if cli_or_arg:
         return Path(cli_or_arg).expanduser().resolve()
     env = os.environ.get("QLIP_SPP_POT_DIR")
     if env:
         return Path(env).expanduser().resolve()
-    return _default_spp_dir()
+    raise RuntimeError(
+        "SPP POT root is required; provide pot_root or set QLIP_SPP_POT_DIR "
+        "to a compatible user-supplied POT library"
+    )
 
 
 def _canonical_symbol(symbol):
@@ -207,8 +204,8 @@ class SPPCollection:
             raise RuntimeError(
                 "SPP POT root not found.\n"
                 f"expected: {self.spp_dir}\n"
-                "Fix: ensure POTs exist under src\\qlip\\interactions\\SPP\\SPP\\ "
-                "or set QLIP_SPP_POT_DIR to that directory."
+                "Fix: provide pot_root or set QLIP_SPP_POT_DIR to a compatible "
+                "user-supplied POT library."
             )
         self.spps = {}  # Dictionary to store SPP objects for each atom pair
         self.maps = {}  # Dictionary of vectorised function to map distances to spp

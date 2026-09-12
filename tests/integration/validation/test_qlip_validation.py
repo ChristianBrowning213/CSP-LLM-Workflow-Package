@@ -1,13 +1,14 @@
 from __future__ import annotations
 
+import os
+from pathlib import Path
+
 import pytest
 import pyomo.environ as pyo
 
 from llm_csp.validation import validate_cif
 from qlip.core.solve import solve
-from qlip.resources import bundled_spp_root
-
-
+pytestmark = pytest.mark.requires_external_scientific_assets
 def _request(pot_root):
     return {
         "version": "1.0",
@@ -39,15 +40,18 @@ def _request(pot_root):
 
 
 def test_packaged_qlip_cif_is_accepted_by_validation(tmp_path, monkeypatch) -> None:
+    raw_root = os.environ.get("LLM_CSP_EXTERNAL_POT_ROOT")
+    if not raw_root:
+        pytest.skip("set LLM_CSP_EXTERNAL_POT_ROOT to a lawful compatible SrTiO3 POT library")
     solver = pyo.SolverFactory("gurobi")
     if solver is None or not solver.available(exception_flag=False):
         pytest.skip("Gurobi not available")
-    pot_root = bundled_spp_root()
+    pot_root = Path(raw_root).resolve()
     monkeypatch.setenv("QLIP_ALLOWED_PATH_ROOTS", str(pot_root.parent))
 
     solved = solve(_request(pot_root))
     assert solved.status == "OPTIMAL"
-    assert solved.summary.objective_value == pytest.approx(4.883033620558714, abs=1e-9)
+    assert solved.summary.objective_value is not None
     cif_path = tmp_path / "qlip_srtio3.cif"
     cif_path.write_text(solved.outputs.cif, encoding="utf-8")
 

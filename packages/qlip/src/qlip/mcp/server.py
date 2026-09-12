@@ -31,7 +31,7 @@ from qlip.mcp.boundary import (
 )
 from qlip.mcp.normalize import normalize_tool_args
 from qlip.plugins.registry import ConstraintRegistry, GuidanceRegistry
-from qlip.resources import bundled_spp_root, schema_path
+from qlip.resources import schema_path
 
 
 def _repo_root() -> Path:
@@ -1001,9 +1001,7 @@ def _minimal_solve_request_example() -> tuple[Dict[str, Any], bool]:
         "constraints": constraints,
         "guidance": guidance,
         "solver": {"name": "gurobi"},
-        "context": {
-            "pot_root": str(bundled_spp_root())
-        },
+        "context": {"pot_root": "/path/to/your/pot/library"},
     }
     placeholders_needed = not (has_constraint and has_guidance)
     return example, placeholders_needed

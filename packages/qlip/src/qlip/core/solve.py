@@ -26,7 +26,6 @@ from qlip.core.validate import validate_request
 from qlip.grids import uniform
 from qlip.interactions.spp import SPPCollection
 from qlip.plugins.registry import ConstraintRegistry, GuidanceRegistry
-from qlip.resources import bundled_spp_root
 from qlip.visualization.plot import _extract_placements
 
 _SUCCESS_STATUSES = {"OPTIMAL", "FEASIBLE"}
@@ -57,8 +56,10 @@ def _resolve_pot_root(context: Dict[str, Any]) -> Path:
     pot_root = _to_text(context.get("pot_root"))
     if pot_root:
         return resolve_and_check_path(pot_root, allowed_path_roots(), must_exist=True)
-    default_root = bundled_spp_root()
-    return resolve_and_check_path(default_root, allowed_path_roots(), must_exist=True)
+    raise ValueError(
+        "SPP objective requires context.pot_root (or guidance POT parameters) "
+        "pointing to a compatible user-supplied POT library"
+    )
 
 
 def _pair_name(pair: Tuple[str, str]) -> str:

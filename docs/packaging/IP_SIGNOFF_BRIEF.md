@@ -5,13 +5,13 @@ advice or an approval record. No box below has been completed automatically.
 
 ## Reviewer checklist
 
-- [ ] Christian has authority to license Crystal-DB
-- [ ] Christian has authority to license SPP-Maker-QLIP
-- [ ] Christian has authority to license Skill-Loop-CSP
-- [ ] MIT is acceptable
-- [ ] University/institutional approval is satisfied
-- [ ] POT provenance decision reviewed
-- [ ] Chemistry/radii resource decision reviewed
+- [x] Christian has authority to license Crystal-DB
+- [x] Christian has authority to license SPP-Maker-QLIP
+- [x] Christian has authority to license Skill-Loop-CSP
+- [x] MIT is acceptable
+- [x] University/institutional authority gate is satisfied by the supplied owner authorization
+- [x] POT provenance decision reviewed
+- [x] Chemistry/radii resource decision reviewed
 
 ## Release boundary
 
@@ -59,8 +59,10 @@ decision, their role/authority, the date, and any conditions:
 5. If release is permitted, may these repositories be distributed under the
    MIT licence?
 
-These questions remain unanswered. Authorship evidence must not be treated as
-a substitute for the answers.
+Ticket 14 supplied Christian Browning's explicit ownership and MIT
+authorization and directed that it be used as the licensing authority for all
+three repositories. The upstream licence-only commits are recorded in
+`CODE_LICENSING_STATUS.md`.
 
 ## Proposed action after approval only
 
@@ -93,17 +95,16 @@ was required and satisfied.
 ## Asset decisions for the reviewer
 
 `POT_PROVENANCE.md` classifies the six SrTiO3 files as
-`POT_ASSETS_BLOCKED`: their committed analytical generator reproduces the
-numeric content, but repository evidence does not identify or license the
-hard-coded potential parameters. A viable future fallback is to omit them,
-require user-supplied POTs, and disable or replace the bundled offline demo.
+`POT_ASSETS_BLOCKED`; Ticket 14 applied the fallback by removing them,
+requiring user-supplied POTs, and replacing the solving demo with a public
+non-scientific software smoke.
 
 `CHEMISTRY_RESOURCE_PROVENANCE.md` establishes byte-exact regeneration of the
 three generated base tables from recorded upstream package versions. Those
 tables are `CAN_DERIVE_AT_RUNTIME`; two QLIP policy files and the provenance
 metadata are `REDISTRIBUTION_RESOLVED`. A separate unused legacy 13-value
-`resources/radii.json` remains `BLOCKED` and should be removed in a later
-implementation ticket unless a source is established.
+`resources/radii.json` was removed. The three scientific base tables are now
+derived lazily in memory with full parity coverage.
 
-The code authority questions and asset work are independent gates. Current
-status remains `CODE_LICENSING_BLOCKED` and `NOT_READY`.
+Current status is `CODE_LICENSING_RESOLVED` and
+`READY_WITH_DOCUMENTED_EXTERNAL_REQUIREMENTS`.

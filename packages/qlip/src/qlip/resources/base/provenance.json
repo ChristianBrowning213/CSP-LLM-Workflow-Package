@@ -17,11 +17,22 @@
     "radii.vdw_radius_mendeleev_angstrom": "mendeleev_vdw_radius"
   },
   "generated_at_utc": "2026-08-05T12:34:33+00:00",
-  "generator": "scripts/build_base_data.py",
+  "generator": "qlip.data.generated (runtime form of scripts/build_base_data.py)",
+  "runtime_generation": {
+    "network_required": false,
+    "persistence": "in_memory_only",
+    "resources": [
+      "elements.json",
+      "radii.json",
+      "ionic_radii.json"
+    ],
+    "summary": "Scientific element and radius tables are generated lazily from pinned upstream Python dependencies and are not redistributed as JSON tables."
+  },
   "package_versions": {
     "ase": "3.27.0",
     "mendeleev": "1.1.0",
     "pymatgen": "2026.5.4",
+    "pymatgen-core": "2026.8.30",
     "smact": "4.0.0"
   },
   "schema_version": "1.1",

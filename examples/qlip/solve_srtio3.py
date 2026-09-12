@@ -1,18 +1,19 @@
-"""Offline QLIP smoke solve using the six bundled SrTiO3 POT files."""
+"""QLIP SrTiO3 example requiring a user-supplied compatible POT root."""
 
 from __future__ import annotations
 
+import argparse
 from collections import Counter
 from io import StringIO
+from pathlib import Path
 
 from ase.io import read
 
 from qlip import solve
 from qlip.core.validate import validate_request
-from qlip.resources import bundled_spp_root
 
 
-def request() -> dict:
+def request(pot_root: Path) -> dict:
     return {
         "version": "1.0",
         "problem": {
@@ -38,12 +39,15 @@ def request() -> dict:
         "guidance": [],
         "solver": {"name": "gurobi", "time_limit_s": 30},
         "artifacts": {"return_cif": True},
-        "context": {"pot_root": str(bundled_spp_root())},
+        "context": {"pot_root": str(pot_root.resolve())},
     }
 
 
 def main() -> None:
-    solve_request = request()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--pot-root", type=Path, required=True)
+    args = parser.parse_args()
+    solve_request = request(args.pot_root)
     validation = validate_request(solve_request, strict=True)
     if not validation.valid:
         raise RuntimeError(validation.to_dict())

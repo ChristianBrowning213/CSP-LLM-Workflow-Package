@@ -7,6 +7,10 @@ from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional
 
 from qlip.resources import base_data_root
+from qlip.data.generated import generated_resource
+
+
+GENERATED_RESOURCES = frozenset({"elements.json", "radii.json", "ionic_radii.json"})
 
 
 class BaseDataRegistry:
@@ -16,6 +20,8 @@ class BaseDataRegistry:
     def load_json(self, name: str) -> Dict[str, Any]:
         path = self.data_dir / name
         if not path.exists():
+            if self.data_dir == base_data_root() and name in GENERATED_RESOURCES:
+                return generated_resource(name)
             raise FileNotFoundError(f"QLIP base data file not found: {path}")
         return json.loads(path.read_text(encoding="utf-8"))
 

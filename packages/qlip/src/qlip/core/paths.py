@@ -5,7 +5,7 @@ import re
 from pathlib import Path
 from typing import Iterable, List
 
-from qlip.resources import bundled_spp_root, package_root
+from qlip.resources import package_root
 
 
 def find_repo_root(start: Path | None = None) -> Path:
@@ -46,7 +46,6 @@ def allowed_path_roots() -> List[Path]:
     return [
         Path.cwd().resolve(),
         package,
-        bundled_spp_root(),
     ]
 
 

@@ -31,7 +31,7 @@
     },
     "spp": {
       "request_mode": "fit",
-      "regulator_root": "REPLACE_WITH_BROAD_POT_ROOT",
+      "regulator_root": "/path/to/your/pot/library",
       "cutoff": 11.0,
       "request_coefficient": 1.0,
       "regulator_coefficient": 2.0,

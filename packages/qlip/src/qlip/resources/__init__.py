@@ -17,8 +17,11 @@ def base_data_root() -> Path:
 
 
 def bundled_spp_root() -> Path:
-    """Return the bundled canonical SPP POT directory."""
-    return Path(str(files("qlip.resources").joinpath("spp"))).resolve()
+    """Report that scientific POT assets are intentionally external."""
+    raise RuntimeError(
+        "QLIP does not distribute scientific POT assets; provide pot_root or set "
+        "QLIP_SPP_POT_DIR to a compatible user-supplied POT library"
+    )
 
 
 def schema_path(name: str) -> Path:

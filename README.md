@@ -21,20 +21,18 @@ python -m pip install .
 llm-csp demo --output ./runs
 ~~~
 
-The demo uses deterministic synthetic SrTiO3 retrieval evidence and six bundled
-SrTiO3 POT files. It exercises the real workflow, QLIP/Gurobi solver, generated
-CIF, and the validation boundary. It needs a working Gurobi runtime/licence but
-no production database, embedding server, network, or broad POT corpus after
-installation. SCA is not installed or advertised by this public package while
-its upstream licence is unresolved. Without a separately authorized compatible
-SCA installation, the candidate is preserved with validation reported as
-unavailable and the CLI exits with backend-unavailable status `3`.
+The demo is a no-network software installation smoke. It checks package import,
+configuration, synthetic retrieval-fixture handling, SPP required-pair logic,
+QLIP request construction, and the lazy validation adapter. It does not solve,
+does not require Gurobi or POT assets, and labels its output as not a scientific
+prediction. SCA is not installed by this public package.
 
 ## Production requirements
 
 - A compatible Crystal-DB SQLite/index and exportable CIF records.
 - A matching BGE-M3 service, normally an LM Studio-compatible endpoint.
-- A user-supplied broad regulator POT library covering every required pair.
+- A compatible user-supplied regulator POT library covering every required
+  pair, or POTs fitted from evidence the user is entitled to use.
 - An explicit finite QLIP design space.
 - Gurobi and a usable licence.
 - A separately authorized compatible validation backend when validation is
@@ -57,12 +55,12 @@ materials.
 
 ## Upstream software and attribution
 
-QLIP-derived material retains its upstream MIT notice. Other migrated
-components and bundled scientific resources still require explicit owner and
-data-rights confirmation before public redistribution. See
+QLIP-derived material retains its upstream MIT notice. Crystal-DB,
+SPP-Maker-QLIP, and Skill-Loop-CSP are distributed under MIT with Christian
+Browning's explicit authorization. Blocked scientific resources are excluded. See
 `THIRD_PARTY_NOTICES.md`, `docs/packaging/SOURCE_ATTRIBUTION_MATRIX.csv`, and
 `docs/packaging/LICENSING_RELEASE_DECISION.md` for the exact boundaries.
 
-Release readiness remains `NOT_READY`; this repository must not be tagged or
-published until those licensing blockers are resolved. The full packaging
-assessment is in `docs/packaging/RELEASE_READINESS_AUDIT.md`.
+Release recommendation: `READY_WITH_DOCUMENTED_EXTERNAL_REQUIREMENTS`. No tag
+or public release is created by this work. The full assessment is in
+`docs/packaging/RELEASE_READINESS_AUDIT.md`.

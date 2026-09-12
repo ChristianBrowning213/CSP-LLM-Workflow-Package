@@ -27,7 +27,7 @@ dependency; MCP extras remain available only on the component projects.
 | LM Studio-compatible service | EXTERNAL_SYSTEM | Crystal-DB text retrieval | User managed | No | No | Yes in lmstudio mode | No | |
 | BGE-M3 model | EXTERNAL_DATA | Crystal-DB | User supplied | No | No | Yes in canonical production mode | No | Must match index identity/dimension |
 | Crystal-DB SQLite/index | EXTERNAL_DATA | Crystal-DB | User supplied | No | No | Yes | No | Not bundled |
-| Broad regulator POT tree | EXTERNAL_DATA | SPP/QLIP | User supplied | No | No | Indirectly | Yes for production chemistry | Six SrTiO3 demo POTs are bundled |
+| Broad regulator POT tree | EXTERNAL_DATA | SPP/QLIP | User supplied | No | No | Indirectly | Yes for production chemistry | No scientific POT is bundled; an explicit compatible root is required |
 
 Version strategy: llm-csp, crystal-db, and qlip use synchronized 0.1.0 versions
 for the first integrated contract. Independent semantic versioning may begin

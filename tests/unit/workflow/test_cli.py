@@ -61,3 +61,18 @@ def test_cli_exit_codes_distinguish_backend_and_scientific_failures(tmp_path, mo
 
 def test_help_is_ascii_console_safe() -> None:
     assert all(ord(char) < 128 for char in cli_module._parser().format_help())
+
+
+def test_public_demo_is_no_network_non_scientific_smoke(tmp_path, capsys) -> None:
+    output = tmp_path / "smoke"
+
+    code = cli_module.main(["demo", "--output", str(output), "--json"])
+
+    payload = json.loads(capsys.readouterr().out)
+    assert code == 0
+    assert payload["status"] == "installation_smoke_passed"
+    assert payload["scientific_prediction"] is False
+    assert payload["checks"]["required_pairs"] == [
+        "O-O", "O-Sr", "O-Ti", "Sr-Sr", "Sr-Ti", "Ti-Ti"
+    ]
+    assert (output / "smoke.json").is_file()

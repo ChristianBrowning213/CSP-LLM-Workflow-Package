@@ -78,16 +78,20 @@ Asset-set classification: **D. provenance unresolved**.
 
 Release classification: **POT_ASSETS_BLOCKED**.
 
+Ticket 14 distribution status: **REMOVED_FROM_PUBLIC_DISTRIBUTION**. The
+classification describes the assets; the hashes above remain their deletion
+identity.
+
 The generator and likely generation method are identifiable, but the source,
 creator authority, citation, and redistribution basis for its hard-coded
 scientific parameters are not. Generated numerical data is not presumed
 unrestricted.
 
-## Viable fallback (not implemented)
+## Applied fallback
 
-The public distribution can omit these six files while leaving QLIP and SPP
-software unchanged. A later ticket can require user-supplied POT assets and
-disable or replace the bundled offline SrTiO3 demonstration. Production use
+The public distribution omits these six files while leaving QLIP and SPP
+scientific algorithms unchanged. It requires user-supplied POT assets and
+replaces the bundled offline SrTiO3 demonstration. Production use
 already requires an appropriate user-supplied POT root for broader chemistry.
-Tests and examples that currently select the bundled resource would need to be
-adjusted in that later ticket. No removal or behavior change is made here.
+Scientific tests now require `LLM_CSP_EXTERNAL_POT_ROOT` and are marked
+`requires_external_scientific_assets`.

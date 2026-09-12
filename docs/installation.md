@@ -3,7 +3,8 @@
 ## Requirements
 
 - Python 3.11 or newer.
-- A supported Gurobi installation and usable licence for solving.
+- A supported Gurobi installation and usable licence for solving (not needed
+  for the installation smoke).
 
 From a repository clone, the supported integrated installation is:
 
@@ -30,11 +31,10 @@ buildable, but integrated users do not install them separately.
 llm-csp demo --output ./runs
 ~~~
 
-The command needs no production database, LM Studio endpoint, broad POT tree,
-or network. It requires Gurobi. With no separately authorized compatible SCA
-installation, candidate generation is preserved, validation reports
-backend_unavailable, and the CLI exits `3`; the public package does not provide
-an installation command for that backend.
+The command needs no production database, LM Studio endpoint, POT tree,
+Gurobi, or network. It validates software boundaries and writes `smoke.json`;
+it performs no optimization and produces no scientific prediction. The public
+package does not provide an SCA installation command.
 
 ## Production configuration
 
@@ -43,7 +43,8 @@ then run llm-csp run --config CONFIG --json. Supply:
 
 - a Crystal-DB database containing the matching text/index identity;
 - the LM Studio-compatible endpoint settings from .env.example;
-- a broad regulator POT root with every required pair;
+- a compatible user-supplied regulator POT root with every required pair, or
+  POTs fitted/generated from evidence the user is entitled to use;
 - a finite QLIP design space and solver limits;
 - a caller-owned output root.
 
