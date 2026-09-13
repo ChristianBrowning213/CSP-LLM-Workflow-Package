@@ -375,11 +375,17 @@ class ToolError:
     code: str
     message: str
     details: JSONMapping = field(default_factory=dict)
+    subsystem_status: str | None = None
+    retryable: bool = False
 
     def __post_init__(self) -> None:
         _non_empty(self.code, "code")
         _non_empty(self.message, "message")
         object.__setattr__(self, "details", _freeze(_require_mapping(self.details, "details")))
+        if self.subsystem_status is not None:
+            _non_empty(self.subsystem_status, "subsystem_status")
+        if not isinstance(self.retryable, bool):
+            raise TypeError("retryable must be boolean")
 
     def to_dict(self) -> dict[str, Any]:
         return _jsonable({name: getattr(self, name) for name in self.__dataclass_fields__})

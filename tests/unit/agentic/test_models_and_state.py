@@ -193,7 +193,7 @@ def test_decision_result_must_reference_known_tool_call() -> None:
 
 def test_tool_result_and_approved_request_references_must_be_known() -> None:
     call = ToolCall("call", "run_csp", {}, ActorRole.ORCHESTRATOR, result_ref="missing")
-    with pytest.raises(ValueError, match="known result artifact"):
+    with pytest.raises(ValueError, match="known result artifact or workflow run"):
         _minimal_state(tool_calls=(call,))
     approval = ApprovalRequest(
         "approval", ApprovalCategory.EXPAND_SEARCH_SPACE, "expand", {"new": 2}, ActorRole.PLANNER,

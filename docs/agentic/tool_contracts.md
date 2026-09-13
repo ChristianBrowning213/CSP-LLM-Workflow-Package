@@ -17,6 +17,10 @@ All paths are resolved beneath a configured run root. Inputs refer to registered
 artifact IDs or validated relative paths, never arbitrary model-provided system
 paths.
 
+Ticket 20 execution adds UTC timing, the validated input payload and schema,
+underlying API identity, result status, and conservative retryability to the
+operational provenance/error envelope. See `tool_adapters.md`.
+
 ## `search_crystal_db`
 
 **Description:** Retrieve attributable crystallographic evidence using the
@@ -40,8 +44,8 @@ backend provenance, compatibility metadata, and an evidence-artifact reference.
 **Failure states:** `missing_db`, `embedding_incompatible`, backend unavailable,
 invalid request, and system I/O error.
 
-**Side effects:** writes only the response/provenance JSON beneath the current
-agent-run directory. The database and indexes remain read-only.
+**Side effects:** none. The adapter disables CIF export and treats the configured
+database and indexes as read-only.
 
 **Deterministic API:** Crystal-DB `text_search`/public facade.
 
@@ -99,8 +103,8 @@ to the current run.
 unsupported topology policy, and system error. A scientifically invalid
 candidate is a successful tool invocation with a failing validation result.
 
-**Side effects:** writes validation JSON beneath the current run only; the CIF
-is read-only.
+**Side effects:** none. The CIF is read-only and the typed validation result is
+returned in the tool envelope.
 
 **Deterministic API:** `validate_cif` and `validate_family_topology`.
 

@@ -169,8 +169,8 @@ class AgentRunState:
             if decision.result_ref is not None and decision.result_ref not in tool_ids:
                 raise ValueError("decision result_ref must point to a known tool call")
         for call in self.tool_calls:
-            if call.result_ref is not None and call.result_ref not in artifacts_by_id:
-                raise ValueError("tool-call result_ref must point to a known result artifact")
+            if call.result_ref is not None and call.result_ref not in artifacts_by_id and call.result_ref not in run_ids:
+                raise ValueError("tool-call result_ref must point to a known result artifact or workflow run")
 
         request_refs = set(self.plan_step_ids) | tool_ids | set(groups["decision"])
         for approval in self.approvals:
@@ -214,6 +214,32 @@ class AgentRunState:
             raise ValueError("terminal agent state cannot accept a tool call")
         return replace(self, tool_calls=(*self.tool_calls, tool_call))
 
+    def replace_tool_call(self, tool_call: ToolCall) -> "AgentRunState":
+        if is_terminal(self.status):
+            raise ValueError("terminal agent state cannot update a tool call")
+        matches = [index for index, item in enumerate(self.tool_calls) if item.tool_call_id == tool_call.tool_call_id]
+        if len(matches) != 1:
+            raise ValueError("tool call must already exist exactly once in state")
+        calls = list(self.tool_calls)
+        existing = calls[matches[0]]
+        if (
+            existing.tool_name is not tool_call.tool_name
+            or existing.arguments != tool_call.arguments
+            or existing.requested_by is not tool_call.requested_by
+        ):
+            raise ValueError("tool-call replacement cannot change immutable request identity")
+        from .termination import transition_tool_call
+
+        if existing.status is ToolCallStatus.RUNNING:
+            transition_tool_call(existing, tool_call.status, result_ref=tool_call.result_ref)
+        elif tool_call.status in {ToolCallStatus.SUCCEEDED, ToolCallStatus.FAILED}:
+            running = transition_tool_call(existing, ToolCallStatus.RUNNING)
+            transition_tool_call(running, tool_call.status, result_ref=tool_call.result_ref)
+        else:
+            transition_tool_call(existing, tool_call.status, result_ref=tool_call.result_ref)
+        calls[matches[0]] = tool_call
+        return replace(self, tool_calls=tuple(calls))
+
     def append_workflow_run(self, workflow_run: WorkflowRunReference) -> "AgentRunState":
         if is_terminal(self.status):
             raise ValueError("terminal agent state cannot accept a workflow run")
@@ -224,6 +250,11 @@ class AgentRunState:
 
     def append_approval(self, approval: ApprovalRequest) -> "AgentRunState":
         return replace(self, approvals=(*self.approvals, approval))
+
+    def set_current_candidate(self, candidate: ArtifactReference) -> "AgentRunState":
+        if is_terminal(self.status):
+            raise ValueError("terminal agent state cannot change its candidate")
+        return replace(self, current_candidate=candidate)
 
     def to_dict(self) -> dict[str, Any]:
         return {

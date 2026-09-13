@@ -77,6 +77,14 @@ fixture is `tests/fixtures/agentic/canonical_agent_state.v1.json`.
 
 Construction checks currently enforce unique record IDs, produced-candidate
 references, evaluation-to-run references, workflow-run budget accounting,
-decision-to-tool-call result references, tool-call-to-artifact result
+decision-to-tool-call result references, tool-call-to-artifact/workflow-run result
 references, valid approved request references, no pending required approval at
 `SUCCESS`, and no active execution in a terminal run.
+
+Ticket 20 adds explicit replacement helpers for completed tool-call records and
+the current candidate. Its `apply_execution_to_state` helper appends a produced
+workflow reference (thereby consuming the existing immutable workflow budget),
+replaces the known tool call with its legally transitioned terminal record, and
+sets a produced candidate without interpreting whether it satisfies the goal.
+`ToolError` now also carries the original subsystem status and a conservative
+retryability flag.

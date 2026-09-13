@@ -88,7 +88,7 @@ class RunCSPInput:
     @classmethod
     def from_dict(cls, value: Any) -> "RunCSPInput":
         p = _strict_payload(value, set(cls.__dataclass_fields__), {"request", "config_ref", "parent_decision_id"})
-        p["request"] = CSPWorkflowRequest.from_dict(dict(_require_mapping(p["request"], "request")))
+        p["request"] = CSPWorkflowRequest.from_dict(_jsonable(_require_mapping(p["request"], "request")))
         return cls(**p)
 
 
@@ -101,7 +101,7 @@ class ValidateCandidateInput:
     schema_version: str = "llm_csp.agentic.validate_candidate.input.v1"
 
     def __post_init__(self) -> None:
-        if self.candidate_ref.kind.lower() not in {"candidate", "cif"}:
+        if self.candidate_ref.kind.lower() not in {"candidate", "cif", "candidate_cif"}:
             raise ValueError("candidate_ref must identify a candidate or CIF artifact")
         object.__setattr__(self, "validation_options", _freeze(_require_mapping(self.validation_options, "validation_options")))
         for value, name in ((self.target_formula, "target_formula"), (self.topology_family, "topology_family")):
@@ -120,7 +120,10 @@ class ValidateCandidateInput:
         return cls(**p)
 
 
-_INSPECT_SECTIONS = frozenset({"stages", "artifacts", "provenance", "warnings", "errors"})
+_INSPECT_SECTIONS = frozenset({
+    "summary", "retrieval", "spp", "solver", "candidate", "validation",
+    "stages", "artifacts", "provenance", "warnings", "errors",
+})
 
 
 @dataclass(frozen=True, slots=True)
@@ -173,23 +176,23 @@ class ToolContract:
 _CONTRACTS = {
     SupportedToolName.SEARCH_CRYSTAL_DB: ToolContract(
         SupportedToolName.SEARCH_CRYSTAL_DB, "Retrieve attributable crystallographic evidence.",
-        SearchCrystalDBInput, ToolResult, ("write response/provenance JSON",), ApprovalPolicy.PLAN_APPROVAL,
-        WriteScopePolicy.AGENT_RUN_ROOT, ("missing_db", "embedding_incompatible", "backend_unavailable", "invalid_request", "system_io_error"),
+        SearchCrystalDBInput, ToolResult, (), ApprovalPolicy.READ_ONLY,
+        WriteScopePolicy.NONE, ("missing_db", "embedding_incompatible", "backend_unavailable", "retrieval_transient_error", "no_results", "no_exportable_cifs"), True,
     ),
     SupportedToolName.RUN_CSP: ToolContract(
         SupportedToolName.RUN_CSP, "Run the deterministic CSP workflow.", RunCSPInput, ToolResult,
         ("create deterministic workflow run and artifacts",), ApprovalPolicy.PLAN_APPROVAL, WriteScopePolicy.AGENT_RUN_ROOT,
-        ("missing_db", "embedding_incompatible", "spp_incomplete", "gurobi_unavailable", "INFEASIBLE", "validation_failed", "system_error"),
+        ("missing_db", "embedding_incompatible", "spp_incomplete", "gurobi_unavailable", "INFEASIBLE", "validation_failed", "workflow_io_error", "system_error"),
     ),
     SupportedToolName.VALIDATE_CANDIDATE: ToolContract(
         SupportedToolName.VALIDATE_CANDIDATE, "Validate a registered candidate through the SCA boundary.",
-        ValidateCandidateInput, ToolResult, ("write validation JSON",), ApprovalPolicy.PLAN_APPROVAL, WriteScopePolicy.AGENT_RUN_ROOT,
-        ("candidate_missing", "parse_failure", "backend_unavailable", "unsupported_topology_policy", "system_error"),
+        ValidateCandidateInput, ToolResult, (), ApprovalPolicy.READ_ONLY, WriteScopePolicy.NONE,
+        ("candidate_unknown", "candidate_missing", "parse_failure", "backend_unavailable", "unsupported_topology_policy", "system_error"), True,
     ),
     SupportedToolName.INSPECT_RUN: ToolContract(
         SupportedToolName.INSPECT_RUN, "Read selected fields from an existing deterministic run.",
         InspectRunInput, ToolResult, (), ApprovalPolicy.READ_ONLY, WriteScopePolicy.NONE,
-        ("unknown_run", "corrupt_manifest", "hash_mismatch", "unauthorized_path", "system_error"), True,
+        ("unknown_run", "missing_manifest", "corrupt_manifest", "hash_mismatch", "unauthorized_path", "transient_io_error", "system_error"), True,
     ),
 }
 TOOL_CONTRACTS: Mapping[SupportedToolName, ToolContract] = MappingProxyType(_CONTRACTS)

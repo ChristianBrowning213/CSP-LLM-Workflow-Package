@@ -1,0 +1,20 @@
+{
+  "schema_version": "llm_csp.agentic.tool_sequence.v1",
+  "agent_state_fixture": "canonical_agent_state.v1.json",
+  "execution_context": {
+    "agent_run_id": "agent_sequence",
+    "run_root": "<temporary-run-root>",
+    "retrieval_config_refs": ["retrieval"],
+    "workflow_config_refs": ["workflow"]
+  },
+  "expected_results": {
+    "search_crystal_db": "retrieval_success",
+    "run_csp": "completed",
+    "validate_candidate": "evaluated",
+    "inspect_run": "inspected"
+  },
+  "expected_artifacts": [
+    "workflow_manifest",
+    "candidate_cif"
+  ]
+}
