@@ -3,6 +3,7 @@
 from .approvals import ApprovalRequest
 from .budgets import AgentBudgets
 from .models import AgentPlan, DecisionRecord, PlanStep, ToolCall
+from .planner import Planner
 from .state import AgentRunState
 from .termination import AgentRunStatus
 
@@ -14,5 +15,6 @@ __all__ = [
     "ApprovalRequest",
     "DecisionRecord",
     "PlanStep",
+    "Planner",
     "ToolCall",
 ]

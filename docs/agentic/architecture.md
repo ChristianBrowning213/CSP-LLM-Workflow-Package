@@ -207,9 +207,12 @@ src/llm_csp/agentic/
 `-- schemas/
 ```
 
-Planner, Run Manager, Evaluator, and Orchestrator modules remain intentionally
-absent until their roadmap tickets. See `state_model.md` for the implemented
-schema and invariant details.
+The provider-independent structured model boundary and initial Planner are now
+implemented. The Planner validates tool inputs against the closed registry,
+preserves typed constraints, performs bounded format correction, and stops for
+structured clarification without executing tools. Run Manager, Evaluator, and
+Orchestrator modules remain intentionally absent. See `state_model.md`,
+`model_boundary.md`, and `planner.md` for the implemented invariants.
 
 ## Testing strategy
 
