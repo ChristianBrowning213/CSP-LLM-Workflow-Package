@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Development toward the optional v0.2 agentic orchestration layer.
+
 ## 0.1.0
 
 ### Added
