@@ -78,7 +78,7 @@ No additional roles are justified for the first v0.2 milestone.
 
 ## Explicit state model
 
-The proposed state is durable JSON, not conversational memory:
+The implemented v1 state is durable JSON, not conversational memory:
 
 ```python
 AgentRunState(
@@ -87,13 +87,13 @@ AgentRunState(
     user_goal=...,
     parsed_intent=...,
     plan=...,
-    evidence=[EvidenceReference(...)],
     workflow_runs=[WorkflowRunReference(...)],
+    decisions=[DecisionRecord(...)],
+    tool_calls=[ToolCall(...)],
     current_candidate=...,
     evaluation=...,
-    decisions=[DecisionRecord(...)],
     budgets=AgentBudgets(...),
-    pending_approval=None,
+    approvals=[ApprovalRequest(...)],
     status=...,
 )
 ```
@@ -193,23 +193,23 @@ configuration. Scientific databases and POT libraries are read-only inputs.
 Shell access is development-only and is not exposed through the agent tool
 registry.
 
-## Proposed package layout
+## Implemented contract package
 
 ```text
 src/llm_csp/agentic/
 |-- __init__.py
 |-- models.py
 |-- state.py
-|-- planner.py
-|-- run_manager.py
-|-- evaluator.py
-|-- orchestrator.py
-|-- tools/
+|-- budgets.py
+|-- approvals.py
+|-- termination.py
+|-- contracts.py
 `-- schemas/
 ```
 
-This ticket intentionally does not create this scaffold. Models and tool
-contracts should be implemented only after their schemas are accepted.
+Planner, Run Manager, Evaluator, and Orchestrator modules remain intentionally
+absent until their roadmap tickets. See `state_model.md` for the implemented
+schema and invariant details.
 
 ## Testing strategy
 

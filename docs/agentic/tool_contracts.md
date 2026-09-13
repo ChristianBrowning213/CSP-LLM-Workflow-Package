@@ -2,10 +2,11 @@
 
 ## Common envelope
 
-Agents receive only high-level tools. Every call uses a versioned envelope with
-`tool_call_id`, `agent_run_id`, `decision_id`, and `arguments`. Every response
-contains `schema_version`, `tool_call_id`, `status`, `result`, `artifacts`,
-`provenance`, `warnings`, and `errors`.
+Agents receive only high-level tools. Ticket 19 validates each tool's versioned
+arguments before any future adapter sees them. Every normalized `ToolResult`
+contains `schema_version`, `tool_call_id`, the closed `tool_name`, the original
+subsystem `status`, structured `data`, artifact references, provenance,
+warnings, and an optional structured error.
 
 `status` and each error code are preserved from the deterministic subsystem.
 Adapters may add transport errors but may not replace `missing_db`,
@@ -29,14 +30,7 @@ packaged Crystal-DB API. This is evidence retrieval, not structure invention.
   "query": "non-empty string",
   "formula": "optional string",
   "k": "integer, 1..50",
-  "retrieval": {
-    "db_ref": "configured read-only database reference",
-    "embed_engine": "configured supported engine",
-    "model_name": "string",
-    "model_version": "string",
-    "text_engine": "string",
-    "text_view": "string"
-  }
+  "retrieval_ref": "optional configured read-only retrieval reference"
 }
 ```
 
@@ -62,7 +56,7 @@ preferred scientific tool instead of exposing individual SPP and QLIP steps.
 {
   "schema_version": "llm_csp.agentic.run_csp.input.v1",
   "request": "CSPWorkflowRequest-compatible object",
-  "config": "WorkflowConfig-compatible object with registered resource refs",
+  "config_ref": "registered WorkflowConfig/resource reference",
   "parent_decision_id": "decision identifier"
 }
 ```
@@ -131,8 +125,7 @@ existence/hashes, and the immutable result reference.
 **Failure states:** unknown run, corrupt manifest, hash mismatch, unauthorized
 path, or system error.
 
-**Side effects:** none beyond an optional inspection record beneath the agent
-run root.
+**Side effects:** none. `inspect_run` is explicitly read-only.
 
 ## `compare_candidates`
 
@@ -166,3 +159,6 @@ No agent tool exposes a shell, arbitrary Python, raw SQL, database mutation,
 source POT mutation, Git operation, scientific-threshold editing, or direct
 solver-objective construction. Lower-level SPP/QLIP APIs remain available to
 ordinary Python callers but are not the default agent surface.
+
+The registry contains exactly the four initial tools above. `compare_candidates`
+remains a later proposal and is not accepted by the Ticket 19 registry.

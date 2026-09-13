@@ -1,0 +1,106 @@
+{
+  "agent_run_id": "agent_run_fixture",
+  "approvals": [],
+  "budgets": {
+    "limits": {
+      "max_model_format_retries": 2,
+      "max_repair_attempts": 1,
+      "max_retrieval_retries": 1,
+      "max_wall_clock_seconds": 3600,
+      "max_workflow_runs": 2
+    },
+    "usage": {
+      "elapsed_seconds": 12,
+      "model_format_retries_used": 0,
+      "repair_attempts_used": 0,
+      "retrieval_retries_used": 0,
+      "workflow_runs_used": 1
+    }
+  },
+  "current_candidate": {
+    "artifact_id": "artifact_candidate_1",
+    "kind": "candidate",
+    "path": "workflow_runs/workflow_1/candidate.cif",
+    "producing_run_id": "workflow_1",
+    "sha256": null
+  },
+  "decisions": [
+    {
+      "action": "execute approved deterministic workflow",
+      "actor": "ORCHESTRATOR",
+      "created_at": "2026-01-01T12:00:00Z",
+      "decision_id": "decision_1",
+      "input_refs": ["step_1"],
+      "rationale_summary": "The validated plan requests one bounded deterministic workflow run.",
+      "result_ref": "tool_call_1",
+      "tool_arguments": {},
+      "tool_name": "run_csp"
+    }
+  ],
+  "evaluation": null,
+  "parsed_intent": {
+    "constraints": [
+      {
+        "description": "Preserve SrTiO3 composition",
+        "key": "formula",
+        "kind": "HARD_CONSTRAINT",
+        "value": "SrTiO3"
+      }
+    ],
+    "goal_text": "Generate a candidate for SrTiO3",
+    "requested_topology_family": null,
+    "target_formula": "SrTiO3"
+  },
+  "pending_user_action": null,
+  "plan": {
+    "assumptions": [],
+    "goal": "Generate a candidate for SrTiO3",
+    "plan_id": "plan_1",
+    "required_approvals": [],
+    "steps": [
+      {
+        "approval_category": null,
+        "dependencies": [],
+        "inputs": {"request_ref": "request_1"},
+        "purpose": "Execute the deterministic CSP workflow",
+        "status": "RUNNING",
+        "step_id": "step_1",
+        "tool_name": "run_csp"
+      }
+    ]
+  },
+  "schema_version": "llm_csp.agentic.state.v1",
+  "status": "RUNNING",
+  "tool_calls": [
+    {
+      "arguments": {"request_ref": "request_1"},
+      "error": null,
+      "requested_by": "ORCHESTRATOR",
+      "result_ref": null,
+      "status": "RUNNING",
+      "tool_call_id": "tool_call_1",
+      "tool_name": "run_csp"
+    }
+  ],
+  "user_goal": "Generate a candidate for SrTiO3",
+  "workflow_runs": [
+    {
+      "candidate_ref": {
+        "artifact_id": "artifact_candidate_1",
+        "kind": "candidate",
+        "path": "workflow_runs/workflow_1/candidate.cif",
+        "producing_run_id": "workflow_1",
+        "sha256": null
+      },
+      "result_ref": {
+        "artifact_id": "artifact_result_1",
+        "kind": "workflow_result",
+        "path": "workflow_runs/workflow_1/result.json",
+        "producing_run_id": "workflow_1",
+        "sha256": null
+      },
+      "result_status": "OPTIMAL",
+      "run_id": "workflow_1"
+    }
+  ]
+}
