@@ -1,0 +1,27 @@
+{
+  "skill_loop_csp": {
+    "repo": "Skill-Loop-CSP",
+    "scientific_revision": "b2130661b4690623877e852dc03132506aa720dd",
+    "licensing_revision": "36f6280e47387643853ac0cfc510e20c5d595834"
+  },
+  "crystal_db": {
+    "repo": "Crystal-DB",
+    "scientific_revision": "e33d5cc55be01f800a7cf055cc1793d982deb5bc",
+    "licensing_revision": "f8b087896eb5a5b3a8ea6d0fffcf53e927d93f31"
+  },
+  "spp_maker_qlip": {
+    "repo": "SPP-Maker-QLIP",
+    "scientific_revision": "3a2d557811973265f3373ec881cc8057a89789d2",
+    "licensing_revision": "82114cd05f0cb40149d13c20adeafe4c437a03ae"
+  },
+  "qlip": {
+    "repo": "qlip",
+    "scientific_revision": "a619ab379c62b5edefd6bb00076267e149f283ce",
+    "current_revision_at_audit": "a619ab379c62b5edefd6bb00076267e149f283ce"
+  },
+  "sca": {
+    "repo": "Structured_Crystal_Analyser",
+    "scientific_revision": "e5b291312151f34949a5e6ef0f43bebfeb752bc9",
+    "supported_package_revision": "3ede1ee2ad1a972b7c0a0809a9ec7bdab9b1b6af"
+  }
+}

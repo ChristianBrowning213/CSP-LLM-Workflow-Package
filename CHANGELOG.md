@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-- Development toward the optional v0.2 agentic orchestration layer.
+- Development recovery branch. No v0.2 architecture is currently defined.
 
 ## 0.1.0
 
