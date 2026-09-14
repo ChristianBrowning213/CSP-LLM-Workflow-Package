@@ -1,0 +1,9 @@
+data_crystal-0001
+_symmetry_space_group_name_H-M 'P1'
+_cell_length_a 9.245
+_cell_length_b 3.609
+_cell_length_c 5.953
+_cell_angle_alpha 90
+_cell_angle_beta 90
+_cell_angle_gamma 90
+_chemical_formula_sum 'Mg3Li2'

@@ -1,0 +1,10 @@
+﻿config:
+  db_path: data/crystal_phase0.db
+  policies_path: policies.yaml
+  novelty_threshold: 25.0
+  similarity_k: 5
+  cache_dir: data/cache
+  ingest_sources:
+    - name: local_cif
+      path: data/cifs
+      policy: local_cif

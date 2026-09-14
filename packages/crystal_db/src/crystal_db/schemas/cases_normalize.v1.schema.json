@@ -1,0 +1,31 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Crystal-DB cases-normalize response",
+  "type": "object",
+  "required": [
+    "errors",
+    "selected",
+    "written"
+  ],
+  "properties": {
+    "errors": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "in_path": {
+      "type": "string"
+    },
+    "out_path": {
+      "type": "string"
+    },
+    "selected": {
+      "type": "integer"
+    },
+    "written": {
+      "type": "integer"
+    }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,106 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Crystal-DB novelty-check response",
+  "type": "object",
+  "required": [
+    "candidate",
+    "comparators",
+    "novelty",
+    "run_id",
+    "errors"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "enum": [
+        "novelty_check.v1"
+      ]
+    },
+    "candidate": {
+      "type": "object"
+    },
+    "comparators": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "structure_id",
+          "score",
+          "mode"
+        ],
+        "properties": {
+          "structure_id": {
+            "type": "string"
+          },
+          "score": {
+            "type": "number"
+          },
+          "mode": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "novelty": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "is_novel": {
+          "type": "boolean"
+        },
+        "thresholds": {
+          "type": "object",
+          "properties": {
+            "text_sim_threshold": {
+              "type": "number"
+            },
+            "fp_sim_threshold": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "text_sim_threshold",
+            "fp_sim_threshold"
+          ],
+          "additionalProperties": true
+        },
+        "max_text_similarity": {
+          "type": "number"
+        },
+        "max_fp_similarity": {
+          "type": "number"
+        },
+        "reason_codes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "run_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "errors": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object"
+        },
+        {
+          "type": "array"
+        }
+      ]
+    }
+  },
+  "additionalProperties": false
+}

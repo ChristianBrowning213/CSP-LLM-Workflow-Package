@@ -4,25 +4,31 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "crystal-db"
-version = "0.1.0"
-description = "Portable crystal structure retrieval and CSP-evidence subsystem."
+version = "0.2.0.dev0+fidelity"
+description = "Source-faithful Crystal-DB software system."
 readme = "README.md"
 license = "MIT"
 license-files = ["LICENSE"]
 requires-python = ">=3.10"
 authors = [{ name = "Christian Browning" }]
-dependencies = []
+dependencies = [
+    "monty",
+    "pymatgen",
+]
 
 [project.optional-dependencies]
 mcp = ["mcp>=1.0,<2"]
 schema = ["jsonschema>=4"]
-test = ["pytest>=8", "jsonschema>=4"]
+reporting = ["matplotlib"]
+acquisition = ["mp-api", "robocrys"]
+test = ["pytest>=8", "jsonschema>=4", "matplotlib", "robocrys"]
 
 [project.scripts]
-crystal-db-mcp = "crystal_db.mcp.server:main"
+crystal-db = "crystal_db.__main__:main"
+crystal-db-mcp = "mcp_server.server:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
 
 [tool.setuptools.package-data]
-crystal_db = ["schemas/*.json", "configs/*.json"]
+crystal_db = ["schemas/*.json", "configs/*.json", "configs/*.yaml"]

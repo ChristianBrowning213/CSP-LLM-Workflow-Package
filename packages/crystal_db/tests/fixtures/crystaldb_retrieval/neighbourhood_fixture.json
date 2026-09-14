@@ -1,0 +1,51 @@
+{
+  "query": "perovskite-like BaTiO3 or CaTiO3 candidates",
+  "retrieval_mode": "semantic_text",
+  "k": 8,
+  "database_label": "Crystal-DB test fixture",
+  "fixture_label": "crystaldb_retrieval_fixture_v1",
+  "intended_csp_use": "Seed a small CSP/SPP candidate neighbourhood for perovskite-like oxide structures.",
+  "provenance_note": "Deterministic Crystal-DB fixture. Export policy is represented explicitly so retrieval relevance is not conflated with CIF availability.",
+  "neighbours": [
+    {
+      "rank": 1,
+      "structure_id": "mp-batio3-demo-001",
+      "formula": "BaTiO3",
+      "similarity": 0.94,
+      "space_group": "Pm-3m",
+      "cif_exportable": true,
+      "cif_path": "cifs/mp-batio3-demo-001.cif",
+      "blocked_reason": null
+    },
+    {
+      "rank": 2,
+      "structure_id": "mp-catio3-demo-002",
+      "formula": "CaTiO3",
+      "similarity": 0.91,
+      "space_group": "Pnma",
+      "cif_exportable": true,
+      "cif_path": "cifs/mp-catio3-demo-002.cif",
+      "blocked_reason": null
+    },
+    {
+      "rank": 3,
+      "structure_id": "restricted-demo-003",
+      "formula": "SrTiO3",
+      "similarity": 0.89,
+      "space_group": "Pm-3m",
+      "cif_exportable": false,
+      "cif_path": null,
+      "blocked_reason": "export policy blocked"
+    },
+    {
+      "rank": 4,
+      "structure_id": "restricted-demo-004",
+      "formula": "PbTiO3",
+      "similarity": 0.84,
+      "space_group": "P4mm",
+      "cif_exportable": false,
+      "cif_path": null,
+      "blocked_reason": "source license does not permit CIF redistribution"
+    }
+  ]
+}

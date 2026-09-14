@@ -1,0 +1,1088 @@
+{
+  "source_revision": "e33d5cc55be01f800a7cf055cc1793d982deb5bc",
+  "server": "mcp_server.server",
+  "transport": "stdio; FastMCP when available with JSON-RPC stdio fallback",
+  "tools": [
+    {
+      "kind": "tool",
+      "name": "crystal.text_search",
+      "source_implementation": "mcp_server.server._tool_text_search",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string"
+          },
+          "db_path": {
+            "type": "string"
+          },
+          "config_path": {
+            "type": "string"
+          },
+          "k": {
+            "type": "integer"
+          },
+          "embed_engine": {
+            "type": "string"
+          },
+          "model": {
+            "type": "string"
+          },
+          "model_version": {
+            "type": "string"
+          },
+          "text_engine": {
+            "type": "string"
+          },
+          "text_view": {
+            "type": "string"
+          },
+          "hybrid": {
+            "type": "boolean"
+          },
+          "w_text": {
+            "type": "number"
+          },
+          "w_fp": {
+            "type": "number"
+          },
+          "redacted": {
+            "type": "boolean"
+          },
+          "show_text_top": {
+            "type": "integer"
+          },
+          "demo_export": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "additionalProperties": true
+      },
+      "output_schema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "title": "Crystal-DB text-search response",
+        "type": "object",
+        "required": [
+          "status",
+          "query",
+          "neighbors",
+          "errors",
+          "backend_status"
+        ],
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "enum": [
+              "text_search.v1"
+            ]
+          },
+          "status": {
+            "type": "string"
+          },
+          "query": {
+            "type": "object",
+            "required": [
+              "embed_engine",
+              "model_name",
+              "model_version",
+              "k"
+            ],
+            "properties": {
+              "text": {
+                "type": "string"
+              },
+              "embed_engine": {
+                "type": "string"
+              },
+              "model_name": {
+                "type": "string"
+              },
+              "model_version": {
+                "type": "string"
+              },
+              "text_engine": {
+                "type": "string"
+              },
+              "text_view": {
+                "type": "string"
+              },
+              "hybrid": {
+                "type": "boolean"
+              },
+              "w_text": {
+                "type": "number"
+              },
+              "w_fp": {
+                "type": "number"
+              },
+              "k": {
+                "type": "integer"
+              }
+            },
+            "additionalProperties": true
+          },
+          "neighbors": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "rank",
+                "structure_id",
+                "score",
+                "provenance",
+                "redacted"
+              ],
+              "properties": {
+                "rank": {
+                  "type": "integer"
+                },
+                "structure_id": {
+                  "type": "string"
+                },
+                "score": {
+                  "type": "number"
+                },
+                "text_score": {
+                  "type": "number"
+                },
+                "fp_score": {
+                  "type": "number"
+                },
+                "final_score": {
+                  "type": "number"
+                },
+                "redacted": {
+                  "type": "boolean"
+                },
+                "provenance": {
+                  "type": "object",
+                  "properties": {
+                    "source": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "source_id": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "retrieved_at": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "allow_export": {
+                      "type": [
+                        "integer",
+                        "boolean",
+                        "null"
+                      ]
+                    }
+                  },
+                  "additionalProperties": true
+                },
+                "text_doc": {
+                  "type": "object",
+                  "required": [
+                    "status"
+                  ],
+                  "properties": {
+                    "text_doc_id": {
+                      "type": [
+                        "integer",
+                        "null"
+                      ]
+                    },
+                    "text_engine": {
+                      "type": "string"
+                    },
+                    "text_view": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "text": {
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": true
+                },
+                "cif_export": {
+                  "type": "object",
+                  "required": [
+                    "status"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "path": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "error": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    }
+                  },
+                  "additionalProperties": true
+                }
+              },
+              "additionalProperties": true
+            }
+          },
+          "errors": {
+            "type": [
+              "object",
+              "null"
+            ]
+          },
+          "backend_status": {
+            "type": "object",
+            "properties": {
+              "ready": {
+                "type": "boolean"
+              },
+              "state": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "db_path": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "archive_implementation": "mcp_server.server._tool_text_search",
+      "parity_status": "EXACT_EXCEPT_PATH_RELOCATION"
+    },
+    {
+      "kind": "tool",
+      "name": "crystal.agent",
+      "source_implementation": "mcp_server.server._tool_agent",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "question": {
+            "type": "string"
+          },
+          "query": {
+            "type": "string"
+          },
+          "db_path": {
+            "type": "string"
+          },
+          "llm": {
+            "type": "string"
+          },
+          "run_name": {
+            "type": "string"
+          },
+          "config_path": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      },
+      "output_schema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "title": "Crystal-DB agent response",
+        "type": "object",
+        "required": [
+          "schema_version",
+          "run_id",
+          "answer",
+          "evidence",
+          "errors"
+        ],
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "enum": [
+              "agent.v1"
+            ]
+          },
+          "run_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "answer": {
+            "type": "string"
+          },
+          "evidence": {
+            "type": "object",
+            "properties": {
+              "structures": {
+                "type": "array"
+              }
+            },
+            "required": [
+              "structures"
+            ],
+            "additionalProperties": true
+          },
+          "errors": {
+            "type": [
+              "object",
+              "null"
+            ]
+          }
+        },
+        "additionalProperties": true
+      },
+      "archive_implementation": "mcp_server.server._tool_agent",
+      "parity_status": "EXACT_EXCEPT_PATH_RELOCATION"
+    },
+    {
+      "kind": "tool",
+      "name": "crystal.novelty_check",
+      "source_implementation": "mcp_server.server._tool_novelty_check",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "structure_id": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "cif_path": {
+            "type": "string"
+          },
+          "cif": {
+            "type": "string"
+          },
+          "db_path": {
+            "type": "string"
+          },
+          "config_path": {
+            "type": "string"
+          },
+          "k": {
+            "type": "integer"
+          },
+          "embed_engine": {
+            "type": "string"
+          },
+          "model": {
+            "type": "string"
+          },
+          "model_version": {
+            "type": "string"
+          },
+          "text_sim_threshold": {
+            "type": "number"
+          },
+          "fp_sim_threshold": {
+            "type": "number"
+          },
+          "force": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": true
+      },
+      "output_schema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "title": "Crystal-DB novelty-check response",
+        "type": "object",
+        "required": [
+          "candidate",
+          "comparators",
+          "novelty",
+          "run_id",
+          "errors"
+        ],
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "enum": [
+              "novelty_check.v1"
+            ]
+          },
+          "candidate": {
+            "type": "object"
+          },
+          "comparators": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "structure_id",
+                "score",
+                "mode"
+              ],
+              "properties": {
+                "structure_id": {
+                  "type": "string"
+                },
+                "score": {
+                  "type": "number"
+                },
+                "mode": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": true
+            }
+          },
+          "novelty": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "is_novel": {
+                "type": "boolean"
+              },
+              "thresholds": {
+                "type": "object",
+                "properties": {
+                  "text_sim_threshold": {
+                    "type": "number"
+                  },
+                  "fp_sim_threshold": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "text_sim_threshold",
+                  "fp_sim_threshold"
+                ],
+                "additionalProperties": true
+              },
+              "max_text_similarity": {
+                "type": "number"
+              },
+              "max_fp_similarity": {
+                "type": "number"
+              },
+              "reason_codes": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "additionalProperties": true
+          },
+          "run_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "errors": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object"
+              },
+              {
+                "type": "array"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false
+      },
+      "archive_implementation": "mcp_server.server._tool_novelty_check",
+      "parity_status": "EXACT_EXCEPT_PATH_RELOCATION"
+    },
+    {
+      "kind": "tool",
+      "name": "crystal.csp_pack",
+      "source_implementation": "mcp_server.server._tool_csp_pack",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string"
+          },
+          "structure_id": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "db_path": {
+            "type": "string"
+          },
+          "out_dir": {
+            "type": "string"
+          },
+          "export_top": {
+            "type": "integer"
+          },
+          "redacted": {
+            "type": "boolean"
+          },
+          "demo_export": {
+            "type": "boolean"
+          },
+          "material_system": {
+            "type": "string"
+          },
+          "formula": {
+            "type": "string"
+          },
+          "semantic_min_threshold": {
+            "type": "number"
+          },
+          "spp_corpus_config": {
+            "type": "object"
+          },
+          "config_path": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      },
+      "output_schema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "title": "Crystal-DB csp-pack response",
+        "type": "object",
+        "required": [
+          "run_id",
+          "status",
+          "query",
+          "neighbors",
+          "hints",
+          "export",
+          "errors",
+          "backend_status"
+        ],
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "enum": [
+              "csp_pack.v1"
+            ]
+          },
+          "run_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "status": {
+            "type": "string"
+          },
+          "query": {
+            "type": [
+              "object",
+              "null"
+            ]
+          },
+          "neighbors": {
+            "type": "array"
+          },
+          "hints": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "family_candidates": {
+                "type": "array"
+              },
+              "connectivity_keywords": {
+                "type": "array"
+              },
+              "chemistry_tokens": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "symmetry_tokens": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "quantitative_clues": {
+                "type": "object"
+              },
+              "confidence": {
+                "type": "number"
+              }
+            },
+            "additionalProperties": true
+          },
+          "export": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "out_dir": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "manifest_path": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "results_path": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "cif_dir": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "structure_id",
+                    "rank",
+                    "score",
+                    "source_id",
+                    "export_status",
+                    "cif_path",
+                    "error"
+                  ],
+                  "properties": {
+                    "structure_id": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "rank": {
+                      "type": "integer"
+                    },
+                    "score": {
+                      "type": [
+                        "number",
+                        "null"
+                      ]
+                    },
+                    "source_id": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "export_status": {
+                      "type": "string"
+                    },
+                    "cif_path": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "error": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    }
+                  },
+                  "additionalProperties": true
+                }
+              }
+            },
+            "additionalProperties": true
+          },
+          "errors": {
+            "type": [
+              "object",
+              "null"
+            ]
+          },
+          "backend_status": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "ready": {
+                "type": "boolean"
+              },
+              "state": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "db_path": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": true
+          },
+          "corpus_selection": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "additionalProperties": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "archive_implementation": "mcp_server.server._tool_csp_pack",
+      "parity_status": "EXACT_EXCEPT_PATH_RELOCATION"
+    },
+    {
+      "kind": "tool",
+      "name": "crystal.status",
+      "source_implementation": "mcp_server.server._tool_status",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "surface": {
+            "type": "string"
+          },
+          "structure_id": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "db_path": {
+            "type": "string"
+          },
+          "config_path": {
+            "type": "string"
+          },
+          "k": {
+            "type": "integer"
+          },
+          "embed_engine": {
+            "type": "string"
+          },
+          "model": {
+            "type": "string"
+          },
+          "model_version": {
+            "type": "string"
+          },
+          "text_engine": {
+            "type": "string"
+          },
+          "text_view": {
+            "type": "string"
+          },
+          "hybrid": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": true
+      },
+      "output_schema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "title": "Crystal-DB backend readiness status",
+        "type": "object",
+        "required": [
+          "ready",
+          "state",
+          "message",
+          "surface",
+          "query_mode",
+          "db_path",
+          "db_exists",
+          "schema_present",
+          "missing_tables",
+          "corpus",
+          "requested_space",
+          "embedding_space",
+          "fingerprint_index"
+        ],
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "enum": [
+              "backend_status.v1"
+            ]
+          },
+          "ready": {
+            "type": "boolean"
+          },
+          "state": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "surface": {
+            "type": "string"
+          },
+          "query_mode": {
+            "type": "string"
+          },
+          "db_path": {
+            "type": "string"
+          },
+          "db_exists": {
+            "type": "boolean"
+          },
+          "db_size_bytes": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "schema_present": {
+            "type": "boolean"
+          },
+          "missing_tables": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "corpus": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "requested_space": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "embedding_space": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "fingerprint_index": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        },
+        "additionalProperties": true
+      },
+      "archive_implementation": "mcp_server.server._tool_status",
+      "parity_status": "EXACT_EXCEPT_PATH_RELOCATION"
+    },
+    {
+      "kind": "tool",
+      "name": "crystal.bench_retrieval",
+      "source_implementation": "mcp_server.server._tool_bench_retrieval",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "cases_path": {
+            "type": "string"
+          },
+          "cases": {
+            "type": "string"
+          },
+          "db_path": {
+            "type": "string"
+          },
+          "out_dir": {
+            "type": "string"
+          },
+          "config_path": {
+            "type": "string"
+          },
+          "k": {
+            "type": "integer"
+          },
+          "embed_engine": {
+            "type": "string"
+          },
+          "model": {
+            "type": "string"
+          },
+          "model_version": {
+            "type": "string"
+          },
+          "text_engine": {
+            "type": "string"
+          },
+          "text_view": {
+            "type": "string"
+          },
+          "hybrid": {
+            "type": "boolean"
+          },
+          "w_text": {
+            "type": "number"
+          },
+          "w_fp": {
+            "type": "number"
+          },
+          "redacted": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": true
+      },
+      "output_schema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "title": "Crystal-DB bench-retrieval response",
+        "type": "object",
+        "required": [
+          "run_id",
+          "config",
+          "summary",
+          "per_case",
+          "errors"
+        ],
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "enum": [
+              "bench_retrieval.v1"
+            ]
+          },
+          "run_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "config": {
+            "type": [
+              "object",
+              "null"
+            ]
+          },
+          "summary": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "hit_at_k": {
+                "type": "number"
+              },
+              "mrr": {
+                "type": "number"
+              },
+              "ndcg_at_k": {
+                "type": "number"
+              },
+              "coverage": {
+                "type": "number"
+              },
+              "avg_score": {
+                "type": "number"
+              },
+              "failure_breakdown": {
+                "type": "object"
+              },
+              "total_cases": {
+                "type": "integer"
+              }
+            },
+            "additionalProperties": true
+          },
+          "per_case": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "case_id",
+                "status",
+                "metrics",
+                "top_hits",
+                "errors"
+              ],
+              "properties": {
+                "case_id": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "string"
+                },
+                "metrics": {
+                  "type": "object",
+                  "properties": {
+                    "hit": {
+                      "type": "integer"
+                    },
+                    "rr": {
+                      "type": "number"
+                    },
+                    "ndcg": {
+                      "type": "number"
+                    },
+                    "max_relevance": {
+                      "type": "integer"
+                    },
+                    "normalized_relevance": {
+                      "type": "number"
+                    },
+                    "hint_fallback_used": {
+                      "type": "boolean"
+                    }
+                  },
+                  "additionalProperties": true
+                },
+                "top_hits": {
+                  "type": "array"
+                },
+                "errors": {
+                  "type": [
+                    "object",
+                    "null"
+                  ]
+                }
+              },
+              "additionalProperties": true
+            }
+          },
+          "exports": {
+            "type": [
+              "object",
+              "null"
+            ]
+          },
+          "errors": {
+            "type": [
+              "object",
+              "null"
+            ]
+          }
+        },
+        "additionalProperties": false
+      },
+      "archive_implementation": "mcp_server.server._tool_bench_retrieval",
+      "parity_status": "EXACT_EXCEPT_PATH_RELOCATION"
+    }
+  ],
+  "resources": [],
+  "prompts": []
+}

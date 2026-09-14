@@ -1,0 +1,2 @@
+﻿{"case_id":"tiny_perov_001","query":"perovskite oxide with corner-sharing octahedra","expected":{"must_contain_any":["perovskite","corner-sharing","octahedra"],"family":"perovskite","elements_any":["O"]},"notes":"tiny fixture"}
+{"case_id":"tiny_layered_002","query":"layered van der Waals 2D material","expected":{"must_contain_any":["layered","van der waals","2d"]},"notes":"tiny fixture"}

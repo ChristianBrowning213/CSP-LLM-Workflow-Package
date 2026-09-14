@@ -29,7 +29,7 @@ dependencies = [
 llm-csp = "llm_csp.cli.main:main"
 
 [project.optional-dependencies]
-test = ["pytest>=8", "mcp>=1.0,<2"]
+test = ["pytest>=8", "mcp>=1.0,<2", "matplotlib", "robocrys"]
 validation = [
     "sca @ git+https://github.com/ChristianBrowning213/Structured_Crystal_Analyser.git@3ede1ee2ad1a972b7c0a0809a9ec7bdab9b1b6af",
 ]
@@ -42,9 +42,10 @@ qlip = [
     "resources/base/*.json",
     "resources/schemas/*.json",
 ]
-crystal_db = ["schemas/*.json", "configs/*.json"]
+crystal_db = ["schemas/*.json", "configs/*.json", "configs/*.yaml"]
 
 [tool.pytest.ini_options]
+addopts = "--import-mode=importlib"
 markers = [
     "requires_external_scientific_assets: optional scientific E2E requiring a lawful user POT root",
 ]

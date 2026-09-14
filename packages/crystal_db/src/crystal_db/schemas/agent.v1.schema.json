@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Crystal-DB agent response",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "run_id",
+    "answer",
+    "evidence",
+    "errors"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "enum": [
+        "agent.v1"
+      ]
+    },
+    "run_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "answer": {
+      "type": "string"
+    },
+    "evidence": {
+      "type": "object",
+      "properties": {
+        "structures": {
+          "type": "array"
+        }
+      },
+      "required": [
+        "structures"
+      ],
+      "additionalProperties": true
+    },
+    "errors": {
+      "type": [
+        "object",
+        "null"
+      ]
+    }
+  },
+  "additionalProperties": true
+}

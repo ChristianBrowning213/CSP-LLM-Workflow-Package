@@ -1,1 +1,5 @@
-"""MCP entry point for the supported Crystal-DB retrieval facade."""
+"""Compatibility import for the original ``mcp_server`` package."""
+
+from . import server
+
+__all__ = ["server"]

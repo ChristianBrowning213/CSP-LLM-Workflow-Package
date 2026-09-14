@@ -1,0 +1,14 @@
+{
+  "engine": "auto",
+  "model": null,
+  "model_version": null,
+  "text_engine": "caption",
+  "text_view": "caption",
+  "hybrid": true,
+  "w_text": 0.7,
+  "w_fp": 0.3,
+  "k": 10,
+  "redacted": true,
+  "text_sim_threshold": 0.8,
+  "fp_sim_threshold": 0.95
+}

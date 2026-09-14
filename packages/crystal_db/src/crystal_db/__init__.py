@@ -1,15 +1,20 @@
-"""Portable Crystal-DB retrieval and CSP-evidence package."""
+﻿"""Crystal DB Phase 0/1/2 package."""
 
-from importlib.metadata import PackageNotFoundError, version
+__all__ = [
+    "query_structures",
+    "get_structure",
+    "ingest_sample",
+    "describe_structure",
+    "fingerprint_structure",
+    "similar_structures",
+    "run_agent",
+    "build_crystalcard",
+]
 
-from .api import backend_status, make_csp_pack, retrieve_text
-from .csp_pack import run_csp_pack
-from .retrieval import text_search
-
-try:
-    __version__ = version("crystal-db")
-except PackageNotFoundError:
-    # The integrated llm-csp distribution also contains this namespace.
-    __version__ = version("llm-csp")
-
-__all__ = ["backend_status", "make_csp_pack", "retrieve_text", "run_csp_pack", "text_search"]
+from .query import query_structures, get_structure  # noqa: F401
+from .ingest import ingest_sample  # noqa: F401
+from .describe import describe_structure  # noqa: F401
+from .fingerprint import fingerprint_structure  # noqa: F401
+from .similarity import similar_structures  # noqa: F401
+from .agent import run_agent  # noqa: F401
+from .crystalcard import build_crystalcard  # noqa: F401

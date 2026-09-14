@@ -1,0 +1,50 @@
+{
+  "source_revision": "e33d5cc55be01f800a7cf055cc1793d982deb5bc",
+  "source_command_result": {
+    "passed": 38,
+    "failed": 0,
+    "warnings": 9,
+    "duration_seconds": 31.47
+  },
+  "archive_command_result": {
+    "passed": 38,
+    "failed": 0,
+    "warnings": 9,
+    "duration_seconds": 31.53
+  },
+  "same_source_tests_and_inputs": [
+    "tests/test_phase1.py",
+    "tests/test_phase2.py",
+    "tests/test_phase3.py",
+    "tests/test_text_search.py",
+    "tests/test_csp_pack.py",
+    "tests/test_mcp_server.py",
+    "tests/test_health_or_status_reports_backend_readiness.py",
+    "tests/test_text_pipeline.py",
+    "tests/test_phase4.py"
+  ],
+  "covered_behaviour": [
+    "canonicalization and stable hashing",
+    "database creation, schema and ingestion",
+    "query and record retrieval",
+    "description and fingerprint generation",
+    "fingerprint similarity",
+    "text generation, embedding records and text search",
+    "CSP-pack generation",
+    "novelty and rediscovery",
+    "readiness and backend status",
+    "MCP tool discovery, normalization, schemas, success and error behaviour",
+    "candidate reporting and calibration"
+  ],
+  "structured_result": "EQUAL",
+  "runtime_file_comparison": {
+    "source_files": 60,
+    "newline_normalized_exact": 57,
+    "path_or_packaging_adapted": [
+      "crystal_db/db.py",
+      "crystal_db/policy.py",
+      "mcp_server/server.py"
+    ],
+    "unexplained_mismatches": []
+  }
+}

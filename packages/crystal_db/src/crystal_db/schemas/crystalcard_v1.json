@@ -1,0 +1,61 @@
+﻿{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CrystalCard v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "engine",
+    "input_hash",
+    "card_hash",
+    "generated_at",
+    "summary",
+    "fingerprint",
+    "motifs",
+    "text_summary"
+  ],
+  "properties": {
+    "schema_version": {"type": "string", "const": "v1"},
+    "engine": {"type": "string"},
+    "structure_id": {"type": ["string", "null"]},
+    "input_hash": {"type": "string"},
+    "card_hash": {"type": "string"},
+    "generated_at": {"type": "string"},
+    "summary": {
+      "type": "object",
+      "required": ["formula", "elements", "space_group", "crystal_system", "chemsys"],
+      "properties": {
+        "formula": {"type": ["string", "null"]},
+        "elements": {"type": "array", "items": {"type": "string"}},
+        "space_group": {"type": ["string", "null"]},
+        "crystal_system": {"type": "string"},
+        "nsites": {"type": ["integer", "null"]},
+        "volume": {"type": ["number", "null"]},
+        "band_gap_eV": {"type": ["number", "null"]},
+        "chemsys": {"type": "string"}
+      }
+    },
+    "fingerprint": {
+      "type": "object",
+      "required": ["fingerprint_method", "vector_len", "vector_hash", "feature_names_hash"],
+      "properties": {
+        "fingerprint_method": {"type": ["string", "null"]},
+        "vector_len": {"type": "integer"},
+        "nonzero_features": {"type": "integer"},
+        "vector_hash": {"type": "string"},
+        "feature_names_hash": {"type": "string"}
+      }
+    },
+    "motifs": {"type": "array", "items": {"type": "string"}},
+    "text_summary": {"type": "string"},
+    "provenance": {
+      "type": ["object", "null"],
+      "properties": {
+        "source": {"type": ["string", "null"]},
+        "source_id": {"type": ["string", "null"]},
+        "retrieved_at": {"type": ["string", "null"]},
+        "allow_export": {"type": ["integer", "boolean", "null"]},
+        "allow_derivatives": {"type": ["integer", "boolean", "null"]}
+      }
+    }
+  }
+}

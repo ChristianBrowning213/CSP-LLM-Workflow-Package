@@ -1,0 +1,12 @@
+{
+  "text_engine": "robocrys",
+  "text_view": "robocrys",
+  "engine": "lmstudio",
+  "model": "text-embedding-bge-m3",
+  "model_version": "lmstudio_v1",
+  "k": 10,
+  "hybrid": false,
+  "w_text": 0.8,
+  "redacted": true,
+  "demo_export": false
+}

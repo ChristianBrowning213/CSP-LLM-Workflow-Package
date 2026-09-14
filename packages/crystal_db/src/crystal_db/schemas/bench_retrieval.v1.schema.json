@@ -1,0 +1,130 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Crystal-DB bench-retrieval response",
+  "type": "object",
+  "required": [
+    "run_id",
+    "config",
+    "summary",
+    "per_case",
+    "errors"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "enum": [
+        "bench_retrieval.v1"
+      ]
+    },
+    "run_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "config": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "summary": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "hit_at_k": {
+          "type": "number"
+        },
+        "mrr": {
+          "type": "number"
+        },
+        "ndcg_at_k": {
+          "type": "number"
+        },
+        "coverage": {
+          "type": "number"
+        },
+        "avg_score": {
+          "type": "number"
+        },
+        "failure_breakdown": {
+          "type": "object"
+        },
+        "total_cases": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": true
+    },
+    "per_case": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "case_id",
+          "status",
+          "metrics",
+          "top_hits",
+          "errors"
+        ],
+        "properties": {
+          "case_id": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "metrics": {
+            "type": "object",
+            "properties": {
+              "hit": {
+                "type": "integer"
+              },
+              "rr": {
+                "type": "number"
+              },
+              "ndcg": {
+                "type": "number"
+              },
+              "max_relevance": {
+                "type": "integer"
+              },
+              "normalized_relevance": {
+                "type": "number"
+              },
+              "hint_fallback_used": {
+                "type": "boolean"
+              }
+            },
+            "additionalProperties": true
+          },
+          "top_hits": {
+            "type": "array"
+          },
+          "errors": {
+            "type": [
+              "object",
+              "null"
+            ]
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "exports": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "errors": {
+      "type": [
+        "object",
+        "null"
+      ]
+    }
+  },
+  "additionalProperties": false
+}

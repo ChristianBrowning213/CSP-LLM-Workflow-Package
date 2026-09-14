@@ -1,0 +1,26 @@
+[
+  {
+    "file": "gold_li2o_p1.cif",
+    "formula": "Li2O",
+    "space_group": "P1",
+    "crystal_system": "triclinic"
+  },
+  {
+    "file": "gold_nacl_p2.cif",
+    "formula": "NaCl",
+    "space_group": "P2",
+    "crystal_system": "monoclinic"
+  },
+  {
+    "file": "gold_sio2_p4.cif",
+    "formula": "SiO2",
+    "space_group": "P4",
+    "crystal_system": "tetragonal"
+  },
+  {
+    "file": "gold_mgo_p6.cif",
+    "formula": "MgO",
+    "space_group": "P6",
+    "crystal_system": "hexagonal"
+  }
+]

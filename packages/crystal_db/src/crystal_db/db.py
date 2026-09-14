@@ -3,30 +3,40 @@ import sqlite3
 from pathlib import Path
 from typing import Optional
 
-DATA_ROOT_ENV = "CRYSTAL_DB_DATA_ROOT"
-DEFAULT_DB_FILENAME = "crystal_phase0.db"
+PACKAGE_ROOT = Path(__file__).resolve().parent
 
 
-def resolve_data_root() -> Path:
-    """Resolve external runtime data without relying on a source checkout."""
-    configured = os.getenv(DATA_ROOT_ENV)
-    root = Path(configured).expanduser() if configured else Path.cwd() / ".crystal_db"
-    return root.resolve()
+def _archive_root() -> Path:
+    """Locate the unified checkout, falling back to the installed package."""
+    for parent in Path(__file__).resolve().parents:
+        if (parent / "docs" / "fidelity" / "SOURCE_SYSTEMS.json").is_file():
+            return parent
+    return PACKAGE_ROOT
+
+
+REPO_ROOT = _archive_root()
+DEFAULT_DB_PATH = str((REPO_ROOT / "data" / "crystal_db" / "crystal_phase0.db").resolve())
 
 
 def resolve_db_path(db_path: Optional[str] = None) -> str:
+    data_root = os.getenv("CRYSTAL_DB_DATA_ROOT")
     if db_path:
         path_value = Path(db_path)
         if path_value.is_absolute():
             return str(path_value.resolve())
-        return str((resolve_data_root() / path_value).resolve())
+        anchor = Path(data_root) if data_root else REPO_ROOT
+        return str((anchor / path_value).resolve())
     env_path = os.getenv("CRYSTAL_DB_PATH") or os.getenv("CRYSTALDB_PATH")
     if env_path:
         path_value = Path(env_path)
         if path_value.is_absolute():
             return str(path_value.resolve())
-        return str((resolve_data_root() / path_value).resolve())
-    return str((resolve_data_root() / DEFAULT_DB_FILENAME).resolve())
+        return str((REPO_ROOT / path_value).resolve())
+    # Retained v0.1 archive compatibility: the source API remains authoritative,
+    # while callers that configured a data root still resolve the source default.
+    if data_root:
+        return str((Path(data_root) / "crystal_phase0.db").resolve())
+    return DEFAULT_DB_PATH
 
 
 def _to_file_uri(path: str) -> str:

@@ -1,0 +1,36 @@
+{
+  "status": "ok",
+  "query": {
+    "text": "layered material",
+    "embed_engine": "hash",
+    "model_name": "hash-embed",
+    "model_version": "v1",
+    "text_engine": "caption",
+    "text_view": "caption",
+    "hybrid": false,
+    "w_text": 1.0,
+    "w_fp": 0.0,
+    "k": 3
+  },
+  "neighbors": [
+    {
+      "rank": 1,
+      "structure_id": "s1",
+      "score": 0.9,
+      "provenance": {
+        "source": "test",
+        "source_id": "s1.cif",
+        "retrieved_at": "2026-02-18T00:00:00Z",
+        "allow_export": 1
+      },
+      "redacted": false
+    }
+  ],
+  "errors": null,
+  "backend_status": {
+    "ready": true,
+    "state": "backend_ready",
+    "message": "Backend is ready for retrieval in the requested space.",
+    "db_path": "C:\\temp\\sample.db"
+  }
+}

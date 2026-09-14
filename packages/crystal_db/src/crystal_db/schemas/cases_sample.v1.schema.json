@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Crystal-DB cases-sample response",
+  "type": "object",
+  "required": [
+    "errors",
+    "written"
+  ],
+  "properties": {
+    "errors": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "out_path": {
+      "type": "string"
+    },
+    "written": {
+      "type": "integer"
+    },
+    "selection_mode": {
+      "type": "string"
+    },
+    "text_engine": {
+      "type": "string"
+    },
+    "text_view": {
+      "type": "string"
+    },
+    "label_mode": {
+      "type": "string",
+      "enum": [
+        "none",
+        "self"
+      ]
+    }
+  },
+  "additionalProperties": true
+}

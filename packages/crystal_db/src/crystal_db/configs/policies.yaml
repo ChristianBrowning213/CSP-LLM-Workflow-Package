@@ -1,0 +1,25 @@
+﻿policies:
+  synthetic:
+    allow_cif_store: true
+    allow_cif_return: true
+    allow_derivatives: true
+    allow_export: true
+    license_notes: "synthetic example data; unrestricted"
+  local_cif:
+    allow_cif_store: true
+    allow_cif_return: true
+    allow_derivatives: true
+    allow_export: false
+    license_notes: "local CIF; check source license before export"
+  restricted:
+    allow_cif_store: true
+    allow_cif_return: false
+    allow_derivatives: true
+    allow_export: false
+    license_notes: "restricted: do not export CIF"
+  default:
+    allow_cif_store: false
+    allow_cif_return: false
+    allow_derivatives: false
+    allow_export: false
+    license_notes: "unknown policy: storage/return disabled"

@@ -1,0 +1,9 @@
+﻿data_gold_mgo
+_symmetry_space_group_name_H-M 'P6'
+_cell_length_a 3.2
+_cell_length_b 3.2
+_cell_length_c 5.2
+_cell_angle_alpha 90
+_cell_angle_beta 90
+_cell_angle_gamma 120
+_chemical_formula_sum 'MgO'

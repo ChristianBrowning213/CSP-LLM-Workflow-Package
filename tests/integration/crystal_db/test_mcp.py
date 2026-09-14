@@ -1,11 +1,14 @@
 from crystal_db.mcp import server
 
 
-def test_mcp_exposes_only_supported_runtime_tools():
+def test_mcp_exposes_complete_source_runtime_tools():
     assert set(server.TOOL_REGISTRY) == {
         "crystal.text_search",
+        "crystal.agent",
+        "crystal.novelty_check",
         "crystal.csp_pack",
         "crystal.status",
+        "crystal.bench_retrieval",
     }
     defaults = server.load_config(None)
     assert defaults["model"] == "text-embedding-bge-m3"
