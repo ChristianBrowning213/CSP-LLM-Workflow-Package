@@ -6,7 +6,8 @@ Recovery baseline established.
 |---|---|---|
 | Skill-Loop-CSP | `NOT_RESTORED` | Source runtime has not been migrated. |
 | Crystal-DB software | `RESTORED` | Complete scientific-revision package, CLI, MCP, schemas, tests and operational support code migrated in Ticket 24. |
-| Crystal-DB production assets | `PENDING_TICKET_25` | Production database, CIF corpus, indexes and selected generated assets are inventoried but not copied. |
+| Crystal-DB operational assets | `BLOCKED_PROVENANCE` | Canonical `phase6_mp_10k.db` is hash-pinned and operationally verified, but all 10,000 records are Materials Project-derived and marked `allow_export=0`; no redistribution approval is recorded. |
+| Crystal-DB | `BLOCKED_PROVENANCE` | Software is restored; the required operational snapshot cannot be included until a human clears redistribution. |
 | SPP-Maker-QLIP | `PARTIAL` | Existing reduced `llm_csp.spp` implementation retained. |
 | QLIP | `PARTIAL` | Existing reduced source-derived package retained. |
 | SCA | `EXTERNAL` | Supported package remains a VCS dependency. |
@@ -37,3 +38,14 @@ only in this status document.
 - Whole unified archive suite: 344 passed, 7 skipped.
 - Wheel imports, packaged schemas/policies, complete CLI help, MCP discovery,
   and the `crystal_db.mcp.server` compatibility alias passed.
+
+## Ticket 25 asset audit
+
+- Canonical database: `phase6_mp_10k.db`, 881,799,168 bytes, SHA-256
+  `572448fbcb7716d315246f24dd427064715fd56839d0b4450cc6a8231a0e5dc0`.
+- Read-only inventory: 20 candidate databases, all passing SQLite integrity
+  and foreign-key checks.
+- Real-data source/archive probes on temporary copies: exact text retrieval,
+  CSP-pack, novelty and readiness results.
+- Required database status: `REQUIRED_BUT_PROVENANCE_BLOCKED`.
+- Runtime asset bytes copied: zero.

@@ -1,0 +1,2 @@
+archive_relative_path,source_path,size,sha256,asset_type,runtime_role,required_by,provenance_status,redistribution_status,storage_method
+data/crystal_db/phase6_mp_10k.db,C:\Users\brown\Documents\GitHub\Crystal-DB\data\phase6_mp_10k.db,881799168,572448fbcb7716d315246f24dd427064715fd56839d0b4450cc6a8231a0e5dc0,SQLITE_OPERATIONAL_DATABASE,Canonical general Crystal-DB retrieval/index/representation snapshot,Crystal-DB MCP; Skill-Loop crystal.csp_pack and crystal.novelty_check,MATERIALS_PROJECT_API_DERIVED_CONFIRMED,REQUIRED_BUT_PROVENANCE_BLOCKED,NOT_STORED_PROVENANCE_BLOCKED

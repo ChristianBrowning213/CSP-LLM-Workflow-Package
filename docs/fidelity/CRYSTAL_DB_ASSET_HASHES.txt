@@ -1,0 +1,3 @@
+# Ticket 25 required asset hash
+572448fbcb7716d315246f24dd427064715fd56839d0b4450cc6a8231a0e5dc0  source:Crystal-DB/data/phase6_mp_10k.db
+MISSING  archive:data/crystal_db/phase6_mp_10k.db  REQUIRED_BUT_PROVENANCE_BLOCKED

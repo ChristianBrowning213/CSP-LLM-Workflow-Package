@@ -1,0 +1,85 @@
+{
+  "source_revision": "e33d5cc55be01f800a7cf055cc1793d982deb5bc",
+  "database": {
+    "path": "Crystal-DB/data/phase6_mp_10k.db",
+    "size": 881799168,
+    "sha256": "572448fbcb7716d315246f24dd427064715fd56839d0b4450cc6a8231a0e5dc0",
+    "probe_method": "two initially byte-identical temporary copies; source evidence was not opened writable"
+  },
+  "text_search": {
+    "query_sha256": "2c48b125e79fad7dbd9d57aedc9f7cace15378c9c1bdf950fed7676aaf0f4daf",
+    "query_vector_source": "persisted query_embeddings row, 1024 dimensions",
+    "source_status": "ok",
+    "archive_status": "ok",
+    "source_and_archive_results": [
+      ["mp-01350e41", 0.905949304807],
+      ["mp-e9d41d6a", 0.858702735365],
+      ["mp-4c9c76a0", 0.846436147806],
+      ["mp-b48ca5fc", 0.844211984262],
+      ["mp-45b14c49", 0.842822594273]
+    ],
+    "comparison": "EXACT"
+  },
+  "csp_pack": {
+    "input_structure_id": "mp-000faa85",
+    "source_status": "ok",
+    "archive_status": "ok",
+    "source_and_archive_results": [
+      ["mp-ef7a4d0f", 0.973001544054],
+      ["mp-429fb8b4", 0.96715642053],
+      ["mp-db26b121", 0.965235957928],
+      ["mp-74a5d996", 0.95126355814],
+      ["mp-e79a6259", 0.95031244479]
+    ],
+    "comparison": "EXACT_AFTER_IGNORING_RUN_ID_AND_TEMP_DB_PATH"
+  },
+  "novelty_check": {
+    "input_structure_id": "mp-000faa85",
+    "source_and_archive_is_novel": false,
+    "source_and_archive_max_text_similarity": 0.8392894363120057,
+    "source_and_archive_max_fp_similarity": 0.9999972926517522,
+    "source_and_archive_reason_codes": ["TEXT_TOO_SIMILAR", "FP_TOO_SIMILAR"],
+    "source_and_archive_top_fingerprint_results": [
+      ["mp-ef7a4d0f", 0.999997292652],
+      ["mp-db26b121", 0.999996667648],
+      ["mp-bd61f7e5", 0.999995758237],
+      ["mp-26212905", 0.999990212081],
+      ["mp-e79a6259", 0.999986776338]
+    ],
+    "comparison": "EXACT_AFTER_IGNORING_RUN_ID_AND_TIMESTAMPS"
+  },
+  "readiness": {
+    "source_ready": true,
+    "archive_ready": true,
+    "source_state": "backend_ready",
+    "archive_state": "backend_ready",
+    "comparison": "EXACT_AFTER_NORMALIZING_TEMP_DB_PATH"
+  },
+  "archive_cli": {
+    "query": {"exit_code": 0, "total_matches": 10000, "first_id": "mp-000faa85"},
+    "csp_pack_id_mode": {"exit_code": 0, "status": "ok"},
+    "novelty_check_id_mode": {"exit_code": 0, "is_novel": false},
+    "text_search_without_lm_studio": {
+      "exit_code": 1,
+      "status": "error",
+      "error_code": "query_embedding_failed",
+      "backend_state": "backend_ready"
+    }
+  },
+  "archive_mcp": {
+    "crystal.status": "backend_ready",
+    "crystal.csp_pack": "ok",
+    "crystal.novelty_check": "not_novel",
+    "crystal.text_search_without_lm_studio": "query_embedding_failed"
+  },
+  "installed_wheel_real_data": {
+    "import_origin": "isolated site-packages",
+    "readiness": true,
+    "csp_pack_status": "ok",
+    "csp_pack_ids": ["mp-ef7a4d0f", "mp-429fb8b4", "mp-db26b121"],
+    "novelty_is_novel": false,
+    "novelty_ids": ["mp-ef7a4d0f", "mp-db26b121", "mp-bd61f7e5"]
+  },
+  "archive_contained_snapshot_comparison": "NOT_RUN_REQUIRED_ASSET_PROVENANCE_BLOCKED",
+  "scientific_behavior": "NO_SCIENTIFIC_BEHAVIOR_CHANGE"
+}
