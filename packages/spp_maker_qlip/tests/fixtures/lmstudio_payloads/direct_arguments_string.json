@@ -1,0 +1,5 @@
+{
+  "tool_name": "sum_values",
+  "arguments": "{\"a\": 2, \"b\": 3}",
+  "temperature": 0.2
+}

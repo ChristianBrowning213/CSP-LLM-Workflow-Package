@@ -1,0 +1,1 @@
+Compatibility check skipped for non-SPP artifact kind.

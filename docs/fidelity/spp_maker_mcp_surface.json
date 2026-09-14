@@ -1,0 +1,34 @@
+[
+  {
+    "name": "spp.run_pipeline",
+    "source_implementation": "server.py:2278",
+    "input_schema": "RunPipelineRequest",
+    "output_schema": "RunPipelineResult",
+    "archive_implementation": "packages/spp_maker_qlip/src/spp_maker_mcp/server.py",
+    "parity_status": "IDENTICAL"
+  },
+  {
+    "name": "spp.check_compat",
+    "source_implementation": "server.py:2284",
+    "input_schema": "CheckCompatRequest",
+    "output_schema": "CheckCompatResult",
+    "archive_implementation": "packages/spp_maker_qlip/src/spp_maker_mcp/server.py",
+    "parity_status": "IDENTICAL"
+  },
+  {
+    "name": "spp.package_for_qlip",
+    "source_implementation": "server.py:2290",
+    "input_schema": "PackageForQLIPRequest",
+    "output_schema": "PackageForQLIPResult",
+    "archive_implementation": "packages/spp_maker_qlip/src/spp_maker_mcp/server.py",
+    "parity_status": "IDENTICAL"
+  },
+  {
+    "name": "spp.publish_to_qlip_outputs",
+    "source_implementation": "server.py:2296",
+    "input_schema": "PublishToQLIPOutputsRequest",
+    "output_schema": "PublishToQLIPOutputsResult",
+    "archive_implementation": "packages/spp_maker_qlip/src/spp_maker_mcp/server.py",
+    "parity_status": "IDENTICAL"
+  }
+]

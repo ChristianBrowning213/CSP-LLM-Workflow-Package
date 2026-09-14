@@ -1,0 +1,1732 @@
+{
+  "spp.check_compat": {
+    "envelope": {
+      "$defs": {
+        "StructuredError": {
+          "additionalProperties": false,
+          "properties": {
+            "code": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Code"
+            },
+            "details": {
+              "items": {
+                "$ref": "#/$defs/StructuredErrorDetail"
+              },
+              "title": "Details",
+              "type": "array"
+            },
+            "message": {
+              "title": "Message",
+              "type": "string"
+            },
+            "type": {
+              "title": "Type",
+              "type": "string"
+            }
+          },
+          "required": [
+            "type",
+            "message"
+          ],
+          "title": "StructuredError",
+          "type": "object"
+        },
+        "StructuredErrorDetail": {
+          "additionalProperties": false,
+          "properties": {
+            "expected": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Expected"
+            },
+            "message": {
+              "title": "Message",
+              "type": "string"
+            },
+            "path": {
+              "title": "Path",
+              "type": "string"
+            },
+            "received": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Received"
+            }
+          },
+          "required": [
+            "path",
+            "message"
+          ],
+          "title": "StructuredErrorDetail",
+          "type": "object"
+        },
+        "WarningObject": {
+          "additionalProperties": false,
+          "properties": {
+            "code": {
+              "title": "Code",
+              "type": "string"
+            },
+            "dropped_keys": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Dropped Keys",
+              "type": "array"
+            },
+            "message": {
+              "title": "Message",
+              "type": "string"
+            },
+            "path": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Path"
+            }
+          },
+          "required": [
+            "code",
+            "message"
+          ],
+          "title": "WarningObject",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "properties": {
+        "error": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StructuredError"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "ok": {
+          "title": "Ok",
+          "type": "boolean"
+        },
+        "result": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Result"
+        },
+        "tool_name": {
+          "title": "Tool Name",
+          "type": "string"
+        },
+        "trace_id": {
+          "title": "Trace Id",
+          "type": "string"
+        },
+        "warnings": {
+          "items": {
+            "$ref": "#/$defs/WarningObject"
+          },
+          "title": "Warnings",
+          "type": "array"
+        }
+      },
+      "required": [
+        "ok",
+        "trace_id",
+        "tool_name",
+        "result",
+        "error"
+      ],
+      "title": "ToolEnvelope",
+      "type": "object"
+    },
+    "request": {
+      "additionalProperties": false,
+      "properties": {
+        "debug": {
+          "default": false,
+          "title": "Debug",
+          "type": "boolean"
+        },
+        "spp_root": {
+          "title": "Spp Root",
+          "type": "string"
+        },
+        "strict": {
+          "default": false,
+          "title": "Strict",
+          "type": "boolean"
+        },
+        "trace_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Trace Id"
+        }
+      },
+      "required": [
+        "spp_root"
+      ],
+      "title": "CheckCompatRequest",
+      "type": "object"
+    },
+    "result": {
+      "$defs": {
+        "CompatFailure": {
+          "additionalProperties": false,
+          "properties": {
+            "line_no": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Line No"
+            },
+            "path": {
+              "title": "Path",
+              "type": "string"
+            },
+            "reason": {
+              "title": "Reason",
+              "type": "string"
+            }
+          },
+          "required": [
+            "path",
+            "reason"
+          ],
+          "title": "CompatFailure",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "properties": {
+        "failed_count": {
+          "title": "Failed Count",
+          "type": "integer"
+        },
+        "failures": {
+          "items": {
+            "$ref": "#/$defs/CompatFailure"
+          },
+          "title": "Failures",
+          "type": "array"
+        },
+        "files_checked": {
+          "title": "Files Checked",
+          "type": "integer"
+        },
+        "ok": {
+          "title": "Ok",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "ok",
+        "files_checked",
+        "failed_count"
+      ],
+      "title": "CheckCompatResult",
+      "type": "object"
+    }
+  },
+  "spp.package_for_qlip": {
+    "envelope": {
+      "$defs": {
+        "StructuredError": {
+          "additionalProperties": false,
+          "properties": {
+            "code": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Code"
+            },
+            "details": {
+              "items": {
+                "$ref": "#/$defs/StructuredErrorDetail"
+              },
+              "title": "Details",
+              "type": "array"
+            },
+            "message": {
+              "title": "Message",
+              "type": "string"
+            },
+            "type": {
+              "title": "Type",
+              "type": "string"
+            }
+          },
+          "required": [
+            "type",
+            "message"
+          ],
+          "title": "StructuredError",
+          "type": "object"
+        },
+        "StructuredErrorDetail": {
+          "additionalProperties": false,
+          "properties": {
+            "expected": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Expected"
+            },
+            "message": {
+              "title": "Message",
+              "type": "string"
+            },
+            "path": {
+              "title": "Path",
+              "type": "string"
+            },
+            "received": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Received"
+            }
+          },
+          "required": [
+            "path",
+            "message"
+          ],
+          "title": "StructuredErrorDetail",
+          "type": "object"
+        },
+        "WarningObject": {
+          "additionalProperties": false,
+          "properties": {
+            "code": {
+              "title": "Code",
+              "type": "string"
+            },
+            "dropped_keys": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Dropped Keys",
+              "type": "array"
+            },
+            "message": {
+              "title": "Message",
+              "type": "string"
+            },
+            "path": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Path"
+            }
+          },
+          "required": [
+            "code",
+            "message"
+          ],
+          "title": "WarningObject",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "properties": {
+        "error": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StructuredError"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "ok": {
+          "title": "Ok",
+          "type": "boolean"
+        },
+        "result": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Result"
+        },
+        "tool_name": {
+          "title": "Tool Name",
+          "type": "string"
+        },
+        "trace_id": {
+          "title": "Trace Id",
+          "type": "string"
+        },
+        "warnings": {
+          "items": {
+            "$ref": "#/$defs/WarningObject"
+          },
+          "title": "Warnings",
+          "type": "array"
+        }
+      },
+      "required": [
+        "ok",
+        "trace_id",
+        "tool_name",
+        "result",
+        "error"
+      ],
+      "title": "ToolEnvelope",
+      "type": "object"
+    },
+    "request": {
+      "additionalProperties": false,
+      "properties": {
+        "calibration_json": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Calibration Json"
+        },
+        "debug": {
+          "default": false,
+          "title": "Debug",
+          "type": "boolean"
+        },
+        "include_registry_snapshot": {
+          "default": false,
+          "title": "Include Registry Snapshot",
+          "type": "boolean"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "out_dir": {
+          "title": "Out Dir",
+          "type": "string"
+        },
+        "run_root": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Run Root"
+        },
+        "spp_root": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Spp Root"
+        },
+        "trace_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Trace Id"
+        }
+      },
+      "required": [
+        "out_dir",
+        "name"
+      ],
+      "title": "PackageForQLIPRequest",
+      "type": "object"
+    },
+    "result": {
+      "$defs": {
+        "ProvenanceBlock": {
+          "additionalProperties": false,
+          "properties": {
+            "content_hash": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Content Hash"
+            },
+            "git_sha": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Git Sha"
+            },
+            "params_hash": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Params Hash"
+            },
+            "tool": {
+              "title": "Tool",
+              "type": "string"
+            },
+            "tool_version": {
+              "title": "Tool Version",
+              "type": "string"
+            }
+          },
+          "required": [
+            "tool",
+            "tool_version"
+          ],
+          "title": "ProvenanceBlock",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "properties": {
+        "contents": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Contents",
+          "type": "array"
+        },
+        "final_bundle_path": {
+          "title": "Final Bundle Path",
+          "type": "string"
+        },
+        "output_bytes": {
+          "title": "Output Bytes",
+          "type": "integer"
+        },
+        "package_json_path": {
+          "title": "Package Json Path",
+          "type": "string"
+        },
+        "provenance": {
+          "$ref": "#/$defs/ProvenanceBlock"
+        },
+        "run_id": {
+          "title": "Run Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "run_id",
+        "final_bundle_path",
+        "package_json_path",
+        "contents",
+        "provenance",
+        "output_bytes"
+      ],
+      "title": "PackageForQLIPResult",
+      "type": "object"
+    }
+  },
+  "spp.publish_to_qlip_outputs": {
+    "envelope": {
+      "$defs": {
+        "StructuredError": {
+          "additionalProperties": false,
+          "properties": {
+            "code": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Code"
+            },
+            "details": {
+              "items": {
+                "$ref": "#/$defs/StructuredErrorDetail"
+              },
+              "title": "Details",
+              "type": "array"
+            },
+            "message": {
+              "title": "Message",
+              "type": "string"
+            },
+            "type": {
+              "title": "Type",
+              "type": "string"
+            }
+          },
+          "required": [
+            "type",
+            "message"
+          ],
+          "title": "StructuredError",
+          "type": "object"
+        },
+        "StructuredErrorDetail": {
+          "additionalProperties": false,
+          "properties": {
+            "expected": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Expected"
+            },
+            "message": {
+              "title": "Message",
+              "type": "string"
+            },
+            "path": {
+              "title": "Path",
+              "type": "string"
+            },
+            "received": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Received"
+            }
+          },
+          "required": [
+            "path",
+            "message"
+          ],
+          "title": "StructuredErrorDetail",
+          "type": "object"
+        },
+        "WarningObject": {
+          "additionalProperties": false,
+          "properties": {
+            "code": {
+              "title": "Code",
+              "type": "string"
+            },
+            "dropped_keys": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Dropped Keys",
+              "type": "array"
+            },
+            "message": {
+              "title": "Message",
+              "type": "string"
+            },
+            "path": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Path"
+            }
+          },
+          "required": [
+            "code",
+            "message"
+          ],
+          "title": "WarningObject",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "properties": {
+        "error": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StructuredError"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "ok": {
+          "title": "Ok",
+          "type": "boolean"
+        },
+        "result": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Result"
+        },
+        "tool_name": {
+          "title": "Tool Name",
+          "type": "string"
+        },
+        "trace_id": {
+          "title": "Trace Id",
+          "type": "string"
+        },
+        "warnings": {
+          "items": {
+            "$ref": "#/$defs/WarningObject"
+          },
+          "title": "Warnings",
+          "type": "array"
+        }
+      },
+      "required": [
+        "ok",
+        "trace_id",
+        "tool_name",
+        "result",
+        "error"
+      ],
+      "title": "ToolEnvelope",
+      "type": "object"
+    },
+    "request": {
+      "additionalProperties": false,
+      "properties": {
+        "artifact_root": {
+          "title": "Artifact Root",
+          "type": "string"
+        },
+        "copy_mode": {
+          "default": "copy",
+          "enum": [
+            "copy",
+            "symlink"
+          ],
+          "title": "Copy Mode",
+          "type": "string"
+        },
+        "debug": {
+          "default": false,
+          "title": "Debug",
+          "type": "boolean"
+        },
+        "kind": {
+          "enum": [
+            "spp",
+            "guidance",
+            "package",
+            "constraint"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "overwrite": {
+          "default": false,
+          "title": "Overwrite",
+          "type": "boolean"
+        },
+        "qlip_outputs_path": {
+          "title": "Qlip Outputs Path",
+          "type": "string"
+        },
+        "set_latest": {
+          "default": true,
+          "title": "Set Latest",
+          "type": "boolean"
+        },
+        "strict_compat": {
+          "default": true,
+          "title": "Strict Compat",
+          "type": "boolean"
+        },
+        "trace_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Trace Id"
+        }
+      },
+      "required": [
+        "kind",
+        "artifact_root",
+        "qlip_outputs_path",
+        "name"
+      ],
+      "title": "PublishToQLIPOutputsRequest",
+      "type": "object"
+    },
+    "result": {
+      "$defs": {
+        "ProvenanceBlock": {
+          "additionalProperties": false,
+          "properties": {
+            "content_hash": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Content Hash"
+            },
+            "git_sha": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Git Sha"
+            },
+            "params_hash": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Params Hash"
+            },
+            "tool": {
+              "title": "Tool",
+              "type": "string"
+            },
+            "tool_version": {
+              "title": "Tool Version",
+              "type": "string"
+            }
+          },
+          "required": [
+            "tool",
+            "tool_version"
+          ],
+          "title": "ProvenanceBlock",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "properties": {
+        "index_json_path": {
+          "title": "Index Json Path",
+          "type": "string"
+        },
+        "latest_pointer_path": {
+          "title": "Latest Pointer Path",
+          "type": "string"
+        },
+        "latest_pointer_value": {
+          "title": "Latest Pointer Value",
+          "type": "string"
+        },
+        "provenance": {
+          "$ref": "#/$defs/ProvenanceBlock"
+        },
+        "published_path": {
+          "title": "Published Path",
+          "type": "string"
+        },
+        "published_run_id": {
+          "title": "Published Run Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "published_run_id",
+        "published_path",
+        "index_json_path",
+        "latest_pointer_path",
+        "latest_pointer_value",
+        "provenance"
+      ],
+      "title": "PublishToQLIPOutputsResult",
+      "type": "object"
+    }
+  },
+  "spp.run_pipeline": {
+    "envelope": {
+      "$defs": {
+        "StructuredError": {
+          "additionalProperties": false,
+          "properties": {
+            "code": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Code"
+            },
+            "details": {
+              "items": {
+                "$ref": "#/$defs/StructuredErrorDetail"
+              },
+              "title": "Details",
+              "type": "array"
+            },
+            "message": {
+              "title": "Message",
+              "type": "string"
+            },
+            "type": {
+              "title": "Type",
+              "type": "string"
+            }
+          },
+          "required": [
+            "type",
+            "message"
+          ],
+          "title": "StructuredError",
+          "type": "object"
+        },
+        "StructuredErrorDetail": {
+          "additionalProperties": false,
+          "properties": {
+            "expected": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Expected"
+            },
+            "message": {
+              "title": "Message",
+              "type": "string"
+            },
+            "path": {
+              "title": "Path",
+              "type": "string"
+            },
+            "received": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Received"
+            }
+          },
+          "required": [
+            "path",
+            "message"
+          ],
+          "title": "StructuredErrorDetail",
+          "type": "object"
+        },
+        "WarningObject": {
+          "additionalProperties": false,
+          "properties": {
+            "code": {
+              "title": "Code",
+              "type": "string"
+            },
+            "dropped_keys": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Dropped Keys",
+              "type": "array"
+            },
+            "message": {
+              "title": "Message",
+              "type": "string"
+            },
+            "path": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Path"
+            }
+          },
+          "required": [
+            "code",
+            "message"
+          ],
+          "title": "WarningObject",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "properties": {
+        "error": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StructuredError"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "ok": {
+          "title": "Ok",
+          "type": "boolean"
+        },
+        "result": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Result"
+        },
+        "tool_name": {
+          "title": "Tool Name",
+          "type": "string"
+        },
+        "trace_id": {
+          "title": "Trace Id",
+          "type": "string"
+        },
+        "warnings": {
+          "items": {
+            "$ref": "#/$defs/WarningObject"
+          },
+          "title": "Warnings",
+          "type": "array"
+        }
+      },
+      "required": [
+        "ok",
+        "trace_id",
+        "tool_name",
+        "result",
+        "error"
+      ],
+      "title": "ToolEnvelope",
+      "type": "object"
+    },
+    "request": {
+      "$defs": {
+        "RunCalibrationBandpass": {
+          "additionalProperties": false,
+          "properties": {
+            "d_hi": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "D Hi"
+            },
+            "d_lo": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "D Lo"
+            },
+            "enabled": {
+              "default": true,
+              "title": "Enabled",
+              "type": "boolean"
+            },
+            "sigma_hi": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Sigma Hi"
+            },
+            "sigma_lo": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Sigma Lo"
+            }
+          },
+          "title": "RunCalibrationBandpass",
+          "type": "object"
+        },
+        "RunCalibrationParams": {
+          "additionalProperties": false,
+          "properties": {
+            "bandpass": {
+              "$ref": "#/$defs/RunCalibrationBandpass"
+            },
+            "convention": {
+              "default": "reward",
+              "enum": [
+                "reward",
+                "penalty"
+              ],
+              "title": "Convention",
+              "type": "string"
+            },
+            "max_calib": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Max Calib"
+            },
+            "max_lambda": {
+              "default": 1000000000.0,
+              "title": "Max Lambda",
+              "type": "number"
+            },
+            "min_lambda": {
+              "default": 0.0,
+              "title": "Min Lambda",
+              "type": "number"
+            },
+            "mode": {
+              "default": "structure_median",
+              "enum": [
+                "structure_median",
+                "edge_median",
+                "quantile"
+              ],
+              "title": "Mode",
+              "type": "string"
+            },
+            "q": {
+              "default": 0.5,
+              "title": "Q",
+              "type": "number"
+            },
+            "score_method": {
+              "default": "neighbors",
+              "enum": [
+                "neighbors",
+                "supercell_gr"
+              ],
+              "title": "Score Method",
+              "type": "string"
+            },
+            "target": {
+              "title": "Target",
+              "type": "number"
+            }
+          },
+          "required": [
+            "target"
+          ],
+          "title": "RunCalibrationParams",
+          "type": "object"
+        },
+        "RunCovalentParams": {
+          "additionalProperties": false,
+          "properties": {
+            "enabled": {
+              "default": false,
+              "title": "Enabled",
+              "type": "boolean"
+            },
+            "rules_path": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Rules Path"
+            }
+          },
+          "title": "RunCovalentParams",
+          "type": "object"
+        },
+        "RunFilterParams": {
+          "additionalProperties": false,
+          "properties": {
+            "meta_csv": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Meta Csv"
+            },
+            "property_filter": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Property Filter"
+            },
+            "property_mode": {
+              "default": "include",
+              "enum": [
+                "include",
+                "exclude"
+              ],
+              "title": "Property Mode",
+              "type": "string"
+            }
+          },
+          "title": "RunFilterParams",
+          "type": "object"
+        },
+        "RunFitParams": {
+          "additionalProperties": false,
+          "properties": {
+            "alpha": {
+              "default": 0.001,
+              "title": "Alpha",
+              "type": "number"
+            },
+            "bin_width": {
+              "default": 0.05,
+              "title": "Bin Width",
+              "type": "number"
+            },
+            "d_max": {
+              "default": 8.0,
+              "title": "D Max",
+              "type": "number"
+            },
+            "d_min": {
+              "default": 0.5,
+              "title": "D Min",
+              "type": "number"
+            },
+            "fit_method": {
+              "default": "neighbors",
+              "enum": [
+                "neighbors",
+                "supercell_gr"
+              ],
+              "title": "Fit Method",
+              "type": "string"
+            },
+            "gr_eps": {
+              "default": 1e-12,
+              "title": "Gr Eps",
+              "type": "number"
+            },
+            "knn": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Knn"
+            },
+            "max_pairs": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Max Pairs"
+            },
+            "min_d": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Min D"
+            },
+            "r_cut": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "R Cut"
+            },
+            "r_max": {
+              "default": 10.0,
+              "title": "R Max",
+              "type": "number"
+            },
+            "sigma": {
+              "default": 0.1,
+              "title": "Sigma",
+              "type": "number"
+            },
+            "supercell_target_len": {
+              "default": 20.0,
+              "title": "Supercell Target Len",
+              "type": "number"
+            },
+            "truncate_sigma": {
+              "default": 3.0,
+              "title": "Truncate Sigma",
+              "type": "number"
+            }
+          },
+          "title": "RunFitParams",
+          "type": "object"
+        },
+        "RunPublishParams": {
+          "additionalProperties": false,
+          "properties": {
+            "publish_to": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Publish To"
+            }
+          },
+          "title": "RunPublishParams",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "properties": {
+        "calibration": {
+          "$ref": "#/$defs/RunCalibrationParams"
+        },
+        "cif_dir": {
+          "title": "Cif Dir",
+          "type": "string"
+        },
+        "covalent": {
+          "$ref": "#/$defs/RunCovalentParams"
+        },
+        "debug": {
+          "default": false,
+          "title": "Debug",
+          "type": "boolean"
+        },
+        "dry_run": {
+          "default": false,
+          "title": "Dry Run",
+          "type": "boolean"
+        },
+        "filters": {
+          "$ref": "#/$defs/RunFilterParams"
+        },
+        "fit": {
+          "$ref": "#/$defs/RunFitParams"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "out_dir": {
+          "title": "Out Dir",
+          "type": "string"
+        },
+        "publish": {
+          "$ref": "#/$defs/RunPublishParams"
+        },
+        "timeout_seconds": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Timeout Seconds"
+        },
+        "trace_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Trace Id"
+        }
+      },
+      "required": [
+        "cif_dir",
+        "out_dir",
+        "name",
+        "calibration"
+      ],
+      "title": "RunPipelineRequest",
+      "type": "object"
+    },
+    "result": {
+      "$defs": {
+        "ProvenanceBlock": {
+          "additionalProperties": false,
+          "properties": {
+            "content_hash": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Content Hash"
+            },
+            "git_sha": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Git Sha"
+            },
+            "params_hash": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Params Hash"
+            },
+            "tool": {
+              "title": "Tool",
+              "type": "string"
+            },
+            "tool_version": {
+              "title": "Tool Version",
+              "type": "string"
+            }
+          },
+          "required": [
+            "tool",
+            "tool_version"
+          ],
+          "title": "ProvenanceBlock",
+          "type": "object"
+        },
+        "RunPipelinePaths": {
+          "additionalProperties": false,
+          "properties": {
+            "calibration_json": {
+              "title": "Calibration Json",
+              "type": "string"
+            },
+            "fit_spp_root": {
+              "title": "Fit Spp Root",
+              "type": "string"
+            },
+            "package_json": {
+              "title": "Package Json",
+              "type": "string"
+            },
+            "scaled_spp_root": {
+              "title": "Scaled Spp Root",
+              "type": "string"
+            }
+          },
+          "required": [
+            "fit_spp_root",
+            "calibration_json",
+            "scaled_spp_root",
+            "package_json"
+          ],
+          "title": "RunPipelinePaths",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "properties": {
+        "cif_count": {
+          "title": "Cif Count",
+          "type": "integer"
+        },
+        "content_hash": {
+          "title": "Content Hash",
+          "type": "string"
+        },
+        "dry_run": {
+          "default": false,
+          "title": "Dry Run",
+          "type": "boolean"
+        },
+        "final_bundle": {
+          "title": "Final Bundle",
+          "type": "string"
+        },
+        "log_path": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Log Path"
+        },
+        "output_bytes": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Output Bytes"
+        },
+        "paths": {
+          "$ref": "#/$defs/RunPipelinePaths"
+        },
+        "provenance": {
+          "$ref": "#/$defs/ProvenanceBlock"
+        },
+        "published": {
+          "anyOf": [
+            {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Published"
+        },
+        "run_id": {
+          "title": "Run Id",
+          "type": "string"
+        },
+        "run_root": {
+          "title": "Run Root",
+          "type": "string"
+        }
+      },
+      "required": [
+        "run_id",
+        "run_root",
+        "final_bundle",
+        "content_hash",
+        "paths",
+        "provenance",
+        "cif_count"
+      ],
+      "title": "RunPipelineResult",
+      "type": "object"
+    }
+  }
+}

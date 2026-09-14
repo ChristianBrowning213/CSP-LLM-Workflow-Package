@@ -1,0 +1,22 @@
+{
+  "checks": {
+    "compat": {
+      "checked": 1,
+      "failed": 0,
+      "passed": 1,
+      "skipped": false,
+      "strict": true
+    }
+  },
+  "copy_mode": "copy",
+  "git_sha": "82114cd05f0cb40149d13c20adeafe4c437a03ae",
+  "kind": "spp",
+  "name": "qlip_outputs_seed_scaled",
+  "python_version": "3.12.10",
+  "run_id": "20260914_174837_qlip_outputs_seed_scaled_09cfb1e4",
+  "set_latest": true,
+  "source_artifact_root": "C:\\Users\\brown\\.codex-grunts\\CSP-LLM-Workflow-Package\\t26_08_correction_02_fresh_run-20260914-184714-64988\\packages\\spp_maker_qlip\\tmp\\SPP_Runs\\20260914_174837_qlip_outputs_seed_21bdf43d\\calibrate\\scaled_spp_root",
+  "timestamp_utc": "2026-09-14T17:48:37.718027+00:00",
+  "tool": "SPP_Maker",
+  "tool_version": "0.1.0"
+}

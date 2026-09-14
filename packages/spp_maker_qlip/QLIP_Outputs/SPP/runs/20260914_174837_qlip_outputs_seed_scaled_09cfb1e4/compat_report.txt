@@ -1,0 +1,4 @@
+POT files checked: 1
+Passed: 1
+Failed: 0
+All POT files passed compatibility checks.

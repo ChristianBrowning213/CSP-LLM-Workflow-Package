@@ -1,0 +1,58 @@
+{
+  "bandpass": {
+    "enabled": false
+  },
+  "bandpass_enabled": false,
+  "cif_dir": "C:\\Users\\brown\\.codex-grunts\\CSP-LLM-Workflow-Package\\t26_08_correction_02_fresh_run-20260914-184714-64988\\packages\\spp_maker_qlip\\tests\\fixtures\\cifs",
+  "convention": "reward",
+  "lambda_abs": Infinity,
+  "lambda_clipped": true,
+  "lambda_raw": Infinity,
+  "lambda_used": 1000000000.0,
+  "max_lambda": 1000000000.0,
+  "max_n": 2,
+  "min_lambda": 0.0,
+  "mode": "structure_median",
+  "neighbor": {
+    "knn": null,
+    "min_d": null,
+    "r_cut": 4.0
+  },
+  "policies": {
+    "missing_pair_policy": "max_global",
+    "oob_policy": "max"
+  },
+  "published": null,
+  "q": 0.5,
+  "recommended_lambda": 1000000000.0,
+  "scaled_root": "C:\\Users\\brown\\.codex-grunts\\CSP-LLM-Workflow-Package\\t26_08_correction_02_fresh_run-20260914-184714-64988\\packages\\spp_maker_qlip\\tmp\\SPP_Runs\\20260914_174837_qlip_outputs_seed_21bdf43d\\calibrate\\scaled_spp_root",
+  "score_method": "neighbors",
+  "spp_root": "C:\\Users\\brown\\.codex-grunts\\CSP-LLM-Workflow-Package\\t26_08_correction_02_fresh_run-20260914-184714-64988\\packages\\spp_maker_qlip\\tmp\\SPP_Runs\\20260914_174837_qlip_outputs_seed_21bdf43d\\fit\\spp_root",
+  "stats": {
+    "num_edges_total": 1,
+    "num_structures": 2,
+    "score_edges": [
+      0.0,
+      0.0
+    ],
+    "score_structures": [
+      0.0,
+      0.0
+    ],
+    "summary": {
+      "edge_scores": {
+        "mean": 0.0,
+        "median": 0.0
+      },
+      "structure_scores": {
+        "max": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "min": 0.0,
+        "std": 0.0
+      }
+    }
+  },
+  "supercell": null,
+  "target": 5.0
+}

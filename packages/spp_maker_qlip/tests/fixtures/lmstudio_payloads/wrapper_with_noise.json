@@ -1,0 +1,16 @@
+{
+  "tool": {
+    "name": "sum_values",
+    "arguments": {
+      "a": 5,
+      "b": 6
+    },
+    "unused_inside_tool": "drop_me"
+  },
+  "model": "anthropic/claude-3.5-sonnet",
+  "system_prompt": "Use tools when required",
+  "form_mode": [
+    "constraints",
+    "guidance"
+  ]
+}

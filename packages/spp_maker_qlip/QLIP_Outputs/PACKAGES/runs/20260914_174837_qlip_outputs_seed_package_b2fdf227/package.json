@@ -1,0 +1,32 @@
+{
+  "calibration_method": "neighbors",
+  "content_hash": "6f703ad0fa54da708e710c903515783ee88c46464eade8341cd7cb97ff31714e",
+  "convention": "reward",
+  "corpus": {
+    "cif_dir": "C:\\Users\\brown\\.codex-grunts\\CSP-LLM-Workflow-Package\\t26_08_correction_02_fresh_run-20260914-184714-64988\\packages\\spp_maker_qlip\\tests\\fixtures\\cifs",
+    "num_structures_selected": 2,
+    "num_structures_total": 2
+  },
+  "created_at_utc": "2026-09-14T17:48:37.691505+00:00",
+  "fit_method": "neighbors",
+  "lambda_used": 1000000000.0,
+  "name": "qlip_outputs_seed",
+  "package_id": "20260914_174837_qlip_outputs_seed_21bdf43d_6f703ad0",
+  "paths": {
+    "final_bundle": {
+      "guidance": "guidance/calibration.json",
+      "spp_root": "spp_root"
+    },
+    "run": {
+      "guidance": "../calibrate/calibration.json",
+      "spp_root": "../calibrate/scaled_spp_root"
+    }
+  },
+  "provenance": {
+    "git_sha": "82114cd05f0cb40149d13c20adeafe4c437a03ae",
+    "tool": "SPP_Maker",
+    "tool_version": "0.1.0"
+  },
+  "run_id": "20260914_174837_qlip_outputs_seed_21bdf43d",
+  "schema_version": "SPPMakerQLIPPackage.v1"
+}

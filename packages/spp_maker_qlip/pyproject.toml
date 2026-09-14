@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "spp-maker-qlip"
+version = "0.1.0"
+description = "Scaffolding for generating QLIP-compatible SPP POT artifacts."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "ase>=3.22",
+    "numpy>=1.26",
+    "pydantic>=2.8,<3",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+mcp = [
+    "mcp>=1.0,<2",
+]
+
+[project.scripts]
+spp-maker = "spp_maker.cli:main"
+spp-maker-mcp = "spp_maker_mcp.server:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]

@@ -1,0 +1,162 @@
+{
+  "parity_fitting": {
+    "source_returncode": 0,
+    "archive_returncode": 0,
+    "source_stderr": "",
+    "archive_stderr": "",
+    "required_pairs_match": true,
+    "manifest_match_excluding_env_fields": true,
+    "pot_comparison": {
+      "source_pot_count": 1,
+      "archive_pot_count": 1,
+      "relative_paths_match": true,
+      "missing_from_archive": [],
+      "extra_in_archive": [],
+      "byte_exact": {
+        "C-Si/C-Si.POT": true
+      },
+      "mismatches": []
+    },
+    "status": "COMPARED"
+  },
+  "parity_scoring": {
+    "source_returncode": 0,
+    "archive_returncode": 0,
+    "source_scores": {
+      "nacl.cif": 0.0,
+      "sic.cif": 0.0
+    },
+    "archive_scores": {
+      "nacl.cif": 0.0,
+      "sic.cif": 0.0
+    },
+    "exact_match": true,
+    "status": "COMPARED"
+  },
+  "parity_qlip_packaging": {
+    "source_returncode": 0,
+    "archive_returncode": 0,
+    "final_output_filenames_match": true,
+    "source_final_filenames": [
+      "C-Si.POT",
+      "C-Si.POT",
+      "README.txt",
+      "calibration.json",
+      "compat_report.txt",
+      "compat_report.txt",
+      "compat_report.txt",
+      "compat_report.txt",
+      "guidance.json",
+      "index.json",
+      "latest.txt",
+      "latest.txt",
+      "latest.txt",
+      "manifest.json",
+      "manifest.json",
+      "manifest.json",
+      "package.json",
+      "package.json",
+      "package.json",
+      "publish_meta.json",
+      "publish_meta.json",
+      "publish_meta.json",
+      "snippet.py.txt"
+    ],
+    "archive_final_filenames": [
+      "C-Si.POT",
+      "C-Si.POT",
+      "README.txt",
+      "calibration.json",
+      "compat_report.txt",
+      "compat_report.txt",
+      "compat_report.txt",
+      "compat_report.txt",
+      "guidance.json",
+      "index.json",
+      "latest.txt",
+      "latest.txt",
+      "latest.txt",
+      "manifest.json",
+      "manifest.json",
+      "manifest.json",
+      "package.json",
+      "package.json",
+      "package.json",
+      "publish_meta.json",
+      "publish_meta.json",
+      "publish_meta.json",
+      "snippet.py.txt"
+    ],
+    "pot_hashes_match": true,
+    "source_pot_hashes": [
+      "82ff5a5f640d4eeaa8c3391b15a9111691594040c37440c6c08b72695e38282f",
+      "82ff5a5f640d4eeaa8c3391b15a9111691594040c37440c6c08b72695e38282f"
+    ],
+    "archive_pot_hashes": [
+      "82ff5a5f640d4eeaa8c3391b15a9111691594040c37440c6c08b72695e38282f",
+      "82ff5a5f640d4eeaa8c3391b15a9111691594040c37440c6c08b72695e38282f"
+    ],
+    "qlip_outputs_categories_match": true,
+    "source_qlip_categories": [
+      "CONSTRAINTS",
+      "GUIDANCES",
+      "PACKAGES",
+      "SPP",
+      "schema"
+    ],
+    "archive_qlip_categories": [
+      "CONSTRAINTS",
+      "GUIDANCES",
+      "PACKAGES",
+      "SPP",
+      "schema"
+    ],
+    "status": "COMPARED"
+  },
+  "parity_failure": {
+    "missing_cif_corpus": {
+      "source_returncode": 1,
+      "archive_returncode": 1,
+      "returncode_match": true,
+      "source_exception": null,
+      "archive_exception": null,
+      "exception_class_match": true
+    },
+    "missing_required_arg": {
+      "source_returncode": 2,
+      "archive_returncode": 2,
+      "returncode_match": true,
+      "source_exception": "ArgumentParserError",
+      "archive_exception": "ArgumentParserError",
+      "exception_class_match": true
+    },
+    "invalid_fit_method": {
+      "source_returncode": 2,
+      "archive_returncode": 2,
+      "returncode_match": true,
+      "source_exception": null,
+      "archive_exception": null,
+      "exception_class_match": true
+    },
+    "score_missing_spp_root": {
+      "source_returncode": 2,
+      "archive_returncode": 2,
+      "returncode_match": true,
+      "source_exception": "ArgumentParserError",
+      "archive_exception": "ArgumentParserError",
+      "exception_class_match": true
+    },
+    "score_nonexistent_spp_root": {
+      "source_returncode": 1,
+      "archive_returncode": 1,
+      "returncode_match": true,
+      "source_exception": null,
+      "archive_exception": null,
+      "exception_class_match": true
+    }
+  },
+  "parity_regulator": {
+    "status": "BLOCKED",
+    "reason": "No spp-maker CLI verb exposes regulator union/fallback decisions (only fit/score/calibrate/run exist). The real logic is in common_contract.choose_pair_blend/blend_contract_roots, which this subprocess-only harness is not permitted to import directly (see module docstring). Requires a dedicated, narrowly-scoped follow-up."
+  }
+}

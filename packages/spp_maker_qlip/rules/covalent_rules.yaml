@@ -1,0 +1,10 @@
+rules:
+  - elem1: Br
+    elem2: O
+    min_dist: 1.7
+  - elem1: S
+    elem2: O
+    min_dist: 1.6
+  - elem1: S
+    elem2: Br
+    min_dist: 1.8

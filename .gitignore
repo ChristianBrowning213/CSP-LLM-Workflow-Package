@@ -25,3 +25,9 @@ outputs/
 scratch/
 tmp/
 
+# Exception: Ticket 26 restored SPP-Maker-QLIP QLIP_Outputs registry
+# (CONSTRAINTS/GUIDANCES/PACKAGES/SPP each have a source-faithful runs/
+# subdirectory that must be tracked, including generated registry entries
+# Ticket 26 deliberately produces from safe fixture data).
+!packages/spp_maker_qlip/QLIP_Outputs/*/runs/
+!packages/spp_maker_qlip/QLIP_Outputs/*/runs/**

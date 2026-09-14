@@ -1,0 +1,25 @@
+{
+  "model": "claude-3-5-sonnet",
+  "system_prompt": "Be helpful and call tools when needed.",
+  "input": [
+    {
+      "type": "text",
+      "text": "Please compute a sum"
+    },
+    {
+      "type": "tool_use",
+      "id": "call_nested_001",
+      "name": "sum_values",
+      "input": {
+        "a": 8,
+        "b": 13
+      },
+      "cache_control": {
+        "type": "ephemeral"
+      }
+    }
+  ],
+  "form_mode": [
+    "constraints"
+  ]
+}

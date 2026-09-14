@@ -1,0 +1,19 @@
+{
+  "checks": {
+    "package": {
+      "content_hash": "6f703ad0fa54da708e710c903515783ee88c46464eade8341cd7cb97ff31714e",
+      "ok": true
+    }
+  },
+  "copy_mode": "copy",
+  "git_sha": "82114cd05f0cb40149d13c20adeafe4c437a03ae",
+  "kind": "package",
+  "name": "qlip_outputs_seed_package",
+  "python_version": "3.12.10",
+  "run_id": "20260914_174837_qlip_outputs_seed_package_b2fdf227",
+  "set_latest": true,
+  "source_artifact_root": "C:\\Users\\brown\\.codex-grunts\\CSP-LLM-Workflow-Package\\t26_08_correction_02_fresh_run-20260914-184714-64988\\packages\\spp_maker_qlip\\tmp\\SPP_Runs\\20260914_174837_qlip_outputs_seed_21bdf43d\\package",
+  "timestamp_utc": "2026-09-14T17:48:37.761541+00:00",
+  "tool": "SPP_Maker",
+  "tool_version": "0.1.0"
+}

@@ -1,0 +1,6 @@
+from qlip.spp import SPPCollection
+
+spp_dir = "./spp_root"
+collection = SPPCollection(spp_dir)
+collection.load(task.pairs)
+allocation.spp_collection = collection

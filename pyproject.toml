@@ -8,8 +8,7 @@ version = "0.2.0.dev0+fidelity"
 description = "A retrieval-guided, solver-backed crystal structure prediction framework."
 readme = "README.md"
 requires-python = ">=3.11"
-license = "MIT"
-license-files = ["LICENSE", "packages/qlip/LICENSE"]
+license = { text = "MIT" }
 authors = [{ name = "Christian Browning" }]
 dependencies = [
     "ase==3.27.0",
@@ -27,6 +26,8 @@ dependencies = [
 
 [project.scripts]
 llm-csp = "llm_csp.cli.main:main"
+spp-maker = "spp_maker.cli:main"
+spp-maker-mcp = "spp_maker_mcp.server:main"
 
 [project.optional-dependencies]
 test = ["pytest>=8", "mcp>=1.0,<2", "matplotlib", "robocrys"]
@@ -35,7 +36,7 @@ validation = [
 ]
 
 [tool.setuptools.packages.find]
-where = ["src", "packages/qlip/src", "packages/crystal_db/src"]
+where = ["src", "packages/qlip/src", "packages/crystal_db/src", "packages/spp_maker_qlip/src"]
 
 [tool.setuptools.package-data]
 qlip = [
