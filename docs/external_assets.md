@@ -19,14 +19,18 @@ database path.
 
 ## SPP
 
-No scientific POT file is bundled. Production chemistry requires a compatible
-user-supplied regulator/source POT root, or POTs fitted/generated from evidence
-the user is entitled to use.
+Nine source-distributed QLIP POT fixtures are bundled. The historical canonical
+3,388-pair regulator is not: its redistribution provenance is unresolved.
+Regulator-dependent production chemistry requires an approved user-supplied
+regulator root, while other source-supported workflows may fit/generate POTs
+from evidence the user is entitled to use.
 Every unordered elemental pair derived from the target formula must exist and
 pass the POT quality audit. Missing or invalid pairs block QLIP.
 
-Supply the root in workflow configuration (highest precedence) or through
-SPP_SOURCE_POT_ROOT. No broad corpus is bundled or downloaded.
+Supply the canonical Skill-Loop regulator through explicit workflow
+configuration (highest precedence) or `SKILL_LOOP_REGULATOR_SPP_ROOT`.
+`SPP_SOURCE_POT_ROOT` remains the SPP subsystem source-root setting. No broad
+corpus is bundled or downloaded, and the bundled fixtures are not a substitute.
 
 ## QLIP
 
@@ -69,6 +73,7 @@ and their datasets are not installed by the validation extra. With SCA absent,
 | CRYSTALDB_EMBED_MAX_TOTAL_TOKENS_PER_REQUEST | Crystal-DB | No | 12000 | Endpoint token cap |
 | CRYSTALDB_EMBED_CHUNKING | Crystal-DB | No | true | Long-document chunking |
 | SPP_SOURCE_POT_ROOT | SPP | Production unless config root supplied | Below explicit regulator_root | Broad POT root |
+| SKILL_LOOP_REGULATOR_SPP_ROOT | Skill-Loop | Historical regulator-dependent workflows | Explicit WorkflowConfig regulator_root | Approved canonical regulator POT root |
 | QLIP_SOLVER | QLIP standalone | No | gurobi | Solver selector; integrated workflow accepts only gurobi |
 | QLIP_BASE_DATA_DIR | QLIP standalone | No | In-memory generated chemistry plus bundled policy/provenance | Explicit complete chemistry-data override |
 | QLIP_SPP_POT_DIR | QLIP standalone | For an SPP solve unless request context supplies a root | No default | Primary user-supplied POT root |

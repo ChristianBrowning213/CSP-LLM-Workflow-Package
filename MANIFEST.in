@@ -1,0 +1,5 @@
+include data/crystal_db/requests/README.md
+include data/crystal_db/requests/default_mp_requests.txt
+include scripts/crystal_db/grab_data.py
+include packages/crystal_db/grab_mp_bulk.py
+recursive-include packages/crystal_db/scripts *.py

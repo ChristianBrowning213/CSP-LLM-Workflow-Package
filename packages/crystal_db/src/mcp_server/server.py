@@ -20,7 +20,11 @@ def _archive_root() -> Path:
 
 
 REPO_ROOT = _archive_root()
-DEFAULT_DB_PATH = str((REPO_ROOT / "data" / "crystal_db" / "phase6_mp_10k.db").resolve())
+DEFAULT_DB_RELATIVE_PATH = Path("phase6_mp_stable_10k") / "phase6_mp_stable_10k.db"
+DEFAULT_DB_ROOT = Path(
+    os.getenv("CRYSTAL_DB_DATA_ROOT", REPO_ROOT / "data" / "crystal_db" / "runtime")
+)
+DEFAULT_DB_PATH = str((DEFAULT_DB_ROOT / DEFAULT_DB_RELATIVE_PATH).resolve())
 DEFAULT_CONFIG_PATH = str((PACKAGE_ROOT / "configs" / "retrieval_defaults.json").resolve())
 SUPPORTED_POLICY_MODES = {"safe", "demo"}
 HARD_FAILURE_CODES = {

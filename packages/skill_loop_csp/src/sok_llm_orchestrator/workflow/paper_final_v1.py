@@ -58,7 +58,7 @@ class FinalTask:
 
 _EXP1 = "local_runs/paper_experiment_1_common_v1/EXPERIMENT_MANIFEST.csv"
 _EXP2 = "local_runs/paper_experiment_2_hard_v3/EXPERIMENT_MANIFEST.csv"
-_LI2FEO3 = "../Crystal-DB/artifacts/spp_only_oxide_benchmark_v4_taxonomy_fixed/results/paper_workflow_li2feo3/REQUEST.json"
+_LI2FEO3 = "artifacts/crystal_db/spp_only_oxide_benchmark_v4_taxonomy_fixed/results/paper_workflow_li2feo3/REQUEST.json"
 
 
 FINAL_TASKS = (

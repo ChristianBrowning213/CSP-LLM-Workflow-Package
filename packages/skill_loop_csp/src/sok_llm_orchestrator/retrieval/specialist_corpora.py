@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import os
 import tempfile
 from pathlib import Path
 from typing import Any
@@ -12,7 +13,19 @@ from pymatgen.core import Composition, Structure
 
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
-DEFAULT_REGISTRY = REPO_ROOT / "data" / "corpora" / "registry.json"
+DEFAULT_REGISTRY = Path(__file__).with_name("corpus_registry.json")
+
+
+def _crystal_data_root(configured: Path | None = None) -> Path:
+    if configured is not None:
+        return Path(configured).resolve()
+    environment_root = os.getenv("CRYSTAL_DB_DATA_ROOT")
+    if environment_root:
+        return Path(environment_root).expanduser().resolve()
+    for parent in Path(__file__).resolve().parents:
+        if (parent / "docs" / "fidelity" / "SOURCE_SYSTEMS.json").is_file():
+            return (parent / "data" / "crystal_db" / "runtime").resolve()
+    return (REPO_ROOT / "data" / "crystal_db" / "runtime").resolve()
 
 
 def load_corpus_registry(path: Path = DEFAULT_REGISTRY) -> dict[str, Any]:
@@ -37,17 +50,8 @@ def resolve_corpus(
     path_base = record.get("path_base")
     if path_base == "repository":
         base = REPO_ROOT
-    elif path_base == "github_parent":
-        if crystal_db_root is not None:
-            configured = Path(crystal_db_root).resolve()
-            database_text = str(record["database"]).replace("\\", "/")
-            prefix = "Crystal-DB/"
-            database_text = database_text[len(prefix) :] if database_text.startswith(prefix) else database_text
-            database = (configured / database_text).resolve()
-            if not database.is_file():
-                raise FileNotFoundError(f"Corpus database does not exist: {database}")
-            return {"corpus_id": corpus_id, **record, "database": str(database)}
-        base = REPO_ROOT.parent
+    elif path_base == "crystal_data_root":
+        base = _crystal_data_root(crystal_db_root)
     else:
         raise ValueError(f"Unsupported path_base '{path_base}' for corpus '{corpus_id}'")
     database = (base / str(record["database"])).resolve()

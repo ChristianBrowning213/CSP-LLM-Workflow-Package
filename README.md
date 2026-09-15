@@ -38,14 +38,27 @@ python -m pip install ".[validation]"
 
 ## Production requirements
 
-- A compatible Crystal-DB SQLite/index and exportable CIF records.
-- A matching BGE-M3 service, normally an LM Studio-compatible endpoint.
-- A compatible user-supplied regulator POT library covering every required
-  pair, or POTs fitted from evidence the user is entitled to use.
-- An explicit finite QLIP design space.
-- Gurobi and a usable licence.
-- SCA 0.1.1 through the `validation` extra when supported validation is
-  required. Optional ML models and their assets remain separate SCA extras.
+Required for normal configured operation:
+
+- a compatible Crystal-DB SQLite/index with exportable CIF records and the
+  matching BGE-M3 service, normally an LM Studio-compatible endpoint;
+- an explicit finite QLIP design space; and
+- Gurobi with a usable licence.
+
+Ollama is required only when an Ollama-backed reasoning configuration is
+selected. Model-free replay does not require LM Studio or Ollama. Building a
+new Crystal dataset requires a Materials Project API key and the matching
+embedding service. CASTEP, Slurm, VESTA, and SCA MLIP models/weights are
+optional scientific integrations.
+
+The historical canonical regulator POT library is not redistributed because
+its redistribution provenance is unresolved. The source-faithful software that
+consumes it is included. Historical regulator-dependent production workflows
+must supply an approved root through `SKILL_LOOP_REGULATOR_SPP_ROOT` (or the
+existing explicit workflow configuration field). Source-supported workflows
+that fit or use their own lawfully obtained POTs, including the safe fixture
+pipeline, remain available. The nine bundled QLIP POTs are limited fixtures and
+are not a substitute for the historical 3,388-pair regulator.
 
 Start from configs/examples/srtio3_production.json and run:
 
@@ -70,8 +83,10 @@ outputs are not bundled and are not downloaded automatically.
    python scripts/crystal_db/grab_data.py --requests data/crystal_db/requests/default_mp_requests.txt
    ```
 
-5. Point `CRYSTAL_DB_PATH` at the generated database, configure the lawful SPP
-   regulator root, run the subsystem tests/readiness checks, then use the
+5. Point `CRYSTAL_DB_DATA_ROOT` at `data/crystal_db/runtime` (or
+   `CRYSTAL_DB_PATH` directly at the generated database), set
+   `SKILL_LOOP_REGULATOR_SPP_ROOT` when running a regulator-dependent workflow,
+   run the subsystem tests/readiness checks, then use the
    original `sokllm` CLI. `sokllm --help`, `sca --help`, `spp-maker --help`,
    and `llm-csp --help` expose the preserved source commands.
 

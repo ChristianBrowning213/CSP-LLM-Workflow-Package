@@ -26,6 +26,8 @@ dependencies = [
 
 [project.scripts]
 llm-csp = "llm_csp.cli.main:main"
+crystal-db = "crystal_db.__main__:main"
+crystal-db-mcp = "mcp_server.server:main"
 spp-maker = "spp_maker.cli:main"
 spp-maker-mcp = "spp_maker_mcp.server:main"
 sca = "sca.cli:app"
@@ -43,7 +45,10 @@ validation = [
 ]
 
 [tool.setuptools.packages.find]
-where = ["src", "packages/qlip/src", "packages/crystal_db/src", "packages/spp_maker_qlip/src", "packages/sca", "packages/skill_loop_csp/src"]
+# The Skill-Loop tree also carries a historical spp_maker_qlip compatibility
+# package. Discover the authoritative SPP-Maker tree last so setuptools maps
+# that duplicate namespace to the complete source package.
+where = ["src", "packages/qlip/src", "packages/crystal_db/src", "packages/sca", "packages/skill_loop_csp/src", "packages/spp_maker_qlip/src"]
 
 [tool.setuptools.package-data]
 qlip = [
@@ -52,7 +57,11 @@ qlip = [
     "interactions/SPP/SPP/*/*.POT",
 ]
 crystal_db = ["schemas/*.json", "configs/*.json", "configs/*.yaml"]
-sok_llm_orchestrator = ["agentic/prompts/*.md"]
+sok_llm_orchestrator = [
+    "agentic/prompts/*.md",
+    "retrieval/corpus_registry.json",
+    "skills/*.json",
+]
 
 [tool.pytest.ini_options]
 addopts = "--import-mode=importlib"
