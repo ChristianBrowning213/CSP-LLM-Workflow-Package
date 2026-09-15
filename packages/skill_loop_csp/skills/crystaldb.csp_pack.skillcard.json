@@ -1,0 +1,58 @@
+{
+  "examples": [
+    {
+      "notes": "Standard retrieval pack.",
+      "request": {
+        "out_dir": "runs/x/crystal",
+        "query": "TiO2",
+        "redacted": true
+      }
+    }
+  ],
+  "failure_modes": [
+    {
+      "code": "validation_error",
+      "description": "Input failed contract validation.",
+      "recovery": "Fix input fields and retry with contract-compliant arguments."
+    },
+    {
+      "code": "policy_blocked_export",
+      "description": "allow_export=0 blocked export in safe mode.",
+      "recovery": "Keep redacted flow or switch to approved demo mode."
+    }
+  ],
+  "id": "crystaldb.csp_pack",
+  "inputs": [
+    {
+      "default": null,
+      "description": "Text query; mutually exclusive with structure_id.",
+      "name": "query",
+      "required": true
+    },
+    {
+      "default": null,
+      "description": "Output directory under workspace.",
+      "name": "out_dir",
+      "required": true
+    },
+    {
+      "default": true,
+      "description": "Policy redaction default.",
+      "name": "redacted",
+      "required": false
+    },
+    {
+      "default": false,
+      "description": "Allowed only in demo policy mode.",
+      "name": "demo_export",
+      "required": false
+    }
+  ],
+  "purpose": "Retrieve exemplars and export CSP-facing bundle.",
+  "strictness": {
+    "mode": "strict",
+    "unknown_keys": "Server contract specific."
+  },
+  "title": "CrystalDB CSP Pack",
+  "tool_name": "crystal.csp_pack"
+}

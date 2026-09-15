@@ -1,0 +1,5 @@
+benchmark_id,benchmark_group,paper_source,target_formula,reference_cif_path,hull_reference_path,metric_name,comparator_name,comparator_value,comparator_direction,notes
+t1,A_validity,fixture,BaTiO3,,,,,,,
+t2,B_structure_reproduction,fixture,NaCl,,,,,,,
+t3,E_novelty_sun,fixture,ZnS,,,,,,,
+comp,A_validity,fixture,,,,pre_dft_validity_rate,fixture_validity,0.50,higher_is_better,fixture comparator

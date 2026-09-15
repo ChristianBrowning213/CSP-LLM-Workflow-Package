@@ -1,0 +1,4 @@
+method,benchmark_family,task_id,metric,value,units,source_citation,notes
+baseline_qlip,internal_rediscovery,int_redisc_tio2_rutile,feasibility_rate,,,,
+qlip_retrieval_spp,internal_rediscovery,int_redisc_tio2_rutile,feasibility_rate,,,,
+published_method_x,external_suite,case_001,objective,,,,

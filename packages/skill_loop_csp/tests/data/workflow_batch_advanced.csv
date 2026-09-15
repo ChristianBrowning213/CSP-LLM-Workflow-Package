@@ -1,0 +1,3 @@
+row_id,request_text,database,retrieval_top_k,spp_contract,cell_policy,solver_time_limit_s,solver_threads,solver_mip_gap,proximity_scale,random_seed,target_reference_id,exclude_target_reference,notes
+mgo_test,"Generate a plausible rocksalt MgO crystal",general,12,dmytro_gr_v1,retrieval_feasible_cell_v1,45,2,0.01,0.95,7,mp-123,true,advanced fixture
+spinel_test,"Generate a zinc ferrite spinel with composition ZnFe2O4",spinel,,,,,,,,,,,blank cells inherit defaults

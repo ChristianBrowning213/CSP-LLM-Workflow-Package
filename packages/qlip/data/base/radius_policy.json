@@ -1,0 +1,19 @@
+{
+  "allow_synthetic_fallback": false,
+  "default_radius_field": "qlip_default_radius_angstrom",
+  "missing_radius_code": "radii_data_missing",
+  "notes": [
+    "Neutral/current proximity.atomic_radii uses covalent data first.",
+    "Fallbacks are real package data only; no synthetic radii are generated."
+  ],
+  "policy_id": "qlip_radius_policy_v1",
+  "priority": [
+    "covalent_radius_mendeleev_cordero_angstrom",
+    "covalent_radius_ase_cordero_angstrom",
+    "covalent_radius_mendeleev_pyykko_angstrom",
+    "vdw_radius_mendeleev_angstrom",
+    "vdw_radius_ase_angstrom"
+  ],
+  "schema_version": "1.1",
+  "source_id": "qlip_policy_v1"
+}

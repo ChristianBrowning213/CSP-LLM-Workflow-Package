@@ -1,0 +1,5 @@
+{
+  "decision": "accept",
+  "explanation": "Used mp-batio3-perovskite retrieved evidence from perovskite BaTiO3 to derive constraints.",
+  "citations": ["mp-batio3-perovskite"]
+}

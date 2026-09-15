@@ -1,0 +1,13 @@
+{
+  "tool": "qlip.shapes",
+  "payload": {
+    "function": {
+      "name": "qlip.shapes",
+      "arguments": "{\"include_examples\": true}"
+    }
+  },
+  "expect": "success",
+  "expected_warning_codes": [
+    "COERCED_JSON_STRING_ARGS"
+  ]
+}

@@ -28,22 +28,31 @@ dependencies = [
 llm-csp = "llm_csp.cli.main:main"
 spp-maker = "spp_maker.cli:main"
 spp-maker-mcp = "spp_maker_mcp.server:main"
+sca = "sca.cli:app"
+sokllm = "sok_llm_orchestrator.cli:main"
 
 [project.optional-dependencies]
 test = ["pytest>=8", "mcp>=1.0,<2", "matplotlib", "robocrys"]
 validation = [
-    "sca @ git+https://github.com/ChristianBrowning213/Structured_Crystal_Analyser.git@3ede1ee2ad1a972b7c0a0809a9ec7bdab9b1b6af",
+    "click>=8",
+    "pandas>=2",
+    "pydantic>=2",
+    "rich>=13",
+    "tqdm>=4.60",
+    "typer>=0.12,<0.25",
 ]
 
 [tool.setuptools.packages.find]
-where = ["src", "packages/qlip/src", "packages/crystal_db/src", "packages/spp_maker_qlip/src"]
+where = ["src", "packages/qlip/src", "packages/crystal_db/src", "packages/spp_maker_qlip/src", "packages/sca", "packages/skill_loop_csp/src"]
 
 [tool.setuptools.package-data]
 qlip = [
     "resources/base/*.json",
     "resources/schemas/*.json",
+    "interactions/SPP/SPP/*/*.POT",
 ]
 crystal_db = ["schemas/*.json", "configs/*.json", "configs/*.yaml"]
+sok_llm_orchestrator = ["agentic/prompts/*.md"]
 
 [tool.pytest.ini_options]
 addopts = "--import-mode=importlib"

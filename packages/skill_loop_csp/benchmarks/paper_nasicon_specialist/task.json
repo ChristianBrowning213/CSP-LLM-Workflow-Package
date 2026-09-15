@@ -1,0 +1,38 @@
+{
+  "schema_version": "paper_nasicon_task.v1",
+  "task_id": "paper_nasicon_specialist_na3zr2si2po12",
+  "natural_language_request": "Generate an ordered NASICON-type Na3Zr2Si2PO12 candidate with a three-dimensional framework of ZrO6 octahedra and SiO4/PO4 tetrahedra, using evidence from the specialist NASICON Crystal-DB corpus.",
+  "target_formula": "Na3Zr2Si2PO12",
+  "solver_formula": "Na6Zr4Si4P2O24",
+  "selected_phase": "ordered low-symmetry C2 model",
+  "space_group_symbol": "C2",
+  "space_group_number": 5,
+  "structure_family": "NASICON",
+  "specialist_corpus_id": "nasicon_specialist_v1",
+  "retrieval_query": "ordered NASICON sodium zirconium silicate phosphate three-dimensional ZrO6 SiO4 PO4 framework sodium-ion channels",
+  "retrieval_depth": 40,
+  "scaffold_id": "ordered_nasicon_mp_1221148_orbit_scaffold",
+  "orbit_mode": "variable_ordered_orbits",
+  "fixed_orbits": ["Na", "Zr", "O"],
+  "variable_orbits": ["Si/P tetrahedral-centre orbits"],
+  "required_spp_pairs": ["Na-Na", "Na-O", "Na-P", "Na-Si", "Na-Zr", "O-O", "O-P", "O-Si", "O-Zr", "P-P", "P-Si", "P-Zr", "Si-Si", "Si-Zr", "Zr-Zr"],
+  "validation_policy": {
+    "require_parseable_cif": true,
+    "require_exact_reduced_formula": true,
+    "require_complete_spp_pair_coverage": true,
+    "require_no_severe_short_contacts": true,
+    "require_topology_status": ["PASS", "PARTIAL"]
+  },
+  "output_policy": {
+    "return_cif": true,
+    "record_retrieval_rows": true,
+    "record_spp_generation": true,
+    "record_qlip_request_and_result": true,
+    "render_polyhedra": true
+  },
+  "claim_limits": [
+    "No thermodynamic stability claim.",
+    "No novelty claim.",
+    "No experimental realizability or ionic-conductivity claim."
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "examples": [
+    {
+      "notes": "Alias and hoist normalization example.",
+      "request": {
+        "cifDir": "runs/x/crystal/cifs",
+        "name": "spp_run",
+        "outDir": "runs/x/spp",
+        "target": 0.9
+      }
+    }
+  ],
+  "failure_modes": [
+    {
+      "code": "validation_error",
+      "description": "Input failed contract validation.",
+      "recovery": "Fix input fields and retry with contract-compliant arguments."
+    },
+    {
+      "code": "path_not_allowed",
+      "description": "Sandbox rejected an input path.",
+      "recovery": "Use workspace-contained paths."
+    }
+  ],
+  "id": "spp.run_pipeline",
+  "inputs": [
+    {
+      "default": null,
+      "description": "Input CIF directory.",
+      "name": "cif_dir",
+      "required": true
+    },
+    {
+      "default": null,
+      "description": "Output run directory.",
+      "name": "out_dir",
+      "required": true
+    },
+    {
+      "default": null,
+      "description": "Run name.",
+      "name": "name",
+      "required": true
+    },
+    {
+      "default": null,
+      "description": "Subject to max_runtime_seconds cap.",
+      "name": "timeout_seconds",
+      "required": false
+    }
+  ],
+  "purpose": "Fit/calibrate SPP package from CIF directory.",
+  "strictness": {
+    "mode": "tolerant",
+    "unknown_keys": "Unknown keys dropped with warnings."
+  },
+  "title": "SPP Run Pipeline",
+  "tool_name": "spp.run_pipeline"
+}

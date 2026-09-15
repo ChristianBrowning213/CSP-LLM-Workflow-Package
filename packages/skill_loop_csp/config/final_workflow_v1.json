@@ -1,0 +1,50 @@
+{
+  "schema_version": "csv_workflow_config.v1",
+  "workflow_version": "csv_workflow_v1",
+  "scientific_parent": "paper_final_v2",
+  "defaults": {
+    "database": "auto",
+    "retrieval_top_k": 50,
+    "spp_contract": "dmytro_gr_v1",
+    "cell_policy": "retrieval_feasible_cell_v1",
+    "solver_time_limit_s": 300,
+    "solver_threads": 1,
+    "solver_mip_gap": 0.0,
+    "proximity_scale": 1.0,
+    "random_seed": 0,
+    "target_reference_id": null,
+    "exclude_target_reference": false,
+    "cutoff_angstrom": 10.0,
+    "grid_density": 4,
+    "spp_evidence_limit": 30,
+    "retrieval_demo_export": true
+  },
+  "logical_databases": {
+    "auto": null,
+    "general": "mp_stable_10k_v1",
+    "spinel": "mp_spinel_oxides_v1",
+    "layered": "mp_layered_battery_oxides_v1",
+    "rocksalt": "paper_scaffolds_rocksalt_v1",
+    "olivine": "paper_scaffolds_olivine_v2",
+    "ruddlesden_popper": "paper_scaffolds_ruddlesden_popper_v1",
+    "garnet": "paper_scaffolds_garnet_v1",
+    "nasicon": "paper_scaffolds_nasicon_v1",
+    "argyrodite": "paper_scaffolds_argyrodite_v2"
+  },
+  "allowed_csv_columns": [
+    "row_id",
+    "request_text",
+    "database",
+    "retrieval_top_k",
+    "spp_contract",
+    "cell_policy",
+    "solver_time_limit_s",
+    "solver_threads",
+    "solver_mip_gap",
+    "proximity_scale",
+    "random_seed",
+    "target_reference_id",
+    "exclude_target_reference",
+    "notes"
+  ]
+}

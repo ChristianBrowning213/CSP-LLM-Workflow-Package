@@ -1,0 +1,33 @@
+{
+  "schema_version": "benchmark.case_set.v1",
+  "cases": [
+    {
+      "case_id": "int_redisc_tio2_rutile",
+      "case_class": "rediscovery",
+      "composition": "TiO2",
+      "symmetry_preference": "P42/mnm",
+      "retrieval_mode": "metadata",
+      "allowed_corpora": [
+        "composition_tight"
+      ],
+      "cell_candidate_policy": "fixed_benchmark",
+      "expected_analogue_family": "rutile",
+      "evaluation_preset": "rediscovery_check"
+    },
+    {
+      "case_id": "int_redisc_srtio3_perovskite",
+      "case_class": "rediscovery",
+      "composition": "SrTiO3",
+      "symmetry_preference": "Pm-3m",
+      "retrieval_mode": "hybrid",
+      "property_bias": "property_x",
+      "allowed_corpora": [
+        "top_k",
+        "family_biased"
+      ],
+      "cell_candidate_policy": "fixed_benchmark",
+      "expected_analogue_family": "perovskite",
+      "evaluation_preset": "rediscovery_check"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+llm_base_url: http://localhost:1234/v1
+llm_api_key: your-local-key
+llm_model: local-model
+llm_timeout_s: 60
+workspace_root: .sokllm_workspace
+
+crystaldb_mcp_cmd: python -m crystal_db.mcp.server
+spp_mcp_cmd: python -m spp_maker_mcp.server
+qlip_mcp_cmd: python -m qlip.mcp.server
+crystaldb_mcp_cwd:
+spp_mcp_cwd:
+qlip_mcp_cwd:
+qlip_allow_repo_shim: false
+
+allowed_read_roots:
+  - .sokllm_workspace
+allowed_write_roots:
+  - .sokllm_workspace
+
+max_cif_count: 500
+max_runtime_seconds: 120
+max_output_bytes: 100000000
+crystaldb_policy_mode: safe
+
+optimization_max_iterations: 6
+optimization_max_solver_calls: 20
+optimization_max_retrieval_calls: 20
+optimization_max_failed_iterations: 3
+optimization_stagnation_window: 3
+optimization_exploration_rate: 0.25
+optimization_allow_midloop_clarification: true
+optimization_selection_metric_view: objective_total
+optimization_max_wall_clock_s:
+optimization_action_family_limits: {}
+optimization_action_allowlist: []

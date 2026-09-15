@@ -1,0 +1,15 @@
+calculation_type: RELAX
+xc_functional: PBE
+dispersion: null
+pseudopotential_family: CASTEP_OTFG_PBE
+cutoff_energy: 700.0
+kpoint_scheme: monkhorst-pack
+kpoint_spacing: 0.04
+spin_polarized: true
+energy_tolerance: 1.0e-6
+force_tolerance: 0.03
+stress_tolerance: 0.05
+max_steps: 200
+charge: 0.0
+correction_scheme: none
+

@@ -4,7 +4,7 @@ import tomllib
 from pathlib import Path
 
 
-def test_validation_extra_pins_licensed_sca_without_making_it_mandatory() -> None:
+def test_validation_extra_uses_bundled_sca_without_vcs_fetch() -> None:
     root = Path(__file__).resolve().parents[3]
     metadata = tomllib.loads((root / "pyproject.toml").read_text(encoding="utf-8"))
     extras = metadata["project"].get("optional-dependencies", {})
@@ -13,5 +13,11 @@ def test_validation_extra_pins_licensed_sca_without_making_it_mandatory() -> Non
         item.casefold().startswith("sca") for item in metadata["project"]["dependencies"]
     )
     assert extras["validation"] == [
-        "sca @ git+https://github.com/ChristianBrowning213/Structured_Crystal_Analyser.git@3ede1ee2ad1a972b7c0a0809a9ec7bdab9b1b6af"
+        "click>=8",
+        "pandas>=2",
+        "pydantic>=2",
+        "rich>=13",
+        "tqdm>=4.60",
+        "typer>=0.12,<0.25",
     ]
+    assert not any("git+" in item for item in extras["validation"])

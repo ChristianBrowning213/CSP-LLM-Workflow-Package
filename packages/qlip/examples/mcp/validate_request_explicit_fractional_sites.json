@@ -1,0 +1,35 @@
+{
+  "version": "1.0",
+  "problem": {
+    "chemistry": {
+      "formula": "SrTiO3"
+    },
+    "design_space": {
+      "template": {
+        "lattice": {
+          "a": 1.0,
+          "b": 1.0,
+          "c": 1.0,
+          "alpha": 1.0,
+          "beta": 1.0,
+          "gamma": 1.0
+        }
+      },
+      "sites": {
+        "mode": "explicit_fractional_sites",
+        "explicit_fractional_sites": [
+          [
+            1.0,
+            1.0,
+            1.0
+          ]
+        ]
+      }
+    }
+  },
+  "constraints": [],
+  "guidance": [],
+  "solver": {
+    "name": "gurobi"
+  }
+}

@@ -1,0 +1,7 @@
+# One data row is one independent canonical CSP experiment.
+# Copy this file, edit the rows, then run: python scripts/run_experiment_table.py experiments/my_tests.csv
+row_id,formula,request,scaffold_mode,request_spp_mode,corpus,reference_id,enabled,notes
+test_001,BaTiO3,Find a plausible BaTiO3 perovskite structure,tight,disabled,,,yes,Tight regulator-only example
+test_002,BaTiO3,Find a plausible BaTiO3 perovskite structure,loose,disabled,,,yes,Loose regulator-only example
+test_003,BaTiO3,Find a plausible BaTiO3 perovskite structure,minimal,disabled,,,yes,Minimal regulator-only example
+test_004,BaTiO3,Find a plausible BaTiO3 perovskite structure,minimal,enabled,,,yes,Minimal regulator-plus-request example

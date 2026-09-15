@@ -1,0 +1,13 @@
+# Crystal-DB Materials Project request specification, parser_version=1
+# Recovered from Crystal-DB/grab_mp_bulk.py and its canonical invocation.
+
+[phase6_mp_stable_10k]
+description = Stable Materials Project population used by the historical 10k build request
+source_reason = Crystal-DB grab_mp_bulk.py example: --max 10000 --stable-only
+fields = material_id
+stable_only = true
+chemsys =
+elements =
+limit = 10000
+chunk_size = 200
+rps = 8.0

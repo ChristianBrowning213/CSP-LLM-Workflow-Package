@@ -1,0 +1,31 @@
+{
+  "constraints": [
+    {
+      "constraint_id": "c_formula",
+      "constraint_type": "formula",
+      "expected": "BaTiO3",
+      "severity": "hard",
+      "source_text": "BaTiO3",
+      "solver_enforced": true,
+      "evidence_ids": ["mp-batio3-perovskite"]
+    },
+    {
+      "constraint_id": "c_family",
+      "constraint_type": "prototype_family",
+      "expected": "perovskite",
+      "severity": "hard",
+      "source_text": "perovskite",
+      "solver_enforced": true,
+      "evidence_ids": ["mp-batio3-perovskite"]
+    },
+    {
+      "constraint_id": "c_sg",
+      "constraint_type": "space_group",
+      "expected": 221,
+      "severity": "hard",
+      "source_text": "cubic",
+      "solver_enforced": true,
+      "evidence_ids": ["mp-batio3-perovskite"]
+    }
+  ]
+}

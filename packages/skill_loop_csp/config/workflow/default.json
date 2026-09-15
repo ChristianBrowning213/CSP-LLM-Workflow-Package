@@ -1,0 +1,46 @@
+{
+  "schema_version": "canonical_csp_workflow_config.v1",
+  "corpus_routing": {
+    "general": "mp_stable_10k_v1",
+    "nasicon_nzp": "nasicon_specialist_v3"
+  },
+  "retrieval": {
+    "api": "crystal_db.retrieval.text_search",
+    "text_view": "robocrys",
+    "embedding_engine": "lmstudio",
+    "embedding_model": "text-embedding-bge-m3",
+    "embedding_version": "lmstudio_v1",
+    "depth": 40
+  },
+  "evidence": {
+    "selection": "ranked_exportable_fixed_cohort_then_same_corpus_pair_expansion.v2",
+    "target_blind": true,
+    "ranked_exportable_limit_source": "retrieval.depth"
+  },
+  "spp": {
+    "cutoff_angstrom": 11.0,
+    "calibration_convention": "reward",
+    "missing_pair_policy": "regulator_fallback",
+    "request_guidance_weight": 10.0,
+    "regulator_weight_inside_collection": 2.0
+  },
+  "regulator": {
+    "path_environment_variable": "SKILL_LOOP_REGULATOR_SPP_ROOT",
+    "regulator_id": "icsd_broad_regulator_v1",
+    "storage_root": "QLIP_REPO/data/spp/regulators",
+    "manifest": "artifacts/workflow_cleanup/12_qlip_paths/REGULATOR_RELOCATION_MANIFEST.json"
+  },
+  "qlip_paths": {
+    "request_runtime_root": "QLIP_REPO/gen_artifacts/skill_loop_csp",
+    "registered_data_root": "QLIP_REPO/data/spp",
+    "authorization_environment_variable": "QLIP_ALLOWED_PATH_ROOTS"
+  },
+  "solver": "QLIP/IP-CSP",
+  "sca": {
+    "stage": "post_generation_only"
+  },
+  "chgnet": {
+    "enabled": false,
+    "stage": "post_generation_only"
+  }
+}

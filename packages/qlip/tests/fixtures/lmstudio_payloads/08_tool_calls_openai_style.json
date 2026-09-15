@@ -1,0 +1,16 @@
+{
+  "tool": "qlip.shapes",
+  "payload": {
+    "tool_calls": [
+      {
+        "function": {
+          "name": "qlip.shapes",
+          "arguments": {
+            "include_examples": true
+          }
+        }
+      }
+    ]
+  },
+  "expect": "success"
+}

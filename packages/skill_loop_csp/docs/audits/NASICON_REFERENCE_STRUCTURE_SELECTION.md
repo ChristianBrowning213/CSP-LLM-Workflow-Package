@@ -1,0 +1,99 @@
+# NASICON reference-structure selection
+
+Selection date: 2026-08-03  
+Primary target retained: `Na3Zr2Si2PO12`  
+Selected record: Materials Project `mp-1221148`
+
+## Acquisition
+
+The reference candidates were acquired through the existing lawful Crystal-DB Materials Project route, not by scraping:
+
+```powershell
+# The Python truststore injection uses the Windows certificate store; TLS verification remains enabled.
+@'
+import sys, truststore
+truststore.inject_into_ssl()
+from scripts.build_crystaldb_corpus import main
+sys.argv = [
+    'build_crystaldb_corpus.py', '--dataset-id', 'nasicon_reference_candidates',
+    '--out-db', r'data\nasicon_reference_candidates.db',
+    '--out-root', r'data\nasicon_audit', '--source', 'materials_project',
+    '--target-only', '--formulas', 'Na3Zr2Si2PO12',
+    '--max-structures', '20', '--max-structures-per-formula', '20',
+    '--family-label', 'NASICON', '--source-query-name', 'exact_target_reference_audit',
+    '--purpose', 'Ordered NASICON reference candidate audit for Na3Zr2Si2PO12', '--force'
+]
+raise SystemExit(main())
+'@ | .\.venv\Scripts\python.exe -
+```
+
+The query returned 15 exact-formula records. All 15 downloaded CIFs parsed as ordered, with occupancy values equal to 1.0. Twelve low-energy candidates had the expected local coordination under the audit cutoffs: every Zr was six-coordinate to O and every Si/P was four-coordinate to O. Three multi-eV-above-hull records (`mp-725003`, `mp-732188`, `mp-742054`) failed this local-coordination screen and were rejected as reference candidates. Energy fields are recorded only as Materials Project provenance; this work does not make an independent thermodynamic-stability claim.
+
+## Selected representation
+
+`mp-1221148` was selected because it is the smallest downloaded exact-target cell that retains nontrivial analyzed symmetry:
+
+- phase/representation: ordered low-symmetry model;
+- analyzed space group: `C2`, No. 5;
+- crystal system: monoclinic;
+- cell: downloaded 40-site cell; pymatgen primitive finding also returns 40 sites;
+- full-cell formula: `Na6Zr4Si4P2O24` (two reduced formula units);
+- reduced formula: `Na3Zr2Si2PO12`;
+- occupancy: every site is 1.0;
+- occupational disorder: none;
+- explicit Na ordering: six fully occupied Na sites in four symmetry-distinct orbit groups;
+- explicit Si/P ordering: four Si and two P across four symmetry-distinct tetrahedral orbit groups;
+- symmetry groups in the frozen orbit table: 22.
+
+The lattice is preserved exactly from the downloaded CIF. The cell lengths are approximately `a=9.16184344 Å`, `b=9.16184344 Å`, `c=9.26829295 Å`, with `alpha=beta=60.73008375°` and `gamma=60.17515210°`. This is the source cell representation, not a silent conversion to a conventional setting.
+
+## QLIP allocation scope
+
+For the first genuine discrete demonstration:
+
+- Na, Zr and O sites are fixed by the ordered scaffold;
+- the six tetrahedral cation sites are grouped into four closed C2 orbit groups with multiplicities `1, 1, 2, 2`;
+- Si/P assignment is solver-selected subject to exact full-cell counts Si4/P2;
+- there are three symmetry-closed feasible P placements: either one of the two multiplicity-2 orbit groups, or the pair of multiplicity-1 orbit groups;
+- pairwise Si/P interactions with O, Na, Zr and the other tetrahedral centers can therefore change the SPP objective and select among real alternatives.
+
+This is a constrained occupational/orbit allocation on a fixed ordered framework. It is not free-cell or free-coordinate CSP. It is suitable as a first discrete NASICON demonstration only if the real QLIP solver selects the assignment and objective parity is verified. Simply emitting the reference assignment is forbidden.
+
+## Coordination audit
+
+Using explicit distance cutoffs recorded in `reference_metadata.json`:
+
+- Zr–O cutoff: 2.55 Å; counts: `[6, 6, 6, 6]`;
+- Si–O cutoff: 2.05 Å; counts: `[4, 4, 4, 4]`;
+- P–O cutoff: 2.05 Å; counts: `[4, 4]`.
+
+These counts establish the expected local polyhedra in the selected input reference. They do not yet establish three-dimensional framework connectivity or sodium-channel topology; those require the Phase 6 validator.
+
+## Provenance and hashes
+
+- source: Materials Project via `mp-api` and Crystal-DB `scripts/build_crystaldb_corpus.py`;
+- source ID: `mp-1221148`;
+- retrieval timestamp: `2026-08-03T19:45:24Z`;
+- frozen reference SHA-256: `5f1b7b14e6c1abf3a209c8d9557948ac67282de47283f4af2ee409e23ca228b8`.
+
+The reusable Crystal-DB builder's manifest recorded CIF SHA-256 `e212579ead96fa1181894bdbe211ec4e624c53e6f9b1fb978fee9741f3266994`, which does not equal the hash of the file it wrote. The frozen artifact metadata preserves both values and treats the hash of the actual on-disk bytes as authoritative. This builder discrepancy must be fixed before corpus hash acceptance.
+
+## Generated files
+
+- `data/nasicon/reference/reference.cif`
+- `data/nasicon/reference/reference_metadata.json`
+- `data/nasicon/reference/orbit_table.csv`
+
+They are regenerated by:
+
+```powershell
+.\.venv\Scripts\python.exe scripts\build_nasicon_reference_artifacts.py `
+  --source-cif ..\Crystal-DB\data\nasicon_audit\nasicon_reference_candidates\cifs\mp-1221148.cif `
+  --source-manifest ..\Crystal-DB\data\nasicon_audit\nasicon_reference_candidates\manifest.jsonl `
+  --material-id mp-1221148 `
+  --out-dir data\nasicon\reference
+```
+
+## Claim limits
+
+Selection establishes an ordered, integer-stoichiometric, locally polyhedral reference that current binary semantics can represent after the Phase 1 orbit restriction extension. It does not establish QLIP solution support, topology recovery, novelty, stability, ion conductivity or experimental realizability.

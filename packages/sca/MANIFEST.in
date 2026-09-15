@@ -1,0 +1,16 @@
+include LICENSE
+include README.md
+include pyproject.toml
+recursive-include sca *.py
+prune benchmarks
+prune data
+prune reports
+prune scripts
+prune tests
+exclude project_context.txt
+exclude project_to_txt.py
+exclude ticket_stack.md
+exclude ticket_stack2.md
+exclude TICKETS.MD
+global-exclude *.py[cod]
+global-exclude __pycache__

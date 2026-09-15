@@ -1,0 +1,10 @@
+{
+  "schema_version": "nasicon_scaffold_ablation_registry.v1",
+  "mode": "hard",
+  "derivation_rule": "Load the current registered production scaffold and task_orbits output without semantic modification.",
+  "targets": {
+    "Na3Zr2Si2PO12": {"scaffold_id": "nasicon_na3zr2si2po12_c2_ordered", "source_cif_sha256": "5f1b7b14e6c1abf3a209c8d9557948ac67282de47283f4af2ee409e23ca228b8"},
+    "Na3Ti2(PO4)3": {"scaffold_id": "nasicon_na3ti2po43_r3", "source_cif_sha256": "e02e277fde87a67f324833fadefdf5395d79f93c5f9f55b2ce5cdb89042a9c16"},
+    "LiZr2(PO4)3": {"scaffold_id": "nzp_nazr2po43_r3c", "source_cif_sha256": "fe2ca5429d82ba4543687175d88d44e281e5fb4072ad2ce452f2f94391a0d183"}
+  }
+}

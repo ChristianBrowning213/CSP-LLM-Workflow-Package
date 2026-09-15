@@ -1,0 +1,39 @@
+{
+  "tool": "qlip.validate_request",
+  "payload": {
+    "version": "1.0",
+    "problem": {
+      "chemistry": {
+        "formula": "SrTiO3"
+      },
+      "design_space": {
+        "template": {
+          "lattice": {
+            "a": 3.9,
+            "b": 3.9,
+            "c": 3.9,
+            "alpha": 90.0,
+            "beta": 90.0,
+            "gamma": 90.0,
+            "units": "angstrom"
+          }
+        },
+        "sites": {
+          "mode": "uniform_grid",
+          "uniform_grid": {
+            "density": 4
+          }
+        }
+      }
+    },
+    "constraints": [],
+    "guidance": [],
+    "solver": {
+      "name": "gurobi"
+    },
+    "junk": 1
+  },
+  "expect": "error",
+  "expected_first_pointer": "/junk",
+  "expected_first_hint": "Remove unknown key 'junk'."
+}

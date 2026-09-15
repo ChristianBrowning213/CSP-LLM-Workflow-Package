@@ -39,13 +39,13 @@ def _load_topology_backend() -> Callable[..., Any]:
 
 def _backend_provenance() -> BackendProvenance:
     try:
-        version = metadata.version("sca")
-    except metadata.PackageNotFoundError:
-        try:
-            import sca
+        import sca
 
-            version = getattr(sca, "__version__", None)
-        except ImportError:
+        version = getattr(sca, "__version__", None)
+    except ImportError:
+        try:
+            version = metadata.version("sca")
+        except metadata.PackageNotFoundError:
             version = None
     return BackendProvenance(version=version)
 

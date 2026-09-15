@@ -1,0 +1,77 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sca"
+version = "0.1.1"
+description = "Structured Crystal Analyser tools for evaluating crystal structures."
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [
+  { name = "Structured Crystal Analyser contributors" }
+]
+dependencies = [
+  "click>=8.0",
+  "pandas>=2.0",
+  "pydantic>=2.0",
+  "pymatgen>=2024.0",
+  "rich>=13.0",
+  "tqdm>=4.60",
+  "typer>=0.12,<0.25"
+]
+
+[project.optional-dependencies]
+alignn = [
+  "alignn>=2024.0"
+]
+chgnet = [
+  "chgnet>=0.3.0"
+]
+matgl = [
+  "matgl>=1.1.0"
+]
+mlip = [
+  "chgnet>=0.3.0",
+  "matgl>=1.1.0"
+]
+advanced-mlip = [
+  "mace-torch>=0.3.0",
+  "sevenn>=0.10.0"
+]
+benchmark-full = [
+  "alignn>=2024.0",
+  "chgnet>=0.3.0",
+  "matgl>=1.1.0"
+]
+benchmark-advanced = [
+  "alignn>=2024.0",
+  "chgnet>=0.3.0",
+  "matgl>=1.1.0",
+  "mace-torch>=0.3.0",
+  "sevenn>=0.10.0"
+]
+dev = [
+  "pytest>=8.0",
+  "ruff>=0.5"
+]
+
+[project.scripts]
+sca = "sca.cli:app"
+
+[tool.setuptools.packages.find]
+include = ["sca*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint.per-file-ignores]
+# Frozen one-off paper campaign script predates the package style; keep lint strict elsewhere.
+"scripts/run_paper_full_sca_v1.py" = ["E701", "E702", "E703", "F401"]

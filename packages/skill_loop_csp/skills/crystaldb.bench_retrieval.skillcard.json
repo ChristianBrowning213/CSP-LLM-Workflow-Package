@@ -1,0 +1,40 @@
+{
+  "examples": [
+    {
+      "notes": "Benchmark run.",
+      "request": {
+        "cases_path": "data/cases.jsonl",
+        "out_dir": "runs/x/bench"
+      }
+    }
+  ],
+  "failure_modes": [
+    {
+      "code": "validation_error",
+      "description": "Input failed contract validation.",
+      "recovery": "Fix input fields and retry with contract-compliant arguments."
+    }
+  ],
+  "id": "crystaldb.bench_retrieval",
+  "inputs": [
+    {
+      "default": null,
+      "description": "Benchmark cases JSONL path.",
+      "name": "cases_path",
+      "required": true
+    },
+    {
+      "default": null,
+      "description": "Output directory.",
+      "name": "out_dir",
+      "required": true
+    }
+  ],
+  "purpose": "Evaluate retrieval quality on benchmark JSONL cases.",
+  "strictness": {
+    "mode": "strict",
+    "unknown_keys": "Server-specific behavior."
+  },
+  "title": "CrystalDB Bench Retrieval",
+  "tool_name": "crystal.bench_retrieval"
+}

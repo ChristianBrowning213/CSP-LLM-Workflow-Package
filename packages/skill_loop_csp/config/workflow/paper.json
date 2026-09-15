@@ -1,0 +1,13 @@
+{
+  "schema_version": "canonical_csp_workflow_config.v1",
+  "extends": "default.json",
+  "corpus_routing": {
+    "general": "mp_stable_10k_v1",
+    "nasicon_nzp": "nasicon_specialist_all_targets_out_v3"
+  },
+  "target_exclusion_policy": "STRUCTURE_HOLDOUT",
+  "retrieval_depth": 40,
+  "regulator_required": true,
+  "request_spp_required_for_primary_on_conditions": true,
+  "sca_selection_influence": false
+}

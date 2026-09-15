@@ -10,12 +10,19 @@ build/
 dist/
 *.egg-info/
 .env
+.sokllm_workspace/
+test_workdir/
+.test_artifacts/
 
 # Data: documentation and tiny demo assets only
 data/*
 !data/README.md
 !data/demo/
 !data/demo/.gitkeep
+!data/crystal_db/
+!data/crystal_db/requests/
+!data/crystal_db/requests/**
+data/crystal_db/runtime/
 
 # Generated and local outputs
 artifacts/

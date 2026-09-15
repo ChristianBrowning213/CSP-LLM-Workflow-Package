@@ -1,0 +1,18 @@
+# Native (no-scaffold) QLIP cell-size diagnostic.
+# 3 NASICON/NZP targets x 3 cell strategies (native / composition_scaled / retrieval_derived) = 9 rows.
+# Every row: scaffold_mode=none, no explicit scaffold registry, same request per formula across
+# cell strategies, same corpus/retrieval/SPP/regulator/solver/validation config. The ONLY varied
+# scientific parameter across cell_mode conditions is the cubic candidate-cell edge length; the
+# uniform-grid density (8) and proximity.atomic_radii constraint stay frozen in all nine rows.
+# Run with the CLI --scaffolds flag OMITTED so every row resolves to native_qlip=True:
+#   python scripts/run_experiment_table.py experiments/spp_cell_size_diagnostic/NASICON_CELL_SIZE.csv
+row_id,experiment_block,formula,family,request,scaffold_mode,scaffold_dir,request_spp_mode,corpus,retrieval_depth,cell_mode,cell_volume_per_atom,run_sca,run_chgnet,enabled,notes
+CELLSIZE_NA3ZR2SI2PO12_NATIVE,CELL_SIZE_DIAGNOSTIC,Na3Zr2Si2PO12,NASICON/NZP,Generate Na3Zr2Si2PO12 as a NASICON/NZP crystal with requested C2 symmetry.,none,,enabled,nasicon_specialist_v3,40,native,,yes,yes,yes,Frozen control: existing hardcoded 3.9 A / 8^3 native QLIP cell.
+CELLSIZE_NA3ZR2SI2PO12_COMPOSITION_SCALED,CELL_SIZE_DIAGNOSTIC,Na3Zr2Si2PO12,NASICON/NZP,Generate Na3Zr2Si2PO12 as a NASICON/NZP crystal with requested C2 symmetry.,none,,enabled,nasicon_specialist_v3,40,composition_scaled,,yes,yes,yes,Cubic cell sized from N_target_atoms x frozen GLOBAL_VPA (mp_stable_10k_v1 preflight); no reference structure.
+CELLSIZE_NA3ZR2SI2PO12_RETRIEVAL_DERIVED,CELL_SIZE_DIAGNOSTIC,Na3Zr2Si2PO12,NASICON/NZP,Generate Na3Zr2Si2PO12 as a NASICON/NZP crystal with requested C2 symmetry.,none,,enabled,nasicon_specialist_v3,40,retrieval_derived,,yes,yes,yes,Cubic cell sized from N_target_atoms x median VPA of the same leakage-safe SPP evidence cohort.
+CELLSIZE_NA3TI2PO43_NATIVE,CELL_SIZE_DIAGNOSTIC,Na3Ti2(PO4)3,NASICON/NZP,Generate Na3Ti2(PO4)3 as a NASICON/NZP crystal with requested R-3 symmetry.,none,,enabled,nasicon_specialist_v3,40,native,,yes,yes,yes,Frozen control: existing hardcoded 3.9 A / 8^3 native QLIP cell.
+CELLSIZE_NA3TI2PO43_COMPOSITION_SCALED,CELL_SIZE_DIAGNOSTIC,Na3Ti2(PO4)3,NASICON/NZP,Generate Na3Ti2(PO4)3 as a NASICON/NZP crystal with requested R-3 symmetry.,none,,enabled,nasicon_specialist_v3,40,composition_scaled,,yes,yes,yes,Cubic cell sized from N_target_atoms x frozen GLOBAL_VPA (mp_stable_10k_v1 preflight); no reference structure.
+CELLSIZE_NA3TI2PO43_RETRIEVAL_DERIVED,CELL_SIZE_DIAGNOSTIC,Na3Ti2(PO4)3,NASICON/NZP,Generate Na3Ti2(PO4)3 as a NASICON/NZP crystal with requested R-3 symmetry.,none,,enabled,nasicon_specialist_v3,40,retrieval_derived,,yes,yes,yes,Cubic cell sized from N_target_atoms x median VPA of the same leakage-safe SPP evidence cohort.
+CELLSIZE_LIZR2PO43_NATIVE,CELL_SIZE_DIAGNOSTIC,LiZr2(PO4)3,NASICON/NZP,Generate LiZr2(PO4)3 as a NASICON/NZP crystal with requested R-3c symmetry.,none,,enabled,nasicon_specialist_v3,40,native,,yes,yes,yes,Frozen control: existing hardcoded 3.9 A / 8^3 native QLIP cell.
+CELLSIZE_LIZR2PO43_COMPOSITION_SCALED,CELL_SIZE_DIAGNOSTIC,LiZr2(PO4)3,NASICON/NZP,Generate LiZr2(PO4)3 as a NASICON/NZP crystal with requested R-3c symmetry.,none,,enabled,nasicon_specialist_v3,40,composition_scaled,,yes,yes,yes,Cubic cell sized from N_target_atoms x frozen GLOBAL_VPA (mp_stable_10k_v1 preflight); no reference structure.
+CELLSIZE_LIZR2PO43_RETRIEVAL_DERIVED,CELL_SIZE_DIAGNOSTIC,LiZr2(PO4)3,NASICON/NZP,Generate LiZr2(PO4)3 as a NASICON/NZP crystal with requested R-3c symmetry.,none,,enabled,nasicon_specialist_v3,40,retrieval_derived,,yes,yes,yes,Cubic cell sized from N_target_atoms x median VPA of the same leakage-safe SPP evidence cohort.

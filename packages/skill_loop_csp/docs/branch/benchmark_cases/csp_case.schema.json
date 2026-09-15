@@ -1,0 +1,220 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CSPCase",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "case_id",
+    "composition",
+    "retrieval_mode",
+    "allowed_corpora",
+    "cell_candidate_policy",
+    "evaluation_preset"
+  ],
+  "properties": {
+    "case_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "case_class": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "easy-improvement",
+        "flat-stagnant",
+        "misleading-local-optimum",
+        "repeated-infeasible",
+        "rediscovery",
+        null
+      ]
+    },
+    "composition": {
+      "type": "string",
+      "minLength": 1
+    },
+    "symmetry_preference": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "retrieval_mode": {
+      "type": "string",
+      "enum": [
+        "metadata",
+        "text",
+        "fingerprint",
+        "hybrid"
+      ]
+    },
+    "allowed_corpora": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "cell_candidate_policy": {
+      "type": "string",
+      "enum": [
+        "baseline_default",
+        "retrieval_informed",
+        "fixed_benchmark"
+      ]
+    },
+    "expected_analogue_family": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "challenge_class": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "polymorph_ambiguous",
+        "coordination_sensitive",
+        "framework_sensitive",
+        "ordering_sensitive",
+        "low_support_hypothetical",
+        "broad_corpus_failure_risk",
+        "framework_ambiguous",
+        "polymorph_trap",
+        null
+      ]
+    },
+    "guidance_rationale": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "recommended_guidance_focus": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "suggested_structural_dimensions": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string"
+      }
+    },
+    "suggested_corpus_bias": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "suggested_perturbation_bias": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "hypotheses": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "hypothesis_id",
+          "label",
+          "rationale",
+          "hypothesis_family"
+        ],
+        "properties": {
+          "hypothesis_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1
+          },
+          "rationale": {
+            "type": "string",
+            "minLength": 1
+          },
+          "hypothesis_family": {
+            "type": "string",
+            "minLength": 1
+          },
+          "challenge_type": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "suggested_guidance_focus": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "suggested_corpus_bias": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "suggested_perturbation_bias": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "suggested_structural_dimensions": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "property_bias": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "qlip_objective": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "description": "Optional expanded QLIP runtime objective payload. Supported types: spp_energy, none, density_packing, linear_property, threshold_tradeoff."
+    },
+    "external_predictors": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "description": "Optional Phase 2 external predictor requests. These are reporting/selection estimates, not native QLIP objectives.",
+      "items": {
+        "type": [
+          "object",
+          "string"
+        ]
+      }
+    },
+    "evaluation_preset": {
+      "type": "string"
+    }
+  }
+}

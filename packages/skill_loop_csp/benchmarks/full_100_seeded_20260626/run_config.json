@@ -1,0 +1,9 @@
+{
+  "seed": 20260626,
+  "num_runs": 100,
+  "manifest": "benchmarks/full_100_seeded_20260626/full_100_skill_loop_manifest.csv",
+  "intended_executor": "Skill-Loop-CSP",
+  "downstream_evaluator": "SCA",
+  "physically_meaningful_after_execution": true,
+  "notes": "Manifest only. Physical benchmark results require executing Skill-Loop-CSP and evaluating generated outputs with SCA."
+}

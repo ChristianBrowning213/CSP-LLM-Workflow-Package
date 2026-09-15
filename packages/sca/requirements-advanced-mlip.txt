@@ -1,0 +1,13 @@
+# Optional advanced MLIP backends for SCA full benchmarks.
+#
+# These packages are intentionally not part of the base install. Install them
+# only in environments where you want to run MACE/SevenNet-backed benchmark
+# evaluators.
+#
+# MACE package names and CUDA/CPU wheels can vary by platform. If your platform
+# needs a specialized install command, follow the upstream MACE instructions and
+# keep SCA configured through SCA_MACE_MODEL or SCA_MACE_PRETRAINED.
+mace-torch>=0.3.0
+
+# SevenNet publishes the import package as `sevenn`.
+sevenn>=0.10.0

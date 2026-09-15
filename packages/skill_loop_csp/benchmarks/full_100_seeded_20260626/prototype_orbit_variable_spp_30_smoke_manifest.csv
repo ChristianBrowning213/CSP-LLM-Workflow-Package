@@ -1,0 +1,31 @@
+prompt_id,formula,target_family,requested_space_group,requested_space_group_number,requested_crystal_system,requested_mode,expected_validation_tier,notes
+BaTiO3_perovskite_variable_spp,BaTiO3,perovskite,Pm-3m,221,cubic,prototype_orbit_variable_spp_qlip,variable_spp_scored,implemented perovskite A-site variable orbit selection
+CaTiO3_perovskite_variable_spp,CaTiO3,perovskite,Pm-3m,221,cubic,prototype_orbit_variable_spp_qlip,variable_spp_scored,implemented perovskite A-site variable orbit selection
+SrTiO3_perovskite_variable_spp,SrTiO3,perovskite,Pm-3m,221,cubic,prototype_orbit_variable_spp_qlip,variable_spp_scored,implemented perovskite A-site variable orbit selection
+CsPbBr3_halide_perovskite_fixed,CsPbBr3,halide perovskite,Pm-3m,221,cubic,prototype_orbit_qlip,fixed_orbit_scored,fixed prototype orbit scaffold with real POT scoring
+CsSnBr3_halide_perovskite_fixed,CsSnBr3,halide perovskite,Pm-3m,221,cubic,prototype_orbit_qlip,fixed_orbit_scored,same halide perovskite prototype metadata
+CsPbCl3_halide_perovskite_fixed,CsPbCl3,halide perovskite,Pm-3m,221,cubic,prototype_orbit_qlip,fixed_orbit_scored,same halide perovskite prototype metadata
+ZnFe2O4_spinel_fixed,ZnFe2O4,spinel,Fd-3m,227,cubic,prototype_orbit_qlip,fixed_orbit_scored,fixed prototype orbit scaffold with real POT scoring
+MgAl2O4_spinel_fixed,MgAl2O4,spinel,Fd-3m,227,cubic,prototype_orbit_qlip,fixed_orbit_scored,same spinel prototype metadata
+CoFe2O4_spinel_fixed,CoFe2O4,spinel,Fd-3m,227,cubic,prototype_orbit_qlip,fixed_orbit_scored,same spinel prototype metadata
+NiO_rocksalt_fixed,NiO,rocksalt,Fm-3m,225,cubic,prototype_orbit_qlip,fixed_orbit_scored,fixed prototype orbit scaffold with real POT scoring
+TiN_rocksalt_fixed,TiN,rocksalt-like nitride,Fm-3m,225,cubic,prototype_orbit_qlip,fixed_orbit_scored,nitride rocksalt-like fixed orbit scaffold
+MgO_rocksalt_fixed,MgO,rocksalt,Fm-3m,225,cubic,prototype_orbit_qlip,fixed_orbit_scored,same rocksalt prototype metadata
+CeO2_fluorite_fixed,CeO2,fluorite,Fm-3m,225,cubic,prototype_orbit_qlip,fixed_orbit_scored,fixed prototype orbit scaffold with real POT scoring
+ZrO2_fluorite_fixed,ZrO2,fluorite,Fm-3m,225,cubic,prototype_orbit_qlip,fixed_orbit_scored,same fluorite prototype metadata
+ThO2_fluorite_fixed,ThO2,fluorite,Fm-3m,225,cubic,prototype_orbit_qlip,fixed_orbit_scored,same fluorite prototype metadata
+FeS2_pyrite_fixed,FeS2,pyrite,Pa-3,205,cubic,prototype_orbit_qlip,fixed_orbit_scored,fixed prototype orbit scaffold with real POT scoring
+CoS2_pyrite_fixed,CoS2,pyrite,Pa-3,205,cubic,prototype_orbit_qlip,fixed_orbit_scored,same pyrite prototype metadata
+NiS2_pyrite_fixed,NiS2,pyrite,Pa-3,205,cubic,prototype_orbit_qlip,fixed_orbit_scored,same pyrite prototype metadata
+LiCoO2_layered_oxide_fixed,LiCoO2,layered oxide,R-3m,166,trigonal,prototype_orbit_qlip,fixed_orbit_scored,fixed prototype orbit scaffold with real POT scoring
+NaCoO2_layered_oxide_fixed,NaCoO2,layered oxide,R-3m,166,trigonal,prototype_orbit_qlip,fixed_orbit_scored,same layered oxide prototype metadata
+LiNiO2_layered_oxide_fixed,LiNiO2,layered oxide,R-3m,166,trigonal,prototype_orbit_qlip,fixed_orbit_scored,same layered oxide prototype metadata
+LiFePO4_olivine_fixed,LiFePO4,olivine phosphate,Pnma,62,orthorhombic,prototype_orbit_qlip,fixed_orbit_scored,fixed prototype orbit scaffold with real POT scoring
+NaFePO4_olivine_fixed,NaFePO4,olivine phosphate,Pnma,62,orthorhombic,prototype_orbit_qlip,fixed_orbit_scored,same olivine phosphate prototype metadata
+LiMnPO4_olivine_fixed,LiMnPO4,olivine phosphate,Pnma,62,orthorhombic,prototype_orbit_qlip,fixed_orbit_scored,same olivine phosphate prototype metadata
+Li6PS5Cl_argyrodite_fixed,Li6PS5Cl,argyrodite,F-43m,216,cubic,prototype_orbit_qlip,fixed_orbit_scored,fixed prototype orbit scaffold with real POT scoring
+Li6PS5Br_argyrodite_fixed,Li6PS5Br,argyrodite,F-43m,216,cubic,prototype_orbit_qlip,fixed_orbit_scored,same argyrodite prototype metadata
+Li6PS5I_argyrodite_fixed,Li6PS5I,argyrodite,F-43m,216,cubic,prototype_orbit_qlip,fixed_orbit_scored,same argyrodite prototype metadata
+TiN_nitride_fixed,TiN,rocksalt-like nitride,Fm-3m,225,cubic,prototype_orbit_qlip,fixed_orbit_scored,nitride replicate with distinct prompt_id
+VN_nitride_fixed,VN,rocksalt-like nitride,Fm-3m,225,cubic,prototype_orbit_qlip,fixed_orbit_scored,same nitride prototype metadata
+ZrN_nitride_fixed,ZrN,rocksalt-like nitride,Fm-3m,225,cubic,prototype_orbit_qlip,fixed_orbit_scored,same nitride prototype metadata

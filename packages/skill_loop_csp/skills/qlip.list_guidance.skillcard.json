@@ -1,0 +1,24 @@
+{
+  "examples": [
+    {
+      "notes": "Use this to confirm objective.energy_spp is available and strict.",
+      "request": {}
+    }
+  ],
+  "failure_modes": [
+    {
+      "code": "validation_error",
+      "description": "Input failed contract validation.",
+      "recovery": "Fix input fields and retry with contract-compliant arguments."
+    }
+  ],
+  "id": "qlip.list_guidance",
+  "inputs": [],
+  "purpose": "List installed guidance plugins; must include objective.energy_spp with strict params_schema.",
+  "strictness": {
+    "mode": "strict",
+    "unknown_keys": "No arguments expected."
+  },
+  "title": "QLIP List Guidance",
+  "tool_name": "qlip.list_guidance"
+}

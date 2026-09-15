@@ -1,0 +1,22 @@
+# qlip/experimental/guidance/properties/energy.py
+from __future__ import annotations
+import pyomo.environ as pyo
+from typing import Dict, Tuple
+from qlip.experimental.guidance.properties.base import Property
+from qlip.experimental.guidance.properties._io import load_pair_beta
+from qlip.experimental.guidance.properties._y_index import iter_Y_with_shell
+
+class EnergyProperty(Property):
+    def __init__(self, table_path: str):
+        self.name = "energy"
+        self.beta: Dict[Tuple[str,str,int], float] = load_pair_beta(table_path)
+
+    def expr(self, allocation):
+        m = allocation.m
+        # Sum beta[(t,u,sh)] * Y[i,j,t,u,sh]
+        terms = []
+        for (i,j,t,u,sh), var in iter_Y_with_shell(allocation):
+            b = self.beta.get((t,u,sh))
+            if b is not None:
+                terms.append(b * var)
+        return pyo.quicksum(terms) if terms else 0.0

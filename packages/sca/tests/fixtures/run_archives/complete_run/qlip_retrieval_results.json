@@ -1,0 +1,7 @@
+{
+  "retrieval_query": "BaTiO3 perovskite",
+  "retrieval_mode": "evidence_spp",
+  "evidence": [
+    {"id": "ev_batio3", "formula": "BaTiO3", "family": "perovskite", "space_group": 221, "score": 0.95, "parseable": true}
+  ]
+}

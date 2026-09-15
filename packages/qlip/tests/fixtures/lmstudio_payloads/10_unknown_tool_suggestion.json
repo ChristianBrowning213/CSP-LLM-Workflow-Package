@@ -1,0 +1,12 @@
+{
+  "tool": "qlip.shapes",
+  "payload": {
+    "function": {
+      "name": "qlip.shapess",
+      "arguments": {}
+    }
+  },
+  "expect": "error",
+  "expected_first_code": "UNKNOWN_TOOL_NAME",
+  "expected_contains_suggestion": "qlip.shapes"
+}

@@ -1,0 +1,301 @@
+{
+  "schema_version": "benchmark.case_set.v1",
+  "pack_id": "multi_hypothesis_complex_v1",
+  "pack_intent": "Compact multi-hypothesis complex pack where optimizer decisions must branch across structural family, corpus strategy, SPP package, guidance weighting, and perturbation regime.",
+  "recommended_protocol": {
+    "action_profile": "spp_deep_explore",
+    "analysis_metric_view": "property_x",
+    "selection_metric_view": "property_decomp_aware",
+    "repeats": 3,
+    "max_iterations": 6,
+    "include_baseline_control": true,
+    "notes": [
+      "Keep runs bounded and inspect hypothesis switches over iterations.",
+      "Prioritize structural diversity and property movement over total-objective-only interpretations."
+    ]
+  },
+  "cases": [
+    {
+      "case_id": "mh_srtio3_polymorph",
+      "case_class": "misleading-local-optimum",
+      "challenge_class": "polymorph_ambiguous",
+      "composition": "SrTiO3",
+      "symmetry_preference": "Pm-3m",
+      "retrieval_mode": "hybrid",
+      "allowed_corpora": [
+        "top_k",
+        "family_biased",
+        "composition_tight"
+      ],
+      "cell_candidate_policy": "retrieval_informed",
+      "expected_analogue_family": "perovskite",
+      "property_bias": "dielectric behavior",
+      "guidance_rationale": "Multiple perovskite-like basins compete and require explicit hypothesis branching to avoid immediate saturation.",
+      "recommended_guidance_focus": "octahedral tilt patterns and symmetry-relaxed perovskite variants",
+      "suggested_structural_dimensions": [
+        "hypothesis_family",
+        "guidance_mode",
+        "symmetry_relaxation_profile",
+        "template_seed_profile"
+      ],
+      "suggested_corpus_bias": "perovskite_family_plus_broader_oxide_neighbors",
+      "suggested_perturbation_bias": "symmetry_relaxation_and_template_seed_sweep",
+      "hypotheses": [
+        {
+          "hypothesis_id": "srtio3_h1_cubic_perovskite",
+          "label": "Cubic perovskite basin",
+          "rationale": "High-symmetry perovskite-like basin remains a plausible early attractor.",
+          "hypothesis_family": "perovskite_cubic",
+          "challenge_type": "polymorph_ambiguous",
+          "suggested_guidance_focus": "ideal BO6 octahedral connectivity",
+          "suggested_corpus_bias": "tight_perovskite",
+          "suggested_perturbation_bias": "minimal_symmetry_relaxation",
+          "suggested_structural_dimensions": [
+            "qlip_guidance",
+            "weighting_profile"
+          ]
+        },
+        {
+          "hypothesis_id": "srtio3_h2_tilted_perovskite",
+          "label": "Tilted lower-symmetry perovskite",
+          "rationale": "Distortion and tilt variants can outperform cubic seeds under guided exploration.",
+          "hypothesis_family": "perovskite_tilted",
+          "challenge_type": "polymorph_ambiguous",
+          "suggested_guidance_focus": "octahedral tilt and distortion tolerance",
+          "suggested_corpus_bias": "family_biased",
+          "suggested_perturbation_bias": "moderate_symmetry_relaxation",
+          "suggested_structural_dimensions": [
+            "symmetry_relaxation_profile",
+            "structure_perturbation_profile"
+          ]
+        },
+        {
+          "hypothesis_id": "srtio3_h3_relaxed_alt_template",
+          "label": "Alternative template family",
+          "rationale": "A broader template prior can expose competing basins when perovskite priors stall.",
+          "hypothesis_family": "template_relaxed",
+          "challenge_type": "polymorph_ambiguous",
+          "suggested_guidance_focus": "relaxed motif priors with structure-moving perturbation",
+          "suggested_corpus_bias": "top_k_plus_broader_neighbors",
+          "suggested_perturbation_bias": "aggressive_template_seed_variation",
+          "suggested_structural_dimensions": [
+            "template_seed_profile",
+            "lattice_candidate_profile"
+          ]
+        }
+      ],
+      "evaluation_preset": "benchmark_mode"
+    },
+    {
+      "case_id": "mh_batio3_polymorph",
+      "case_class": "misleading-local-optimum",
+      "challenge_class": "polymorph_ambiguous",
+      "composition": "BaTiO3",
+      "symmetry_preference": "Pm-3m",
+      "retrieval_mode": "hybrid",
+      "allowed_corpora": [
+        "top_k",
+        "family_biased",
+        "composition_tight"
+      ],
+      "cell_candidate_policy": "retrieval_informed",
+      "expected_analogue_family": "perovskite",
+      "property_bias": "ferroelectric-like response",
+      "guidance_rationale": "Competing perovskite polymorph hypotheses make weighted guidance and perturbation choices consequential.",
+      "recommended_guidance_focus": "ferroelectric distortions and perovskite phase competition",
+      "suggested_structural_dimensions": [
+        "hypothesis_family",
+        "weighting_profile",
+        "symmetry_relaxation_profile"
+      ],
+      "suggested_corpus_bias": "perovskite_family_with_property_bias",
+      "suggested_perturbation_bias": "distortion_favoring_profiles",
+      "hypotheses": [
+        {
+          "hypothesis_id": "batio3_h1_high_symmetry",
+          "label": "High-symmetry perovskite",
+          "rationale": "Cubic-like perovskite remains a plausible control basin for comparison.",
+          "hypothesis_family": "perovskite_cubic",
+          "challenge_type": "polymorph_ambiguous",
+          "suggested_guidance_focus": "ideal perovskite connectivity",
+          "suggested_corpus_bias": "composition_tight",
+          "suggested_perturbation_bias": "conservative",
+          "suggested_structural_dimensions": [
+            "qlip_guidance",
+            "weighting_profile"
+          ]
+        },
+        {
+          "hypothesis_id": "batio3_h2_ferroelectric_distorted",
+          "label": "Ferroelectric distorted basin",
+          "rationale": "Distorted lower-symmetry states are structurally plausible and property-relevant.",
+          "hypothesis_family": "perovskite_distorted",
+          "challenge_type": "polymorph_ambiguous",
+          "suggested_guidance_focus": "distortion-enabled motif guidance",
+          "suggested_corpus_bias": "family_biased",
+          "suggested_perturbation_bias": "symmetry_relaxed",
+          "suggested_structural_dimensions": [
+            "symmetry_relaxation_profile",
+            "structure_perturbation_profile"
+          ]
+        },
+        {
+          "hypothesis_id": "batio3_h3_relaxed_template_competitor",
+          "label": "Relaxed template competitor",
+          "rationale": "Alternative structural families should be tested to avoid narrow perovskite lock-in.",
+          "hypothesis_family": "template_relaxed",
+          "challenge_type": "polymorph_ambiguous",
+          "suggested_guidance_focus": "broader motif exploration with controlled guidance",
+          "suggested_corpus_bias": "top_k_plus_family_biased",
+          "suggested_perturbation_bias": "template_and_lattice_branching",
+          "suggested_structural_dimensions": [
+            "template_seed_profile",
+            "lattice_candidate_profile"
+          ]
+        }
+      ],
+      "evaluation_preset": "benchmark_mode"
+    },
+    {
+      "case_id": "mh_na3zr2si2po12_framework",
+      "case_class": "flat-stagnant",
+      "challenge_class": "framework_sensitive",
+      "composition": "Na3Zr2Si2PO12",
+      "symmetry_preference": "R-3c",
+      "retrieval_mode": "fingerprint",
+      "allowed_corpora": [
+        "top_k",
+        "family_biased",
+        "composition_tight"
+      ],
+      "cell_candidate_policy": "retrieval_informed",
+      "expected_analogue_family": "nasicon",
+      "property_bias": "ionic transport proxy",
+      "guidance_rationale": "Framework/topology ambiguity and many alkali-site assignments require competing structural hypotheses.",
+      "recommended_guidance_focus": "NASICON framework connectivity and alkali-site occupancy tradeoffs",
+      "suggested_structural_dimensions": [
+        "hypothesis_family",
+        "spp_package_variant",
+        "ordering_perturbation_profile"
+      ],
+      "suggested_corpus_bias": "framework_and_topology_diverse_corpus",
+      "suggested_perturbation_bias": "ordering_and_lattice_branching",
+      "hypotheses": [
+        {
+          "hypothesis_id": "nzsp_h1_tight_nasicon",
+          "label": "Tight NASICON hypothesis",
+          "rationale": "A focused NASICON prior can exploit known framework motifs.",
+          "hypothesis_family": "nasicon_tight",
+          "challenge_type": "framework_sensitive",
+          "suggested_guidance_focus": "canonical NASICON connectivity",
+          "suggested_corpus_bias": "family_biased",
+          "suggested_perturbation_bias": "conservative_framework",
+          "suggested_structural_dimensions": [
+            "qlip_guidance",
+            "weighting_profile"
+          ]
+        },
+        {
+          "hypothesis_id": "nzsp_h2_broader_framework",
+          "label": "Broader framework competitor",
+          "rationale": "Broader topology options can reveal alternative low-energy framework assignments.",
+          "hypothesis_family": "framework_broad",
+          "challenge_type": "framework_sensitive",
+          "suggested_guidance_focus": "topology diversity and migration-path motifs",
+          "suggested_corpus_bias": "top_k_plus_family_biased",
+          "suggested_perturbation_bias": "moderate_lattice_branching",
+          "suggested_structural_dimensions": [
+            "lattice_candidate_profile",
+            "structure_perturbation_profile"
+          ]
+        },
+        {
+          "hypothesis_id": "nzsp_h3_relaxed_template",
+          "label": "Relaxed-template framework",
+          "rationale": "Template-relaxed exploration can escape local framework lock-in.",
+          "hypothesis_family": "template_relaxed",
+          "challenge_type": "framework_sensitive",
+          "suggested_guidance_focus": "framework-level guidance with ordering perturbation",
+          "suggested_corpus_bias": "broader_neighbor_mixed",
+          "suggested_perturbation_bias": "ordering_aware_strong",
+          "suggested_structural_dimensions": [
+            "template_seed_profile",
+            "ordering_perturbation_profile"
+          ]
+        }
+      ],
+      "evaluation_preset": "benchmark_mode"
+    },
+    {
+      "case_id": "mh_sr2femoo6_ordering",
+      "case_class": "misleading-local-optimum",
+      "challenge_class": "ordering_sensitive",
+      "composition": "Sr2FeMoO6",
+      "symmetry_preference": "I4/m",
+      "retrieval_mode": "hybrid",
+      "allowed_corpora": [
+        "top_k",
+        "family_biased",
+        "composition_tight"
+      ],
+      "cell_candidate_policy": "retrieval_informed",
+      "expected_analogue_family": "double_perovskite",
+      "property_bias": "magnetotransport proxy",
+      "guidance_rationale": "B-site ordering choices create multiple plausible structural assignments requiring explicit ordering hypotheses.",
+      "recommended_guidance_focus": "B-site ordering constraints and double-perovskite motif priors",
+      "suggested_structural_dimensions": [
+        "hypothesis_family",
+        "ordering_perturbation_profile",
+        "symmetry_relaxation_profile"
+      ],
+      "suggested_corpus_bias": "double_perovskite_ordering_biased",
+      "suggested_perturbation_bias": "ordering_and_symmetry_relaxation",
+      "hypotheses": [
+        {
+          "hypothesis_id": "sfmo_h1_ordered_double_perovskite",
+          "label": "Strong ordered double perovskite",
+          "rationale": "Ordered B-site assignment is a high-prior structural hypothesis for this composition.",
+          "hypothesis_family": "double_perovskite_ordered",
+          "challenge_type": "ordering_sensitive",
+          "suggested_guidance_focus": "strict B-site ordering cues",
+          "suggested_corpus_bias": "family_biased",
+          "suggested_perturbation_bias": "ordering_conservative",
+          "suggested_structural_dimensions": [
+            "qlip_guidance",
+            "ordering_perturbation_profile"
+          ]
+        },
+        {
+          "hypothesis_id": "sfmo_h2_relaxed_ordering",
+          "label": "Relaxed ordering competitor",
+          "rationale": "Partial or relaxed ordering should be explored when strict ordering stalls.",
+          "hypothesis_family": "double_perovskite_relaxed_ordering",
+          "challenge_type": "ordering_sensitive",
+          "suggested_guidance_focus": "ordering tolerance with motif retention",
+          "suggested_corpus_bias": "top_k_plus_family_biased",
+          "suggested_perturbation_bias": "ordering_relaxation",
+          "suggested_structural_dimensions": [
+            "ordering_perturbation_profile",
+            "symmetry_relaxation_profile"
+          ]
+        },
+        {
+          "hypothesis_id": "sfmo_h3_symmetry_relaxed_assignment",
+          "label": "Symmetry-relaxed assignment sweep",
+          "rationale": "Symmetry-relaxed assignment exploration can uncover alternative basins not seen under strict priors.",
+          "hypothesis_family": "ordering_symmetry_relaxed",
+          "challenge_type": "ordering_sensitive",
+          "suggested_guidance_focus": "assignment diversity under symmetry relaxation",
+          "suggested_corpus_bias": "broader_neighbor_mixed",
+          "suggested_perturbation_bias": "strong_symmetry_relaxation",
+          "suggested_structural_dimensions": [
+            "template_seed_profile",
+            "symmetry_relaxation_profile",
+            "ordering_perturbation_profile"
+          ]
+        }
+      ],
+      "evaluation_preset": "benchmark_mode"
+    }
+  ]
+}

@@ -12,9 +12,9 @@ Request -> Crystal-DB -> SPP -> QLIP -> candidate CIF -> SCA validation
 ~~~
 
 The major components are Crystal-DB retrieval, SPP preparation, QLIP
-integer-programming CSP, the deterministic `llm_csp.workflow` coordinator, and
-the optional SCA validation backend. The integrated repository installs the
-`llm_csp`, `qlip`, and `crystal_db` namespaces with one command. Python 3.11 or
+integer-programming CSP, SCA validation, the deterministic `llm_csp.workflow`
+coordinator, and the original Skill-Loop-CSP agent runtime. The integrated
+repository installs their original namespaces with one command. Python 3.11 or
 newer is required.
 
 ## Quick start
@@ -55,6 +55,31 @@ llm-csp run --config configs/examples/srtio3_production.json --output ./runs --j
 
 Production corpora, embeddings, broad POT trees, model weights, and benchmark
 outputs are not bundled and are not downloaded automatically.
+
+## Unified source-runtime setup
+
+1. Install the repository with `python -m pip install -e ".[validation]"`.
+2. Configure Gurobi using its standard licence mechanism.
+3. Copy `.env.example` to `.env` and configure the independent Crystal
+   embedding and Skill-Loop reasoning endpoints.
+4. Set `MP_API_KEY`, preview the recovered dataset request, and build a local
+   Crystal-DB:
+
+   ```console
+   python scripts/crystal_db/grab_data.py --requests data/crystal_db/requests/default_mp_requests.txt --dry-run
+   python scripts/crystal_db/grab_data.py --requests data/crystal_db/requests/default_mp_requests.txt
+   ```
+
+5. Point `CRYSTAL_DB_PATH` at the generated database, configure the lawful SPP
+   regulator root, run the subsystem tests/readiness checks, then use the
+   original `sokllm` CLI. `sokllm --help`, `sca --help`, `spp-maker --help`,
+   and `llm-csp --help` expose the preserved source commands.
+
+The default Skill-Loop MCP processes are the bundled
+`crystal_db.mcp.server`, `spp_maker_mcp.server`, and `qlip.mcp.server`; no
+sibling checkout is required. LM Studio and Ollama are optional for
+model-free fixture replay. CASTEP, Slurm, VESTA, and SCA MLIP models remain
+optional source-supported externals.
 
 Reproducibility requirements and exact source/dependency provenance are in
 `docs/reproducibility.md`, `docs/packaging/RELEASE_DEPENDENCY_MATRIX.md`, and

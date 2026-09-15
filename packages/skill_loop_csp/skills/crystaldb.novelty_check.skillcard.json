@@ -1,0 +1,39 @@
+{
+  "examples": [
+    {
+      "notes": "Post-solve novelty check.",
+      "request": {
+        "cif_path": "runs/x/qlip/solution.cif"
+      }
+    }
+  ],
+  "failure_modes": [
+    {
+      "code": "validation_error",
+      "description": "Input failed contract validation.",
+      "recovery": "Fix input fields and retry with contract-compliant arguments."
+    }
+  ],
+  "id": "crystaldb.novelty_check",
+  "inputs": [
+    {
+      "default": null,
+      "description": "Path to candidate CIF.",
+      "name": "cif_path",
+      "required": true
+    },
+    {
+      "default": true,
+      "description": "Policy redaction default.",
+      "name": "redacted",
+      "required": false
+    }
+  ],
+  "purpose": "Check novelty against retrieval space.",
+  "strictness": {
+    "mode": "strict",
+    "unknown_keys": "Unknown behavior not normalized client-side."
+  },
+  "title": "CrystalDB Novelty Check",
+  "tool_name": "crystal.novelty_check"
+}

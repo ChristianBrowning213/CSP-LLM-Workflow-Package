@@ -1,0 +1,33 @@
+{
+  "examples": [
+    {
+      "notes": "Deterministic answer path.",
+      "request": {
+        "query": "What is the nearest exemplar?"
+      }
+    }
+  ],
+  "failure_modes": [
+    {
+      "code": "validation_error",
+      "description": "Input failed contract validation.",
+      "recovery": "Fix input fields and retry with contract-compliant arguments."
+    }
+  ],
+  "id": "crystaldb.agent",
+  "inputs": [
+    {
+      "default": null,
+      "description": "Question string.",
+      "name": "query",
+      "required": true
+    }
+  ],
+  "purpose": "One-call answer with evidence and citations.",
+  "strictness": {
+    "mode": "strict",
+    "unknown_keys": "Server-specific behavior."
+  },
+  "title": "CrystalDB Agent",
+  "tool_name": "crystal.agent"
+}

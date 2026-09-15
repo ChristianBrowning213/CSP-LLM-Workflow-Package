@@ -1,0 +1,4 @@
+library,source_path,category,file_count,pair_count,total_bytes,manifest_hash,redistribution_status,runtime_reference
+icsd_broad_regulator_v1,C:/Users/brown/Documents/GitHub/qlip/data/spp/regulators/icsd_broad_regulator_v1,CANONICAL_REGULATOR,20328,3388,263829560,be0a8f620fca62aa3bb755d76ac9edeeb8aa1ac507c4800001e4018b94c6cf0c,BLOCKED_PROVENANCE,SKILL_LOOP_REGULATOR_SPP_ROOT or WorkflowConfig.regulator_root
+qlip_builtin_spp,packages/qlip/src/qlip/interactions/SPP/SPP,QLIP_BUILTIN_RUNTIME,9,9,,see SPP_POT_ASSET_HASHES.txt,CLEARED_FOR_ARCHIVE,qlip package resource
+spp_maker_qlip_outputs,packages/spp_maker_qlip/QLIP_Outputs,TEST_FIXTURE,,,source manifest,CLEARED_FOR_ARCHIVE,spp package/registry fixtures

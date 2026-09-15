@@ -1,0 +1,14 @@
+{
+  "tool": "qlip.list_constraints",
+  "payload": {
+    "ids": {},
+    "tags_any": "",
+    "include_params_schema": "true",
+    "junk": 123
+  },
+  "expect": "success",
+  "expected_warning_codes": [
+    "UNKNOWN_ARG_DROPPED",
+    "COERCED_TYPE"
+  ]
+}

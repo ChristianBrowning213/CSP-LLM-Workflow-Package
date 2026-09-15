@@ -1,0 +1,78 @@
+{
+  "examples": [
+    {
+      "notes": "SPP guidance-enabled solve.",
+      "request": {
+        "request": {
+          "constraints": [],
+          "guidance": [
+            {
+              "id": "objective.energy_spp",
+              "params": {
+                "pairs_policy": "task_pairs",
+                "spp_package_path": "runs/x/spp_pkg/final_bundle",
+                "top_k_breakdown": 10
+              }
+            }
+          ],
+          "problem": {
+            "chemistry": {
+              "formula": "TiO2"
+            },
+            "design_space": {
+              "sites": {
+                "mode": "uniform_grid",
+                "uniform_grid": {
+                  "density": 4
+                }
+              },
+              "template": {
+                "lattice": {
+                  "a": 4.6,
+                  "alpha": 90.0,
+                  "b": 4.6,
+                  "beta": 90.0,
+                  "c": 3.0,
+                  "gamma": 90.0,
+                  "units": "angstrom"
+                }
+              }
+            }
+          },
+          "solver": {
+            "name": "gurobi"
+          },
+          "version": "1.0"
+        }
+      }
+    }
+  ],
+  "failure_modes": [
+    {
+      "code": "validation_error",
+      "description": "Strict schema failure.",
+      "recovery": "Run qlip.validate_request and fix pointers."
+    },
+    {
+      "code": "infeasible",
+      "description": "No feasible solution found.",
+      "recovery": "Relax constraints or guidance settings."
+    }
+  ],
+  "id": "qlip.solve",
+  "inputs": [
+    {
+      "default": null,
+      "description": "Validated top-level SolveRequest.",
+      "name": "request",
+      "required": true
+    }
+  ],
+  "purpose": "Run strict SolveRequest through MILP solver.",
+  "strictness": {
+    "mode": "strict",
+    "unknown_keys": "Unknown keys rejected under strict schema."
+  },
+  "title": "QLIP Solve",
+  "tool_name": "qlip.solve"
+}

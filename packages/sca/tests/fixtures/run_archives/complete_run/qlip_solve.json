@@ -1,0 +1,8 @@
+{
+  "solver": "qlip-fake",
+  "status": "optimal",
+  "objective": 0.01,
+  "variable_count": 16,
+  "constraint_count": 2,
+  "runtime_seconds": 0.2
+}

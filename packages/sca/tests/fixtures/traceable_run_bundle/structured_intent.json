@@ -1,0 +1,12 @@
+{
+  "formula": "BaTiO3",
+  "chemical_system": "Ba-Ti-O",
+  "space_group": 221,
+  "crystal_system": "cubic",
+  "prototype_family": "perovskite",
+  "constraints": [
+    {"constraint_id": "c_formula", "constraint_type": "formula", "expected": "BaTiO3", "severity": "hard"},
+    {"constraint_id": "c_family", "constraint_type": "prototype_family", "expected": "perovskite", "severity": "hard"},
+    {"constraint_id": "c_sg", "constraint_type": "space_group", "expected": 221, "severity": "hard"}
+  ]
+}

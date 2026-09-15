@@ -1,0 +1,20 @@
+{
+  "schema_version": "optimization.fixture.v1",
+  "objectives": {
+    "baseline_control": [0.10, 0.10, 0.10, 0.10],
+    "guided_hybrid_balanced": [0.25, 0.40, 0.55, 0.60],
+    "guided_property_push": [0.20, 0.35, 0.50, 0.58],
+    "retrieval_text_explore": [0.12, 0.18, 0.22, 0.30],
+    "retrieval_fingerprint_probe": [0.11, 0.13, 0.20, 0.24],
+    "cell_policy_probe": [0.14, 0.16, 0.17, 0.19]
+  },
+  "feasible": {
+    "baseline_control": true,
+    "guided_hybrid_balanced": true,
+    "guided_property_push": true,
+    "retrieval_text_explore": true,
+    "retrieval_fingerprint_probe": true,
+    "cell_policy_probe": true
+  }
+}
+

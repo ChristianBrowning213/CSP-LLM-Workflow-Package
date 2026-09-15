@@ -1,0 +1,40 @@
+{
+  "examples": [
+    {
+      "notes": "Simple retrieval.",
+      "request": {
+        "k": 3,
+        "query": "rutile"
+      }
+    }
+  ],
+  "failure_modes": [
+    {
+      "code": "validation_error",
+      "description": "Input failed contract validation.",
+      "recovery": "Fix input fields and retry with contract-compliant arguments."
+    }
+  ],
+  "id": "crystaldb.text_search",
+  "inputs": [
+    {
+      "default": null,
+      "description": "Text query.",
+      "name": "query",
+      "required": true
+    },
+    {
+      "default": 10,
+      "description": "Neighbor count.",
+      "name": "k",
+      "required": false
+    }
+  ],
+  "purpose": "Semantic text retrieval over CrystalDB embeddings.",
+  "strictness": {
+    "mode": "strict",
+    "unknown_keys": "Server-specific behavior."
+  },
+  "title": "CrystalDB Text Search",
+  "tool_name": "crystal.text_search"
+}

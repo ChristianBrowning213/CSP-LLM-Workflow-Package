@@ -1,0 +1,85 @@
+{
+  "schema_version": "benchmark.case_set.v1",
+  "pack_id": "hard_structure_moving_focus_v1",
+  "pack_intent": "Focused hard-case protocol for testing whether structure-moving regimes induce distinct solved structures.",
+  "focused_case_ids": [
+    "hard_srtio3_polymorph",
+    "hard_na3zr2si2po12_framework",
+    "hard_sr2femoo6_ordering"
+  ],
+  "recommended_protocol": {
+    "action_profile": "hard_structure_probe",
+    "analysis_metric_view": "property_x",
+    "selection_metric_view": "property_decomp_aware",
+    "repeats": 1,
+    "max_iterations": 4,
+    "allowlist_hint": [
+      "guided_extreme_structure_probe",
+      "guided_property_push",
+      "guided_corpus_branch",
+      "guided_hybrid_balanced"
+    ],
+    "notes": [
+      "Keep run bounded and diagnostic.",
+      "Prioritize structure-diversity evidence over throughput."
+    ]
+  },
+  "cases": [
+    {
+      "case_id": "hard_srtio3_polymorph",
+      "case_class": "misleading-local-optimum",
+      "challenge_class": "polymorph_ambiguous",
+      "composition": "SrTiO3",
+      "symmetry_preference": "Pm-3m",
+      "retrieval_mode": "hybrid",
+      "allowed_corpora": [
+        "top_k",
+        "family_biased"
+      ],
+      "cell_candidate_policy": "retrieval_informed",
+      "expected_analogue_family": "perovskite",
+      "property_bias": "dielectric behavior",
+      "guidance_rationale": "Multiple plausible perovskite-like polymorphs require stronger structural perturbation to escape one basin.",
+      "recommended_guidance_focus": "phase-specific perovskite motif bias with symmetry relaxation sweeps",
+      "evaluation_preset": "benchmark_mode"
+    },
+    {
+      "case_id": "hard_na3zr2si2po12_framework",
+      "case_class": "flat-stagnant",
+      "challenge_class": "framework_sensitive",
+      "composition": "Na3Zr2Si2PO12",
+      "symmetry_preference": "R-3c",
+      "retrieval_mode": "fingerprint",
+      "allowed_corpora": [
+        "top_k",
+        "family_biased",
+        "composition_tight"
+      ],
+      "cell_candidate_policy": "retrieval_informed",
+      "expected_analogue_family": "nasicon",
+      "property_bias": "ionic transport proxy",
+      "guidance_rationale": "Framework/topology ambiguity with many alkali sites is sensitive to template and ordering perturbation.",
+      "recommended_guidance_focus": "framework connectivity and alkali-site ordering perturbation",
+      "evaluation_preset": "benchmark_mode"
+    },
+    {
+      "case_id": "hard_sr2femoo6_ordering",
+      "case_class": "misleading-local-optimum",
+      "challenge_class": "ordering_sensitive",
+      "composition": "Sr2FeMoO6",
+      "symmetry_preference": "I4/m",
+      "retrieval_mode": "hybrid",
+      "allowed_corpora": [
+        "top_k",
+        "family_biased",
+        "composition_tight"
+      ],
+      "cell_candidate_policy": "retrieval_informed",
+      "expected_analogue_family": "double_perovskite",
+      "property_bias": "magnetotransport proxy",
+      "guidance_rationale": "B-site ordering is basin-sensitive and should react to ordering perturbation controls.",
+      "recommended_guidance_focus": "B-site ordering and symmetry-relaxed structural seeds",
+      "evaluation_preset": "benchmark_mode"
+    }
+  ]
+}

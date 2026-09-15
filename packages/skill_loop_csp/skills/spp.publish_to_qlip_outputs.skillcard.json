@@ -1,0 +1,54 @@
+{
+  "examples": [
+    {
+      "notes": "Publish package.",
+      "request": {
+        "artifact_root": "runs/x/spp_pkg",
+        "kind": "package",
+        "name": "pkg1",
+        "qlip_outputs_path": "runs/x/qlip_outputs"
+      }
+    }
+  ],
+  "failure_modes": [
+    {
+      "code": "validation_error",
+      "description": "Input failed contract validation.",
+      "recovery": "Fix input fields and retry with contract-compliant arguments."
+    }
+  ],
+  "id": "spp.publish_to_qlip_outputs",
+  "inputs": [
+    {
+      "default": null,
+      "description": "spp|guidance|package|constraint",
+      "name": "kind",
+      "required": true
+    },
+    {
+      "default": null,
+      "description": "Source artifact path.",
+      "name": "artifact_root",
+      "required": true
+    },
+    {
+      "default": null,
+      "description": "Target outputs path.",
+      "name": "qlip_outputs_path",
+      "required": true
+    },
+    {
+      "default": null,
+      "description": "Publish name.",
+      "name": "name",
+      "required": true
+    }
+  ],
+  "purpose": "Publish artifact into QLIP outputs location.",
+  "strictness": {
+    "mode": "tolerant",
+    "unknown_keys": "Unknown keys dropped with warnings."
+  },
+  "title": "SPP Publish To QLIP Outputs",
+  "tool_name": "spp.publish_to_qlip_outputs"
+}

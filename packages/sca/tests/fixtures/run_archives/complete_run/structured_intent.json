@@ -1,0 +1,9 @@
+{
+  "formula": "BaTiO3",
+  "target_space_group": 221,
+  "target_structure_family": "perovskite",
+  "constraints": [
+    {"constraint_id": "formula", "constraint_type": "formula", "expected": "BaTiO3", "severity": "hard", "evidence_ids": ["ev_batio3"]},
+    {"constraint_id": "family", "constraint_type": "prototype_family", "expected": "perovskite", "severity": "hard", "evidence_ids": ["ev_batio3"]}
+  ]
+}

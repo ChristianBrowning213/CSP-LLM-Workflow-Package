@@ -1,0 +1,21 @@
+{
+  "request": {
+    "tool_calls": [
+      {
+        "function": {
+          "name": "qlip.shapes",
+          "arguments": {
+            "include_examples": true
+          }
+        }
+      }
+    ]
+  },
+  "expected": {
+    "dispatch_tool": "qlip.shapes",
+    "ok": true,
+    "tool": "qlip.shapes",
+    "has_trace_id": true,
+    "expected_warning_codes": []
+  }
+}

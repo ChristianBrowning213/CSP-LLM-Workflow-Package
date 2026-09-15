@@ -1,0 +1,59 @@
+{
+  "examples": [
+    {
+      "notes": "Run-root packaging path.",
+      "request": {
+        "name": "spp_package",
+        "out_dir": "runs/x/spp_pkg",
+        "run_root": "runs/x/spp/spp_run"
+      }
+    }
+  ],
+  "failure_modes": [
+    {
+      "code": "validation_error",
+      "description": "Input failed contract validation.",
+      "recovery": "Fix input fields and retry with contract-compliant arguments."
+    }
+  ],
+  "id": "spp.package_for_qlip",
+  "inputs": [
+    {
+      "default": null,
+      "description": "Either run_root OR (spp_root + calibration_json).",
+      "name": "run_root",
+      "required": false
+    },
+    {
+      "default": null,
+      "description": "Alternative source root.",
+      "name": "spp_root",
+      "required": false
+    },
+    {
+      "default": null,
+      "description": "Alternative calibration file.",
+      "name": "calibration_json",
+      "required": false
+    },
+    {
+      "default": null,
+      "description": "Package output directory.",
+      "name": "out_dir",
+      "required": true
+    },
+    {
+      "default": null,
+      "description": "Package name.",
+      "name": "name",
+      "required": true
+    }
+  ],
+  "purpose": "Create package bundle usable by QLIP guidance.",
+  "strictness": {
+    "mode": "tolerant",
+    "unknown_keys": "Unknown keys dropped with warnings."
+  },
+  "title": "SPP Package For QLIP",
+  "tool_name": "spp.package_for_qlip"
+}

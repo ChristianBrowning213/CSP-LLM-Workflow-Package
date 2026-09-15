@@ -1,0 +1,14 @@
+{
+  "tool": "qlip.shapes",
+  "payload": {
+    "arguments": {
+      "tool": {
+        "$repeat": "x",
+        "count": 70000
+      }
+    }
+  },
+  "expect": "error",
+  "expected_first_code": "PAYLOAD_LIMIT_EXCEEDED",
+  "expected_which_limit": "STRING_LEN"
+}

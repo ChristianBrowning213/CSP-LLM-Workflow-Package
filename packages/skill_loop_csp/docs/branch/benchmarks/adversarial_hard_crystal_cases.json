@@ -1,0 +1,316 @@
+{
+  "schema_version": "benchmark.case_set.v1",
+  "pack_id": "adversarial_hard_crystal_v1",
+  "pack_intent": "Compact adversarial hard pack that stresses recovery from misleading priors, weak support, broad-corpus traps, and wrong-branch hypothesis commitments.",
+  "recommended_protocol": {
+    "action_profile": "multi_hypothesis_branching",
+    "analysis_metric_view": "property_x",
+    "selection_metric_view": "property_decomp_aware",
+    "repeats": 3,
+    "max_iterations": 7,
+    "include_baseline_control": true,
+    "notes": [
+      "Use as a bounded adversarial stress pack, not a throughput benchmark.",
+      "Success means branch recovery and meaningful structural/proxy movement under hard priors."
+    ]
+  },
+  "cases": [
+    {
+      "case_id": "adv_li4brocl_unseen",
+      "case_class": "repeated-infeasible",
+      "challenge_class": "low_support_hypothetical",
+      "composition": "Li4BrOCl",
+      "symmetry_preference": null,
+      "retrieval_mode": "hybrid",
+      "allowed_corpora": [
+        "composition_tight",
+        "family_biased",
+        "top_k"
+      ],
+      "cell_candidate_policy": "retrieval_informed",
+      "expected_analogue_family": "mixed_anion_halide",
+      "property_bias": "ionic transport proxy",
+      "guidance_rationale": "Sparse direct support and mixed-anion complexity make retrieval and hypothesis priors easy to mislead.",
+      "recommended_guidance_focus": "mixed-anion local environments and halide-rich coordination plausibility",
+      "suggested_corpus_bias": "family_biased_with_broad_rescue",
+      "suggested_perturbation_bias": "template_relaxed_with_multibasin_lattice",
+      "suggested_structural_dimensions": [
+        "hypothesis_family",
+        "corpus_strategy",
+        "spp_package_variant",
+        "template_seed_profile",
+        "lattice_candidate_profile"
+      ],
+      "hypotheses": [
+        {
+          "hypothesis_id": "li4brocl_h1_halide_local_env",
+          "label": "Halide-rich local-environment prior",
+          "rationale": "Prioritize halide-like local coordination motifs near known mixed-anion analogs.",
+          "hypothesis_family": "halide_local_env",
+          "challenge_type": "low_support_hypothetical",
+          "suggested_guidance_focus": "halide coordination and mixed-anion local packing",
+          "suggested_corpus_bias": "family_biased",
+          "suggested_perturbation_bias": "moderate_symmetry_relaxation"
+        },
+        {
+          "hypothesis_id": "li4brocl_h2_mixed_anion_relaxed_template",
+          "label": "Mixed-anion relaxed-template",
+          "rationale": "Relaxed template priors may avoid premature collapse when direct corpus support is weak.",
+          "hypothesis_family": "template_relaxed",
+          "challenge_type": "low_support_hypothetical",
+          "suggested_guidance_focus": "mixed-anion motif flexibility",
+          "suggested_corpus_bias": "top_k_plus_family_biased",
+          "suggested_perturbation_bias": "aggressive_template_seed_variation"
+        },
+        {
+          "hypothesis_id": "li4brocl_h3_broader_analogy_rescue",
+          "label": "Broader analogy-driven rescue",
+          "rationale": "When tight priors fail, broader analog retrieval may recover workable structural families.",
+          "hypothesis_family": "analogy_rescue",
+          "challenge_type": "low_support_hypothetical",
+          "suggested_guidance_focus": "analogy-weighted structural priors",
+          "suggested_corpus_bias": "top_k",
+          "suggested_perturbation_bias": "symmetry_relaxed_template_shuffle"
+        }
+      ],
+      "evaluation_preset": "benchmark_mode"
+    },
+    {
+      "case_id": "adv_coas2_hard_rediscovery",
+      "case_class": "misleading-local-optimum",
+      "challenge_class": "broad_corpus_failure_risk",
+      "composition": "CoAs2",
+      "symmetry_preference": "Pnnm",
+      "retrieval_mode": "hybrid",
+      "allowed_corpora": [
+        "composition_tight",
+        "top_k",
+        "family_biased"
+      ],
+      "cell_candidate_policy": "retrieval_informed",
+      "expected_analogue_family": "pnictide",
+      "property_bias": "stability",
+      "guidance_rationale": "Broad pnictide corpora can drown useful signals; optimizer must recover with tighter/targeted corpus shifts.",
+      "recommended_guidance_focus": "hard rediscovery with controlled corpus breadth and calibrated guidance strength",
+      "suggested_corpus_bias": "tight_then_broad_rescue",
+      "suggested_perturbation_bias": "weighting_rebalance_under_broad_corpus",
+      "suggested_structural_dimensions": [
+        "corpus_strategy",
+        "spp_package_variant",
+        "weighting_profile",
+        "symmetry_relaxation_profile"
+      ],
+      "hypotheses": [
+        {
+          "hypothesis_id": "coas2_h1_tight_nearest_analog",
+          "label": "Tight nearest-analog rediscovery",
+          "rationale": "Start with strict same-composition/nearest analog constraints to reduce corpus noise.",
+          "hypothesis_family": "tight_rediscovery",
+          "challenge_type": "broad_corpus_failure_risk",
+          "suggested_guidance_focus": "strict analog match and conservative weighting",
+          "suggested_corpus_bias": "composition_tight",
+          "suggested_perturbation_bias": "conservative"
+        },
+        {
+          "hypothesis_id": "coas2_h2_broad_pnictide_family",
+          "label": "Broad pnictide family branch",
+          "rationale": "Broader family retrieval can recover missed motifs but increases trap risk.",
+          "hypothesis_family": "pnictide_family_broad",
+          "challenge_type": "broad_corpus_failure_risk",
+          "suggested_guidance_focus": "family-level motif guidance with pruning",
+          "suggested_corpus_bias": "family_biased",
+          "suggested_perturbation_bias": "moderate_symmetry_relaxation"
+        },
+        {
+          "hypothesis_id": "coas2_h3_relaxed_template_rescue",
+          "label": "Relaxed-template broad-corpus rescue",
+          "rationale": "If both tight and broad branches stall, use template-relaxed rescue with stronger weighting control.",
+          "hypothesis_family": "template_relaxed_rescue",
+          "challenge_type": "broad_corpus_failure_risk",
+          "suggested_guidance_focus": "rescue branch with stronger guided contrast",
+          "suggested_corpus_bias": "top_k",
+          "suggested_perturbation_bias": "template_shuffle_with_guidance_dominant"
+        }
+      ],
+      "evaluation_preset": "benchmark_mode"
+    },
+    {
+      "case_id": "adv_sr2femoo6_ordering",
+      "case_class": "misleading-local-optimum",
+      "challenge_class": "ordering_sensitive",
+      "composition": "Sr2FeMoO6",
+      "symmetry_preference": "I4/m",
+      "retrieval_mode": "hybrid",
+      "allowed_corpora": [
+        "top_k",
+        "family_biased",
+        "composition_tight"
+      ],
+      "cell_candidate_policy": "retrieval_informed",
+      "expected_analogue_family": "double_perovskite",
+      "property_bias": "magnetotransport proxy",
+      "guidance_rationale": "Ordering-sensitive basin selection punishes early wrong hypothesis commitment.",
+      "recommended_guidance_focus": "B-site ordering sensitivity with symmetry-relaxed alternatives",
+      "suggested_corpus_bias": "ordering_sensitive_family_bias",
+      "suggested_perturbation_bias": "ordering_and_symmetry_branching",
+      "suggested_structural_dimensions": [
+        "hypothesis_family",
+        "ordering_perturbation_profile",
+        "template_seed_profile",
+        "symmetry_relaxation_profile"
+      ],
+      "hypotheses": [
+        {
+          "hypothesis_id": "sr2femoo6_h1_strong_ordered",
+          "label": "Strong ordered double-perovskite",
+          "rationale": "High-prior ordered assignment branch for B-site ordering.",
+          "hypothesis_family": "double_perovskite_ordered",
+          "challenge_type": "ordering_sensitive",
+          "suggested_guidance_focus": "strict B-site ordering constraints",
+          "suggested_corpus_bias": "family_biased",
+          "suggested_perturbation_bias": "ordering_conservative"
+        },
+        {
+          "hypothesis_id": "sr2femoo6_h2_relaxed_ordering",
+          "label": "Relaxed ordering branch",
+          "rationale": "Allow partial ordering to escape ordered-basin traps.",
+          "hypothesis_family": "double_perovskite_relaxed_ordering",
+          "challenge_type": "ordering_sensitive",
+          "suggested_guidance_focus": "ordering tolerance with motif retention",
+          "suggested_corpus_bias": "top_k_plus_family_biased",
+          "suggested_perturbation_bias": "ordering_relaxation"
+        },
+        {
+          "hypothesis_id": "sr2femoo6_h3_symmetry_relaxed_ordering",
+          "label": "Symmetry-relaxed ordering sweep",
+          "rationale": "Combine ordering perturbation with symmetry relaxation to force alternate basins.",
+          "hypothesis_family": "ordering_symmetry_relaxed",
+          "challenge_type": "ordering_sensitive",
+          "suggested_guidance_focus": "assignment diversity under relaxed symmetry",
+          "suggested_corpus_bias": "broader_neighbor_mixed",
+          "suggested_perturbation_bias": "strong_symmetry_relaxation_with_ordering"
+        }
+      ],
+      "evaluation_preset": "benchmark_mode"
+    },
+    {
+      "case_id": "adv_na3zr2si2po12_framework",
+      "case_class": "flat-stagnant",
+      "challenge_class": "framework_ambiguous",
+      "composition": "Na3Zr2Si2PO12",
+      "symmetry_preference": "R-3c",
+      "retrieval_mode": "fingerprint",
+      "allowed_corpora": [
+        "top_k",
+        "family_biased",
+        "composition_tight"
+      ],
+      "cell_candidate_policy": "retrieval_informed",
+      "expected_analogue_family": "nasicon",
+      "property_bias": "ionic transport proxy",
+      "guidance_rationale": "Framework ambiguity and many alkali configurations require hypothesis-aware topology branching.",
+      "recommended_guidance_focus": "framework topology and alkali-site occupancy tradeoffs",
+      "suggested_corpus_bias": "framework_diversity_with_controlled_tightness",
+      "suggested_perturbation_bias": "framework_template_and_ordering_branch",
+      "suggested_structural_dimensions": [
+        "hypothesis_family",
+        "corpus_strategy",
+        "template_seed_profile",
+        "lattice_candidate_profile",
+        "ordering_perturbation_profile"
+      ],
+      "hypotheses": [
+        {
+          "hypothesis_id": "na3zr2si2po12_h1_tight_nasicon",
+          "label": "Tight NASICON",
+          "rationale": "Exploit canonical NASICON priors before broadening.",
+          "hypothesis_family": "nasicon_tight",
+          "challenge_type": "framework_ambiguous",
+          "suggested_guidance_focus": "canonical connectivity constraints",
+          "suggested_corpus_bias": "family_biased",
+          "suggested_perturbation_bias": "conservative_framework"
+        },
+        {
+          "hypothesis_id": "na3zr2si2po12_h2_broader_framework",
+          "label": "Broader framework branch",
+          "rationale": "Allow alternate topology priors to challenge tight-framework lock-in.",
+          "hypothesis_family": "framework_broad",
+          "challenge_type": "framework_ambiguous",
+          "suggested_guidance_focus": "topology diversity and migration motifs",
+          "suggested_corpus_bias": "top_k_plus_family_biased",
+          "suggested_perturbation_bias": "moderate_lattice_branching"
+        },
+        {
+          "hypothesis_id": "na3zr2si2po12_h3_relaxed_template_framework",
+          "label": "Relaxed-template framework rescue",
+          "rationale": "Template-relaxed rescue branch if both tight and broad framework branches plateau.",
+          "hypothesis_family": "template_relaxed",
+          "challenge_type": "framework_ambiguous",
+          "suggested_guidance_focus": "framework-level guidance with ordering perturbation",
+          "suggested_corpus_bias": "broader_neighbor_mixed",
+          "suggested_perturbation_bias": "template_shuffle_with_ordering_bias"
+        }
+      ],
+      "evaluation_preset": "benchmark_mode"
+    },
+    {
+      "case_id": "adv_batio3_polymorph",
+      "case_class": "misleading-local-optimum",
+      "challenge_class": "polymorph_trap",
+      "composition": "BaTiO3",
+      "symmetry_preference": "Pm-3m",
+      "retrieval_mode": "hybrid",
+      "allowed_corpora": [
+        "top_k",
+        "family_biased",
+        "composition_tight"
+      ],
+      "cell_candidate_policy": "retrieval_informed",
+      "expected_analogue_family": "perovskite",
+      "property_bias": "ferroelectric-like response",
+      "guidance_rationale": "Competing high-symmetry vs distorted hypotheses create a classic early-collapse polymorph trap.",
+      "recommended_guidance_focus": "distorted-ferroelectric versus high-symmetry perovskite branch competition",
+      "suggested_corpus_bias": "perovskite_family_with_distortion_competitors",
+      "suggested_perturbation_bias": "symmetry_relaxed_polymorph_branching",
+      "suggested_structural_dimensions": [
+        "hypothesis_family",
+        "weighting_profile",
+        "symmetry_relaxation_profile",
+        "template_seed_profile"
+      ],
+      "hypotheses": [
+        {
+          "hypothesis_id": "batio3_adv_h1_high_symmetry",
+          "label": "High-symmetry perovskite",
+          "rationale": "Control branch that often dominates too early.",
+          "hypothesis_family": "perovskite_cubic",
+          "challenge_type": "polymorph_trap",
+          "suggested_guidance_focus": "ideal perovskite connectivity",
+          "suggested_corpus_bias": "composition_tight",
+          "suggested_perturbation_bias": "conservative"
+        },
+        {
+          "hypothesis_id": "batio3_adv_h2_distorted_ferroelectric",
+          "label": "Distorted ferroelectric branch",
+          "rationale": "Competing distorted branch that should be explored before convergence.",
+          "hypothesis_family": "perovskite_distorted",
+          "challenge_type": "polymorph_trap",
+          "suggested_guidance_focus": "distortion-enabled motif guidance",
+          "suggested_corpus_bias": "family_biased",
+          "suggested_perturbation_bias": "symmetry_relaxed"
+        },
+        {
+          "hypothesis_id": "batio3_adv_h3_relaxed_template_competitor",
+          "label": "Relaxed-template competitor",
+          "rationale": "Alternative branch to recover when both dominant perovskite priors plateau.",
+          "hypothesis_family": "template_relaxed",
+          "challenge_type": "polymorph_trap",
+          "suggested_guidance_focus": "broader motif exploration",
+          "suggested_corpus_bias": "top_k_plus_family_biased",
+          "suggested_perturbation_bias": "template_and_lattice_branching"
+        }
+      ],
+      "evaluation_preset": "benchmark_mode"
+    }
+  ]
+}

@@ -1,0 +1,110 @@
+{
+  "schema_version": "benchmark.case_set.v1",
+  "pack_id": "hard_structural_guidance_v1",
+  "pack_intent": "Hard structural ambiguity cases where guidance should matter and repeated runs should have room to improve.",
+  "recommended_protocol": {
+    "action_profile": "live_structural",
+    "analysis_metric_view": "property_x",
+    "selection_metric_view": "property_aware",
+    "repeats": 4,
+    "max_iterations": 6,
+    "allowlist_hint": [
+      "guided_property_push",
+      "guided_hybrid_balanced"
+    ]
+  },
+  "cases": [
+    {
+      "case_id": "hard_srtio3_polymorph",
+      "case_class": "misleading-local-optimum",
+      "challenge_class": "polymorph_ambiguous",
+      "composition": "SrTiO3",
+      "symmetry_preference": "Pm-3m",
+      "retrieval_mode": "hybrid",
+      "allowed_corpora": [
+        "top_k",
+        "family_biased"
+      ],
+      "cell_candidate_policy": "retrieval_informed",
+      "expected_analogue_family": "perovskite",
+      "property_bias": "dielectric behavior",
+      "guidance_rationale": "Multiple plausible perovskite-like polymorphs make motif and phase guidance important.",
+      "recommended_guidance_focus": "octahedral tilting vs cubic perovskite motif bias",
+      "evaluation_preset": "benchmark_mode"
+    },
+    {
+      "case_id": "hard_batio3_polymorph",
+      "case_class": "misleading-local-optimum",
+      "challenge_class": "polymorph_ambiguous",
+      "composition": "BaTiO3",
+      "symmetry_preference": "Pm-3m",
+      "retrieval_mode": "hybrid",
+      "allowed_corpora": [
+        "top_k",
+        "family_biased"
+      ],
+      "cell_candidate_policy": "retrieval_informed",
+      "expected_analogue_family": "perovskite",
+      "property_bias": "ferroelectric-like response",
+      "guidance_rationale": "Polymorph-rich perovskite phase competition benefits from structure-level guidance.",
+      "recommended_guidance_focus": "perovskite phase selection and octahedral environment priors",
+      "evaluation_preset": "benchmark_mode"
+    },
+    {
+      "case_id": "hard_na3zr2si2po12_framework",
+      "case_class": "flat-stagnant",
+      "challenge_class": "framework_sensitive",
+      "composition": "Na3Zr2Si2PO12",
+      "symmetry_preference": "R-3c",
+      "retrieval_mode": "fingerprint",
+      "allowed_corpora": [
+        "top_k",
+        "family_biased",
+        "composition_tight"
+      ],
+      "cell_candidate_policy": "retrieval_informed",
+      "expected_analogue_family": "nasicon",
+      "property_bias": "ionic transport proxy",
+      "guidance_rationale": "Framework/topology choice and inequivalent alkali sites make this structurally ambiguous.",
+      "recommended_guidance_focus": "NASICON framework connectivity and alkali-site occupancy cues",
+      "evaluation_preset": "benchmark_mode"
+    },
+    {
+      "case_id": "hard_mgal2o4_coordination",
+      "case_class": "flat-stagnant",
+      "challenge_class": "coordination_sensitive",
+      "composition": "MgAl2O4",
+      "symmetry_preference": "Fd-3m",
+      "retrieval_mode": "fingerprint",
+      "allowed_corpora": [
+        "composition_tight",
+        "family_biased"
+      ],
+      "cell_candidate_policy": "fixed_benchmark",
+      "expected_analogue_family": "spinel",
+      "property_bias": "stability",
+      "guidance_rationale": "Tetrahedral/octahedral coordination role assignment is central for spinel-like structures.",
+      "recommended_guidance_focus": "tetrahedral vs octahedral coordination environment bias",
+      "evaluation_preset": "benchmark_mode"
+    },
+    {
+      "case_id": "hard_sr2femoo6_ordering",
+      "case_class": "misleading-local-optimum",
+      "challenge_class": "ordering_sensitive",
+      "composition": "Sr2FeMoO6",
+      "symmetry_preference": "I4/m",
+      "retrieval_mode": "hybrid",
+      "allowed_corpora": [
+        "top_k",
+        "family_biased",
+        "composition_tight"
+      ],
+      "cell_candidate_policy": "retrieval_informed",
+      "expected_analogue_family": "double_perovskite",
+      "property_bias": "magnetotransport proxy",
+      "guidance_rationale": "B-site ordering in double-perovskite-like structures is ordering-sensitive and guidance-dependent.",
+      "recommended_guidance_focus": "B-site ordering and double-perovskite framework constraints",
+      "evaluation_preset": "benchmark_mode"
+    }
+  ]
+}

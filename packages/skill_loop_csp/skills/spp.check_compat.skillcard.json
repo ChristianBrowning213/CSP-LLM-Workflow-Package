@@ -1,0 +1,33 @@
+{
+  "examples": [
+    {
+      "notes": "Preflight check.",
+      "request": {
+        "spp_root": "runs/x/spp"
+      }
+    }
+  ],
+  "failure_modes": [
+    {
+      "code": "validation_error",
+      "description": "Input failed contract validation.",
+      "recovery": "Fix input fields and retry with contract-compliant arguments."
+    }
+  ],
+  "id": "spp.check_compat",
+  "inputs": [
+    {
+      "default": null,
+      "description": "SPP root to verify.",
+      "name": "spp_root",
+      "required": true
+    }
+  ],
+  "purpose": "Validate SPP artifact compatibility.",
+  "strictness": {
+    "mode": "tolerant",
+    "unknown_keys": "Unknown keys dropped with warnings."
+  },
+  "title": "SPP Compatibility Check",
+  "tool_name": "spp.check_compat"
+}

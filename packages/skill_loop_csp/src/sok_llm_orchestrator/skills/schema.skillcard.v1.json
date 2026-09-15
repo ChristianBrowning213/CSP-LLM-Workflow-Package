@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SkillCard v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "title",
+    "purpose",
+    "tool_name",
+    "inputs",
+    "strictness",
+    "failure_modes",
+    "examples"
+  ],
+  "properties": {
+    "id": {"type": "string"},
+    "title": {"type": "string"},
+    "purpose": {"type": "string"},
+    "tool_name": {"type": "string"},
+    "inputs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "required", "default", "description"],
+        "properties": {
+          "name": {"type": "string"},
+          "required": {"type": "boolean"},
+          "default": {},
+          "description": {"type": "string"}
+        }
+      }
+    },
+    "strictness": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode", "unknown_keys"],
+      "properties": {
+        "mode": {"type": "string", "enum": ["strict", "tolerant"]},
+        "unknown_keys": {"type": "string"}
+      }
+    },
+    "failure_modes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["code", "description", "recovery"],
+        "properties": {
+          "code": {"type": "string"},
+          "description": {"type": "string"},
+          "recovery": {"type": "string"}
+        }
+      }
+    },
+    "examples": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["request", "notes"],
+        "properties": {
+          "request": {"type": "object"},
+          "notes": {"type": "string"}
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "schema_name": "spp",
+  "schema_version": "1.0",
+  "species_pairs": {
+    "Cl--Na": {
+      "bin_edges": [0.0, 2.0, 4.0, 8.0],
+      "penalties": [10.0, 0.5, 2.0],
+      "tail_penalty": 20.0,
+      "weight": 1.0
+    }
+  },
+  "smoothing": {
+    "method": "example_histogram"
+  },
+  "corpus_hash": "example",
+  "cutoff_policy": {
+    "cutoff": 8.0
+  },
+  "weighting_policy": {
+    "type": "uniform"
+  },
+  "provenance": {
+    "created_by": "SCA example fixture",
+    "source": "tests/fixtures/tiny_valid.cif"
+  },
+  "corpus_summary": {
+    "num_structures": 1,
+    "num_pairs": 1,
+    "description": "Tiny NaCl example SPP for CLI smoke tests."
+  }
+}

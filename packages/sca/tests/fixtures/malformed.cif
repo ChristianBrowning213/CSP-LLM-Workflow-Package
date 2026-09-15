@@ -1,0 +1,3 @@
+this is not a valid cif
+loop_
+ _atom_site_label

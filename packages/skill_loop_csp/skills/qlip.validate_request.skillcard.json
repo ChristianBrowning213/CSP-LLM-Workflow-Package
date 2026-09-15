@@ -1,0 +1,64 @@
+{
+  "examples": [
+    {
+      "notes": "Minimal baseline request.",
+      "request": {
+        "request": {
+          "constraints": [],
+          "guidance": [],
+          "problem": {
+            "chemistry": {
+              "formula": "TiO2"
+            },
+            "design_space": {
+              "sites": {
+                "mode": "uniform_grid",
+                "uniform_grid": {
+                  "density": 4
+                }
+              },
+              "template": {
+                "lattice": {
+                  "a": 4.6,
+                  "alpha": 90.0,
+                  "b": 4.6,
+                  "beta": 90.0,
+                  "c": 3.0,
+                  "gamma": 90.0,
+                  "units": "angstrom"
+                }
+              }
+            }
+          },
+          "solver": {
+            "name": "gurobi"
+          },
+          "version": "1.0"
+        }
+      }
+    }
+  ],
+  "failure_modes": [
+    {
+      "code": "validation_error",
+      "description": "Schema or plugin params invalid.",
+      "recovery": "Fix JSON pointer-reported field and retry."
+    }
+  ],
+  "id": "qlip.validate_request",
+  "inputs": [
+    {
+      "default": null,
+      "description": "Top-level SolveRequest: version/problem/constraints/guidance/solver.",
+      "name": "request",
+      "required": true
+    }
+  ],
+  "purpose": "Strict preflight validation of top-level SolveRequest.",
+  "strictness": {
+    "mode": "strict",
+    "unknown_keys": "Unknown keys rejected; no coercion in constraints[].params or guidance[].params."
+  },
+  "title": "QLIP Validate Request",
+  "tool_name": "qlip.validate_request"
+}

@@ -4,17 +4,31 @@ Recovery baseline established.
 
 | Subsystem | Status | Note |
 |---|---|---|
-| Skill-Loop-CSP | `NOT_RESTORED` | Source runtime has not been migrated. |
+| Skill-Loop-CSP | `RESTORED` | Original `sok_llm_orchestrator` runtime, CLI, prompts, schemas and six-tool execution chain restored; real bundled MCP defaults verified. |
 | Crystal-DB software | `RESTORED` | Complete scientific-revision package, CLI, MCP, schemas, tests and operational support code migrated in Ticket 24. |
 | Crystal-DB operational assets | `BLOCKED_PROVENANCE` | Canonical `phase6_mp_10k.db` is hash-pinned and operationally verified, but all 10,000 records are Materials Project-derived and marked `allow_export=0`; no redistribution approval is recorded. |
-| Crystal-DB | `BLOCKED_PROVENANCE` | Software is restored; the required operational snapshot cannot be included until a human clears redistribution. |
+| Crystal-DB | `SOFTWARE_RESTORED_DATA_BOOTSTRAP_REQUIRED` | Historical snapshot remains blocked; recovered MP request and source-faithful local bootstrap are ready and a one-record live build passed. |
 | SPP-Maker-QLIP software | `RESTORED` | Original `spp_maker`/`spp_maker_qlip`/`spp_maker_mcp` namespaces, CLI, MCP server, calibration/publishing/schemas restored in Ticket 26. |
-| SPP-Maker-QLIP operational POT assets | `ASSET_DEFERRED` | 102,847 files inventoried (SHA-256, dedup) across `SPP-Maker-QLIP`/`Skill-Loop-CSP`/`QLIP`; zero bytes copied. Canonical broad-regulator library not yet materialized. |
+| SPP-Maker-QLIP operational POT assets | `BLOCKED_PROVENANCE` | Canonical 3,388-pair ICSD regulator identified and hash-frozen; no redistribution evidence, so zero canonical bytes copied. Nine QLIP built-ins and source fixtures restored. |
 | SPP-Maker-QLIP | `SOFTWARE_RESTORED_ASSETS_PENDING` | Software fully restored and source-vs-archive parity proven (byte-exact POT output, exact scores, identical QLIP packaging, identical failure behavior); production POT libraries deferred to a future ticket. |
-| QLIP | `PARTIAL` | Existing reduced source-derived package retained. |
-| SCA | `EXTERNAL` | Supported package remains a VCS dependency. |
-| Runtime assets | `PARTIAL / EXTERNALIZED` | Provenance-cleared operational assets are not yet restored. |
+| QLIP | `SOFTWARE_RESTORED_ASSETS_BLOCKED` | Full source namespace, resources, CLI, six-tool MCP surface and tests restored; broad regulator/specialist corpus remain blocked. |
+| SCA | `RESTORED` | Complete supported package and CLI bundled; no VCS fetch. Optional weights and external benchmark assets remain external. |
+| Runtime assets | `PROVENANCE_BOUNDARY_ENFORCED` | Cleared tracked resources restored; MP database, canonical regulator, specialist corpora and optional models are not redistributed. |
 | Invented v0.2 agent runtime | `ISOLATED` | Removed from active runtime; design retained only as history. |
+
+Overall Ticket 32 status: `SOURCE_FIDELITY_RESTORED_DATA_BOOTSTRAP_REQUIRED`.
+
+## Tickets 27–32
+
+- T27: `SPP_POT_ASSETS_BLOCKED_PROVENANCE`
+- T28: `QLIP_SOFTWARE_RESTORED_ASSETS_BLOCKED`
+- T29: `CRYSTAL_DB_BOOTSTRAP_READY`
+- T30: `SCA_RESTORED`
+- T31: `SKILL_LOOP_RUNTIME_RESTORED`
+- T32: `SOURCE_FIDELITY_RESTORED_DATA_BOOTSTRAP_REQUIRED`
+
+See `OVERNIGHT_RECOVERY_REPORT.md` and `FINAL_SOURCE_PARITY.md` for current
+test counts, edge verification, remaining externals, and Git safety evidence.
 
 This file records migration progress after the immutable Ticket 22 audit. No
 Ticket 22 conclusion has been rewritten; later recovery progress is recorded

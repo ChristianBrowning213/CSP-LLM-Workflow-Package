@@ -1,0 +1,16 @@
+{
+  "query": "BaTiO3 cubic perovskite structure",
+  "mode": "evidence_spp",
+  "retrieved": [
+    {
+      "evidence_id": "mp-batio3-perovskite",
+      "formula": "BaTiO3",
+      "chemical_system": "Ba-Ti-O",
+      "family": "perovskite",
+      "space_group": 221,
+      "score": 0.99,
+      "parseable": true,
+      "citation": "synthetic-reference"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "partition": "REPLACE_WITH_BARKLA_PARTITION",
+  "walltime": "24:00:00",
+  "nodes": 1,
+  "ntasks": 40,
+  "cpus_per_task": 1,
+  "memory": "120G",
+  "account": null,
+  "modules": ["REPLACE_WITH_SITE_CASTEP_MODULE"],
+  "executable": "castep.mpi",
+  "extra_scheduler_options": {}
+}

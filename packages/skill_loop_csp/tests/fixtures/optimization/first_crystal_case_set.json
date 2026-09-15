@@ -1,0 +1,19 @@
+{
+  "schema_version": "benchmark.case_set.v1",
+  "cases": [
+    {
+      "case_id": "fc_stub_tio2",
+      "case_class": "easy-improvement",
+      "composition": "TiO2",
+      "symmetry_preference": "P42/mnm",
+      "retrieval_mode": "hybrid",
+      "allowed_corpora": [
+        "top_k"
+      ],
+      "cell_candidate_policy": "retrieval_informed",
+      "expected_analogue_family": "rutile",
+      "evaluation_preset": "benchmark_mode"
+    }
+  ]
+}
+

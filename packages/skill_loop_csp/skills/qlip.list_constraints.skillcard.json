@@ -1,0 +1,24 @@
+{
+  "examples": [
+    {
+      "notes": "Enumerate available constraints before building request.",
+      "request": {}
+    }
+  ],
+  "failure_modes": [
+    {
+      "code": "validation_error",
+      "description": "Bad input format for metadata tool.",
+      "recovery": "Call with empty object or documented filters."
+    }
+  ],
+  "id": "qlip.list_constraints",
+  "inputs": [],
+  "purpose": "List installed hard constraint plugins and parameter schemas.",
+  "strictness": {
+    "mode": "tolerant",
+    "unknown_keys": "Metadata tool may drop unknown args with warning."
+  },
+  "title": "QLIP List Constraints",
+  "tool_name": "qlip.list_constraints"
+}

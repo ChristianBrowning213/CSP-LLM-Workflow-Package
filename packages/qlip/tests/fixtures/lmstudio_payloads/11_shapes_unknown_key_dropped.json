@@ -1,0 +1,13 @@
+{
+  "tool": "qlip.shapes",
+  "payload": {
+    "arguments": {
+      "include_examples": true,
+      "junk": 1
+    }
+  },
+  "expect": "success",
+  "expected_warning_codes": [
+    "UNKNOWN_ARG_DROPPED"
+  ]
+}

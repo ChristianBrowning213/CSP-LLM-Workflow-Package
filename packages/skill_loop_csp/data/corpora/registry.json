@@ -1,0 +1,171 @@
+{
+  "schema_version": "specialist_corpus_registry.v1",
+  "corpora": {
+    "mp_stable_10k_v1": {
+      "database": "Crystal-DB/data/phase6_mp_10k.db",
+      "path_base": "github_parent",
+      "role": "canonical_general",
+      "source": "10,000 Materials Project structures acquired with is_stable=true on 2026-02-13",
+      "record_count": 10000,
+      "description_backend": "robocrys/v1",
+      "embedding_backend": "lmstudio/text-embedding-bge-m3/lmstudio_v1"
+    },
+    "general": {
+      "database": "Crystal-DB/data/phase6_mp_10k.db",
+      "path_base": "github_parent",
+      "role": "canonical_general",
+      "source": "Materials Project-derived Crystal-DB corpus",
+      "record_count": 10000,
+      "description_backend": "robocrys",
+      "embedding_backend": "lmstudio/text-embedding-bge-m3/lmstudio_v1"
+    },
+    "nasicon_specialist": {
+      "database": "data/corpora/nasicon_specialist_v3/crystaldb.sqlite",
+      "path_base": "repository",
+      "role": "canonical_nasicon_full",
+      "source": "Materials Project via the Crystal-DB acquisition route",
+      "record_count": 320,
+      "description_backend": "robocrys 0.2.13",
+      "embedding_backend": "lmstudio/text-embedding-bge-m3/lmstudio_v1"
+    },
+    "nasicon_specialist_evaluation": {
+      "database": "data/corpora/nasicon_specialist_all_targets_out_v3/crystaldb.sqlite",
+      "path_base": "repository",
+      "role": "canonical_nasicon_all_targets_out",
+      "source": "Materials Project via the Crystal-DB acquisition route",
+      "record_count": 281,
+      "description_backend": "robocrys 0.2.13",
+      "embedding_backend": "lmstudio/text-embedding-bge-m3/lmstudio_v1"
+    },
+    "materials_project_broad_phase6": {
+      "database": "Crystal-DB/data/phase6_mp_10k.db",
+      "path_base": "github_parent",
+      "role": "broad_control",
+      "source": "Materials Project-derived Crystal-DB corpus"
+    },
+    "mp_layered_battery_oxides_v1": {
+      "database": "Crystal-DB/artifacts/Paper_scaffolds_september/specialist_corpora/families/LAYERED_OXIDE/PAPER_SCAFFOLDS_LAYERED_OXIDE_V1/crystaldb.sqlite",
+      "path_base": "github_parent",
+      "role": "specialist_layered_battery_oxide_v1",
+      "source": "Paper_scaffolds_september accepted-only structurally annotated LAYERED_OXIDE rebuild (REBUILD_EXISTING)",
+      "record_count": 136,
+      "frozen_sha256": "589af351bed1ee2375d9f3d31fa016e58d755aa7af0a6987550dbb14f74c6449",
+      "superseded_database": "Crystal-DB/artifacts/mp_oxide_families_v1/MP_LAYERED_BATTERY_OXIDES_V1/MP_LAYERED_BATTERY_OXIDES_V1.db",
+      "superseded_reason": "Paper_scaffolds_september 2026-08-30: repointed to frozen accepted-only specialist rebuild; prior file contained 1013 unannotated rows and did not match the declared record_count",
+      "description_backend": "robocrys 0.2.13",
+      "embedding_backend": "lmstudio/text-embedding-bge-m3/lmstudio_v1"
+    },
+    "mp_spinel_oxides_v1": {
+      "database": "Crystal-DB/artifacts/Paper_scaffolds_september/specialist_corpora/families/SPINEL/PAPER_SCAFFOLDS_SPINEL_V1/crystaldb.sqlite",
+      "path_base": "github_parent",
+      "role": "specialist_spinel_oxide_v1",
+      "source": "Paper_scaffolds_september accepted-only structurally annotated SPINEL rebuild (REBUILD_EXISTING)",
+      "record_count": 170,
+      "frozen_sha256": "c49d7f887a4b2a92816dc01c057a6b86e93e7158dd8795ee5da54f8e1ee72674",
+      "superseded_database": "Crystal-DB/artifacts/mp_oxide_families_v1/MP_SPINEL_OXIDES_V1/MP_SPINEL_OXIDES_V1.db",
+      "superseded_reason": "Paper_scaffolds_september 2026-08-30: repointed to frozen accepted-only specialist rebuild (170 structures); prior file d4ad672d contained 174 pre-rebuild candidates",
+      "description_backend": "robocrys 0.2.13",
+      "embedding_backend": "lmstudio/text-embedding-bge-m3/lmstudio_v1"
+    },
+    "paper_scaffolds_layered_oxide_v1": {
+      "database": "Crystal-DB/artifacts/Paper_scaffolds_september/specialist_corpora/families/LAYERED_OXIDE/PAPER_SCAFFOLDS_LAYERED_OXIDE_V1/crystaldb.sqlite",
+      "path_base": "github_parent",
+      "role": "paper_scaffolds_specialist_layered_oxide",
+      "record_count": 136,
+      "frozen_sha256": "589af351bed1ee2375d9f3d31fa016e58d755aa7af0a6987550dbb14f74c6449",
+      "embedding_backend": "lmstudio/text-embedding-bge-m3/lmstudio_v1"
+    },
+    "paper_scaffolds_spinel_v1": {
+      "database": "Crystal-DB/artifacts/Paper_scaffolds_september/specialist_corpora/families/SPINEL/PAPER_SCAFFOLDS_SPINEL_V1/crystaldb.sqlite",
+      "path_base": "github_parent",
+      "role": "paper_scaffolds_specialist_spinel",
+      "record_count": 170,
+      "frozen_sha256": "c49d7f887a4b2a92816dc01c057a6b86e93e7158dd8795ee5da54f8e1ee72674",
+      "embedding_backend": "lmstudio/text-embedding-bge-m3/lmstudio_v1"
+    },
+    "paper_scaffolds_nasicon_v1": {
+      "database": "Crystal-DB/artifacts/Paper_scaffolds_september/specialist_corpora/families/NASICON/PAPER_SCAFFOLDS_NASICON_V1/crystaldb.sqlite",
+      "path_base": "github_parent",
+      "role": "paper_scaffolds_specialist_nasicon",
+      "record_count": 200,
+      "frozen_sha256": "aa227fb63916f01e1aaa3f0d59e02c5508549b770d69a7bec8d38d6a2e5ece24",
+      "embedding_backend": "lmstudio/text-embedding-bge-m3/lmstudio_v1"
+    },
+    "paper_scaffolds_rocksalt_v1": {
+      "database": "Crystal-DB/artifacts/Paper_scaffolds_september/specialist_corpora/families/ROCKSALT/PAPER_SCAFFOLDS_ROCKSALT_V1/crystaldb.sqlite",
+      "path_base": "github_parent",
+      "role": "paper_scaffolds_specialist_rocksalt",
+      "record_count": 401,
+      "frozen_sha256": "3549d3eb23f440ab31874ee3a21abb812567a83ba83ea102d8c2f53cf429ca31",
+      "embedding_backend": "lmstudio/text-embedding-bge-m3/lmstudio_v1"
+    },
+    "paper_scaffolds_olivine_v2": {
+      "database": "Crystal-DB/artifacts/Paper_scaffolds_september/specialist_corpora/olivine_v2/PAPER_SCAFFOLDS_OLIVINE_ORDERED_V2.sqlite",
+      "path_base": "github_parent",
+      "role": "paper_scaffolds_specialist_olivine_ordered",
+      "record_count": 94,
+      "frozen_sha256": "bbfb4ecb4b6fb5beca65213e67f66642077a276daae9ed79cbe01e49017f5cd9",
+      "embedding_backend": "lmstudio/text-embedding-bge-m3/lmstudio_v1"
+    },
+    "paper_scaffolds_argyrodite_v2": {
+      "database": "Crystal-DB/artifacts/Paper_scaffolds_september/specialist_corpora/argyrodite_v2/PAPER_SCAFFOLDS_ARGYRODITE_ORDERED_V2.sqlite",
+      "path_base": "github_parent",
+      "role": "paper_scaffolds_specialist_argyrodite_ordered",
+      "record_count": 8,
+      "frozen_sha256": "3b441aae70c86f909f9ea299e28c28a0860c3be46b2726fdb7401f8d22e72991",
+      "embedding_backend": "lmstudio/text-embedding-bge-m3/lmstudio_v1"
+    },
+    "paper_scaffolds_garnet_v1": {
+      "database": "Crystal-DB/artifacts/Paper_scaffolds_september/specialist_corpora/families/GARNET/PAPER_SCAFFOLDS_GARNET_V1/crystaldb.sqlite",
+      "path_base": "github_parent",
+      "role": "paper_scaffolds_specialist_garnet",
+      "record_count": 44,
+      "frozen_sha256": "5a75f93d07cfb51ef5823f615b27ee2f0fc04030fa2e745881b7cc2c86d6f99e",
+      "embedding_backend": "lmstudio/text-embedding-bge-m3/lmstudio_v1"
+    },
+    "paper_scaffolds_ruddlesden_popper_v1": {
+      "database": "Crystal-DB/artifacts/Paper_scaffolds_september/specialist_corpora/families/RUDDLESDEN_POPPER/PAPER_SCAFFOLDS_RUDDLESDEN_POPPER_V1/crystaldb.sqlite",
+      "path_base": "github_parent",
+      "role": "paper_scaffolds_specialist_ruddlesden_popper",
+      "record_count": 76,
+      "frozen_sha256": "231289cb7cc238d8a635aca14eb16f8bd0c9ee09b81e5c40cebd0c4bd89b32cb",
+      "embedding_backend": "lmstudio/text-embedding-bge-m3/lmstudio_v1"
+    },
+    "nasicon_specialist_v1": {
+      "database": "data/corpora/nasicon_specialist_v1/crystaldb.sqlite",
+      "path_base": "repository",
+      "role": "specialist_full",
+      "source": "Materials Project via the Crystal-DB acquisition route"
+    },
+    "nasicon_specialist_leave_target_out_v1": {
+      "database": "data/corpora/nasicon_specialist_leave_target_out_v1/crystaldb.sqlite",
+      "path_base": "repository",
+      "role": "specialist_leave_target_out",
+      "source": "Materials Project via the Crystal-DB acquisition route"
+    },
+    "nasicon_specialist_v2": {
+      "database": "data/corpora/nasicon_specialist_v2/crystaldb.sqlite",
+      "path_base": "repository",
+      "role": "specialist_full",
+      "source": "Materials Project via the Crystal-DB acquisition route; targeted Tier-2 pair completion"
+    },
+    "nasicon_specialist_leave_target_out_v2": {
+      "database": "data/corpora/nasicon_specialist_leave_target_out_v2/crystaldb.sqlite",
+      "path_base": "repository",
+      "role": "specialist_leave_target_out",
+      "source": "Materials Project via the Crystal-DB acquisition route; targeted Tier-2 pair completion"
+    },
+    "nasicon_specialist_v3": {
+      "database": "data/corpora/nasicon_specialist_v3/crystaldb.sqlite",
+      "path_base": "repository",
+      "role": "specialist_full_current",
+      "source": "Materials Project via the Crystal-DB acquisition route; expanded topology-proxy and chemical-framework corpus"
+    },
+    "nasicon_specialist_all_targets_out_v3": {
+      "database": "data/corpora/nasicon_specialist_all_targets_out_v3/crystaldb.sqlite",
+      "path_base": "repository",
+      "role": "specialist_all_targets_out_current",
+      "source": "Materials Project via the Crystal-DB acquisition route; all 32 benchmark target formulas and designated references excluded"
+    }
+  }
+}

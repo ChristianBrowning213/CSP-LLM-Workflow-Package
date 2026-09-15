@@ -1,0 +1,4 @@
+row_id,formula,cif_path,cif_sha256,protocol_id
+TRACE-A2,Na3Zr2Si2PO12,artifacts/final_paper_benchmark_result4_v4_1/results/positive/RDX-E4-A2/POSITIVE_CANONICAL/attempts/20260813T224510.876647Z-ff81ffc5708a/generated.cif,90f8fc952510051ed6b9415d8100528f4490ebf2941d10573a4e736084a57b85,chgnet_0.4.2_fire_fmax0.1_steps200_cell_v1
+SCAFFOLD-C2,"Na3Ti2(PO4)3",artifacts/final_paper_benchmark_result4_v4_1/results/positive/RDX-E4-C2/POSITIVE_CANONICAL/attempts/20260813T225034.810500Z-53348a93ef1a/generated.cif,f895e71a6951d1de4c521682d4b66b0a24b59982bd4c155a9d790c47b4e0b399,chgnet_0.4.2_fire_fmax0.1_steps200_cell_v1
+SCAFFOLD-F1,"LiZr2(PO4)3",artifacts/final_paper_benchmark_result4_completion_v4_2/results/positive/RDX-E4-F1/POSITIVE_CANONICAL/attempts/20260813T234301.931803Z-99ec90255db6/generated.cif,72c047d52710d03acf70f1b62348ab04a5783fd16fb2bb3d2b36877e26342cd9,chgnet_0.4.2_fire_fmax0.1_steps200_cell_v1

@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RetrievalCase",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "case_id",
+    "query",
+    "retrieval_mode",
+    "expected_structure_ids"
+  ],
+  "properties": {
+    "case_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "query": {
+      "type": "string",
+      "minLength": 1
+    },
+    "retrieval_mode": {
+      "type": "string",
+      "enum": [
+        "metadata",
+        "text",
+        "fingerprint",
+        "hybrid"
+      ]
+    },
+    "expected_structure_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    }
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "schema_version": "benchmark.case_set.v1",
+  "cases": [
+    {
+      "case_id": "opt_easy_improvement_tio2",
+      "case_class": "easy-improvement",
+      "composition": "TiO2",
+      "symmetry_preference": "P42/mnm",
+      "retrieval_mode": "hybrid",
+      "allowed_corpora": [
+        "top_k",
+        "family_biased"
+      ],
+      "cell_candidate_policy": "retrieval_informed",
+      "expected_analogue_family": "rutile",
+      "evaluation_preset": "benchmark_mode"
+    },
+    {
+      "case_id": "opt_flat_stagnant_sio2",
+      "case_class": "flat-stagnant",
+      "composition": "SiO2",
+      "symmetry_preference": null,
+      "retrieval_mode": "metadata",
+      "allowed_corpora": [
+        "composition_tight"
+      ],
+      "cell_candidate_policy": "fixed_benchmark",
+      "expected_analogue_family": "quartz_like",
+      "evaluation_preset": "benchmark_mode"
+    },
+    {
+      "case_id": "opt_local_optimum_batio3",
+      "case_class": "misleading-local-optimum",
+      "composition": "BaTiO3",
+      "symmetry_preference": "Pm-3m",
+      "retrieval_mode": "text",
+      "allowed_corpora": [
+        "top_k",
+        "family_biased"
+      ],
+      "cell_candidate_policy": "retrieval_informed",
+      "expected_analogue_family": "perovskite",
+      "evaluation_preset": "benchmark_mode"
+    },
+    {
+      "case_id": "opt_repeated_infeasible_al2o3",
+      "case_class": "repeated-infeasible",
+      "composition": "Al2O3",
+      "symmetry_preference": "R-3c",
+      "retrieval_mode": "fingerprint",
+      "allowed_corpora": [
+        "composition_tight"
+      ],
+      "cell_candidate_policy": "fixed_benchmark",
+      "expected_analogue_family": "corundum",
+      "evaluation_preset": "benchmark_mode"
+    }
+  ]
+}
+

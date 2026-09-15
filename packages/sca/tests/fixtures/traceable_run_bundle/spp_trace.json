@@ -1,0 +1,7 @@
+{
+  "pairs": [
+    {"pair": "Ba-O", "source_evidence_id": "mp-batio3-perovskite"},
+    {"pair": "Ti-O", "source_evidence_id": "mp-batio3-perovskite"},
+    {"pair": "O-O", "source_evidence_id": "mp-batio3-perovskite"}
+  ]
+}

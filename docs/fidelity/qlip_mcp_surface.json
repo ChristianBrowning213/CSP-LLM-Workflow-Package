@@ -1,0 +1,805 @@
+[
+  {
+    "name": "qlip.list_constraints",
+    "title": "List constraints",
+    "description": "List all available constraint plugins (feasibility constraints and constraint-linked tie-breaks). Call this first to discover valid constraints[].id values and each constraint's params_schema. The returned params_schema is strict (additionalProperties=false), so do not invent keys.",
+    "inputSchema": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Optional allow-list of constraint IDs to return."
+        },
+        "tags_any": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Optional filter: return constraints that match ANY of these tags."
+        },
+        "include_params_schema": {
+          "type": "boolean",
+          "default": true,
+          "description": "If false, omit params_schema to reduce payload size."
+        }
+      }
+    },
+    "outputSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "items"
+      ],
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true,
+            "required": [
+              "id",
+              "kind",
+              "title",
+              "description",
+              "params_schema"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "kind": {
+                "type": "string",
+                "enum": [
+                  "constraint",
+                  "guidance"
+                ]
+              },
+              "title": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "tags": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "default": []
+              },
+              "params_schema": {
+                "type": "object",
+                "description": "A JSON Schema (draft 2020-12 compatible) describing invocation.params for this plugin.",
+                "additionalProperties": true
+              },
+              "capabilities": {
+                "type": "object",
+                "description": "Optional machine-readable metadata about what the plugin touches.",
+                "additionalProperties": true,
+                "default": {}
+              },
+              "version": {
+                "type": "string",
+                "description": "Plugin version string (independent of SolveRequest version).",
+                "default": "1.0"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "name": "qlip.list_guidance",
+    "title": "List guidance",
+    "description": "List all available guidance plugins (objectives, tie-breakers, heuristic guidance). Call this first to discover valid guidance[].id values and each guidance item's params_schema. Only pass parameters allowed by the schema.",
+    "inputSchema": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Optional allow-list of guidance IDs to return."
+        },
+        "tags_any": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Optional filter: return guidance entries that match ANY of these tags."
+        },
+        "include_params_schema": {
+          "type": "boolean",
+          "default": true,
+          "description": "If false, omit params_schema to reduce payload size."
+        }
+      }
+    },
+    "outputSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "items"
+      ],
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true,
+            "required": [
+              "id",
+              "kind",
+              "title",
+              "description",
+              "params_schema"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "kind": {
+                "type": "string",
+                "enum": [
+                  "constraint",
+                  "guidance"
+                ]
+              },
+              "title": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "tags": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "default": []
+              },
+              "params_schema": {
+                "type": "object",
+                "description": "A JSON Schema (draft 2020-12 compatible) describing invocation.params for this plugin.",
+                "additionalProperties": true
+              },
+              "capabilities": {
+                "type": "object",
+                "description": "Optional machine-readable metadata about what the plugin touches.",
+                "additionalProperties": true,
+                "default": {}
+              },
+              "version": {
+                "type": "string",
+                "description": "Plugin version string (independent of SolveRequest version).",
+                "default": "1.0"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "name": "qlip.shapes",
+    "title": "Tool shapes",
+    "description": "Return the canonical input schema (args_schema), minimal example_args, and common pitfalls for QLIP MCP tools. Call this first in LM Studio to learn the correct argument shape for each tool.",
+    "inputSchema": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "tool": {
+          "type": "string",
+          "description": "Optional tool name to filter results (e.g., qlip.solve)."
+        },
+        "include_examples": {
+          "type": "boolean",
+          "default": false,
+          "description": "If true, include example_args in each tool entry."
+        }
+      }
+    },
+    "outputSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "tools"
+      ],
+      "properties": {
+        "tools": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "name",
+              "description",
+              "args_schema",
+              "notes"
+            ],
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "args_schema": {
+                "type": "object",
+                "description": "Self-contained JSON Schema for tool inputs (no qlip:// refs).",
+                "additionalProperties": true
+              },
+              "example_args": {
+                "type": "object",
+                "description": "Minimal valid tool arguments (present only when include_examples=true).",
+                "additionalProperties": true
+              },
+              "notes": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "strict_schema": {
+                "type": "boolean",
+                "description": "Whether the tool input schema is strict (additionalProperties=false or equivalent)."
+              },
+              "boundary_accepts_envelopes": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "Boundary envelope patterns accepted by the MCP dispatcher."
+              },
+              "boundary_unknown_arg_policy": {
+                "type": "string",
+                "enum": [
+                  "drop_with_warning",
+                  "error"
+                ]
+              },
+              "canonical_args_example": {
+                "type": "object",
+                "description": "Small canonical argument object (schema-valid).",
+                "additionalProperties": true
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "name": "qlip.validate_request",
+    "title": "Validate request",
+    "description": "Validate a candidate QLIP SolveRequest against the JSON schema and installed plugins, without running optimization. Call this after any user change to chemistry, design_space, objective, constraints, guidance, or solver settings. Input is a SolveRequest object at the top level (do NOT wrap in {\"request\": ...}). Supported runtime objective families are spp_energy, none, density_packing, linear_property, and threshold_tradeoff. Returns valid=true with normalized defaults when valid; otherwise returns schema errors as JSON pointers + messages.",
+    "inputSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "$ref": "qlip://schemas/solve_request/v1.json"
+    },
+    "outputSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "valid",
+        "errors",
+        "warnings",
+        "validation_error_codes",
+        "validation_errors",
+        "validation_warnings",
+        "missing_fields",
+        "invalid_guidance_params",
+        "path_diagnostics",
+        "data_diagnostics",
+        "missing_data",
+        "available_data",
+        "required_data",
+        "suggested_next_actions"
+      ],
+      "properties": {
+        "valid": {
+          "type": "boolean"
+        },
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true,
+            "required": [
+              "code",
+              "message",
+              "path"
+            ],
+            "properties": {
+              "code": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "path": {
+                "type": "string",
+                "description": "JSON pointer-like path, e.g. /constraints/0/params/scale"
+              },
+              "details": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          },
+          "default": []
+        },
+        "warnings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true,
+            "required": [
+              "code",
+              "message",
+              "path"
+            ],
+            "properties": {
+              "code": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "path": {
+                "type": "string"
+              },
+              "details": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          },
+          "default": []
+        },
+        "normalized_request": {
+          "type": "object",
+          "additionalProperties": true,
+          "description": "Optional: request with defaults filled in (if your validator performs normalization)."
+        },
+        "capabilities": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "gurobi_available": {
+              "type": "boolean"
+            },
+            "pot_root_resolved": {
+              "type": "boolean"
+            },
+            "motif_root_resolved": {
+              "type": "boolean"
+            },
+            "spp_partial_guidance": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "enabled": {
+                  "type": "boolean"
+                },
+                "guidance_id": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "mode": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "missing_pair_policy": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "strict_pair_coverage": {
+                  "type": "boolean"
+                },
+                "supported_pairs": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "missing_pairs": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "supported_pair_count": {
+                  "type": "integer"
+                },
+                "missing_pair_count": {
+                  "type": "integer"
+                },
+                "pot_root": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "missing_pairs_require_pots": {
+                  "type": "boolean"
+                },
+                "missing_pairs_are_neutral": {
+                  "type": "boolean"
+                },
+                "missing_pairs_use_soft_repulsive": {
+                  "type": "boolean"
+                },
+                "missing_pairs_use_regulator_fallback": {
+                  "type": "boolean"
+                }
+              }
+            },
+            "spp_supported_pairs_used": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "spp_missing_pairs_unguided": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "spp_missing_pairs_soft_repulsive": {
+              "oneOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              ],
+              "description": "Missing required SPP pairs handled by the soft-repulsive fallback policy; current runtime reports the pair list."
+            },
+            "spp_regularisation": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "enabled": {
+                  "type": "boolean"
+                },
+                "regularisation_spp_dir": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "regularization_spp_dir": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "regularisation_weight": {
+                  "type": "number"
+                },
+                "regularization_weight": {
+                  "type": "number"
+                },
+                "regularisation_pairs_loaded": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "pairs_loaded": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "load_errors": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                  }
+                },
+                "load_error": {
+                  "type": [
+                    "object",
+                    "string",
+                    "null"
+                  ],
+                  "additionalProperties": true
+                },
+                "warnings": {
+                  "type": "array",
+                  "items": {
+                    "type": [
+                      "object",
+                      "string"
+                    ],
+                    "additionalProperties": true
+                  }
+                }
+              }
+            }
+          },
+          "default": {}
+        },
+        "validation_error_codes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": []
+        },
+        "validation_errors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "default": []
+        },
+        "validation_warnings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "default": []
+        },
+        "missing_fields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": []
+        },
+        "invalid_guidance_params": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "default": []
+        },
+        "path_diagnostics": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "default": []
+        },
+        "data_diagnostics": {
+          "type": "object",
+          "additionalProperties": true,
+          "required": [
+            "ready",
+            "missing_data",
+            "available_data",
+            "required_data",
+            "suggested_next_actions"
+          ],
+          "properties": {
+            "ready": {
+              "type": "boolean"
+            },
+            "missing_data": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": true
+              },
+              "default": []
+            },
+            "available_data": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": true
+              },
+              "default": []
+            },
+            "required_data": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": true
+              },
+              "default": []
+            },
+            "suggested_next_actions": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "default": []
+            }
+          }
+        },
+        "missing_data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true,
+            "required": [
+              "code",
+              "category",
+              "message",
+              "path"
+            ],
+            "properties": {
+              "code": {
+                "type": "string"
+              },
+              "category": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "path": {
+                "type": "string"
+              },
+              "details": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          },
+          "default": []
+        },
+        "available_data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "default": []
+        },
+        "required_data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "default": []
+        },
+        "suggested_next_actions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": []
+        }
+      }
+    }
+  },
+  {
+    "name": "qlip.solve",
+    "title": "Solve optimization",
+    "description": "Run QLIP optimization (Gurobi MILP/MIQP) for the given chemistry + design space using the selected objective, constraints, and guidance. Input is a SolveRequest object at the top level (do NOT wrap in {\"request\": ...}). Supported runtime objective families are spp_energy, none, density_packing, linear_property, and threshold_tradeoff. Recommended workflow: list_constraints -> list_guidance -> validate_request -> solve. Interpret status: OPTIMAL = best feasible structure found (may include CIF output); INFEASIBLE = no structure satisfies the encoded rules; ERROR = runtime failure (inspect errors[] and logs).",
+    "inputSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "$ref": "qlip://schemas/solve_request/v1.json"
+    },
+    "outputSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "run_id",
+        "result"
+      ],
+      "properties": {
+        "run_id": {
+          "type": "string",
+          "description": "Server-generated run identifier for traceability and optional follow-on tools (e.g., explain_failure)."
+        },
+        "result": {
+          "$ref": "qlip://schemas/solve_result/v1.json"
+        }
+      }
+    }
+  },
+  {
+    "name": "qlip.debug_boundary_parse",
+    "title": "Debug boundary parse",
+    "description": "Debug helper that parses an inbound MCP payload envelope and reports extracted tool name, parsed args, warnings, and stable payload hash without running schema validation or solver/plugins.",
+    "inputSchema": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "payload": {
+          "description": "Raw inbound payload envelope to inspect.",
+          "type": [
+            "object",
+            "array",
+            "string",
+            "number",
+            "integer",
+            "boolean",
+            "null"
+          ]
+        },
+        "dispatched_tool_name": {
+          "type": "string",
+          "description": "Optional dispatched tool name context for envelope parsing."
+        }
+      }
+    },
+    "outputSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "extracted_tool_name",
+        "parsed_args",
+        "unknown_args_dropped",
+        "warnings",
+        "errors",
+        "trace_id",
+        "payload_sha256"
+      ],
+      "properties": {
+        "extracted_tool_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "parsed_args": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "unknown_args_dropped": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "warnings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        },
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        },
+        "trace_id": {
+          "type": "string"
+        },
+        "payload_sha256": {
+          "type": "string"
+        },
+        "parse_meta": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      }
+    }
+  }
+]

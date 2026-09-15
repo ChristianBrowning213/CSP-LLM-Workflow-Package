@@ -1,0 +1,8 @@
+{
+  "backend": "fake-csp",
+  "solver_status": "optimal",
+  "objective_value": 0.0,
+  "num_variables": 12,
+  "num_constraints": 3,
+  "solve_time_seconds": 0.01
+}
