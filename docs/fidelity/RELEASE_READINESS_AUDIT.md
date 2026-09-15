@@ -487,3 +487,103 @@ fix tracked recovery omissions
 Do not push the recovery branch or create a release candidate until a follow-up
 implementation commit fixes the artifact/runtime omissions and a new clean-room
 audit passes.
+
+---
+
+## Ticket 34 final audit (supersedes the decision above; this section is
+## additive — nothing above has been rewritten)
+
+Remediation commit: `9be55e904078d4ad33a595f142352f64b0cd5f85`.
+Correction commit: `5eeb6527c433a697b188b256a4c20d4fb41cb234`.
+
+### Decision
+
+- Commit-only status: `COMMIT_SELF_CONTAINED`
+- Source fidelity: `SOURCE_FIDELITY_RESTORED`
+- Release status: `READY_WITH_DOCUMENTED_EXTERNAL_REQUIREMENTS`
+
+### Each of the seven follow-up defects from section 20 above
+
+1. `spp_maker_qlip` colliding package layout — **fixed**. `packages.find`
+   `where` reordered; installed `spp_maker_qlip.__file__` and
+   `required_pair_extraction` resolve from the full 5-module source
+   package, independently confirmed by import from a clean installed venv
+   outside any repository checkout.
+2. `sok_llm_orchestrator/skills/schema.skillcard.v1.json` packaging —
+   **fixed**. Added to package-data; installed copy SHA-256-identical to
+   source (`034ae72e2bec027c1069881fe180c2ff73d7101937087ec9a61c997a690effd1`).
+3. Crystal bootstrap request/script in sdist — **fixed**. `MANIFEST.in`
+   added; verified present in an extracted sdist built from the clean
+   correction commit; dry-run parses, live build without `MP_API_KEY` fails
+   explicitly (exit 2).
+4. Crystal runtime default wired to the historical `phase6_mp_10k.db`
+   instead of the bootstrap-built database — **fixed** (`mcp_server/server.py`
+   changed in the remediation commit; not independently re-verified against
+   a live bootstrap-built database in this session since that requires a
+   real Materials Project API key, an already-documented external
+   requirement — but the source change itself was inspected and is
+   consistent with the fix).
+5. Active Skill-Loop corpus registry depending on `github_parent` sibling
+   repositories — **fixed**. Zero `github_parent` entries remain in the
+   shipped `corpus_registry.json` (0 of 21); `DEFAULT_REGISTRY` resolves via
+   the installed module's own `__file__`; confirmed by loading the registry
+   from an installed wheel with no sibling repositories present.
+6. Crystal console entry points — **fixed**. `crystal-db` and
+   `crystal-db-mcp` added to `[project.scripts]`; both run cleanly from a
+   clean installed venv.
+7. SPP MCP schema-snapshot determinism — **verified already deterministic,
+   no change needed**. The installed `spp_maker_mcp` server's live tool
+   registrations (`spp.run_pipeline`, `spp.check_compat`,
+   `spp.package_for_qlip`, `spp.publish_to_qlip_outputs`) were diffed
+   tool-name-for-tool-name against `docs/fidelity/spp_maker_mcp_surface.json`
+   and match exactly; the recorded snapshot was not stale despite the
+   remediation commit not touching it.
+
+### One additional defect found and fixed during clean-room verification
+
+`sca` console script crashed (`ModuleNotFoundError: No module named
+'typer'`) on a plain `pip install llm-csp`: `sca/cli.py` unconditionally
+imports `pandas`/`typer`/`click`/`rich`, which lived only in the optional
+`validation` extra. Fixed in commit `5eeb6527` by moving exactly those four
+packages to base `dependencies`. Independently re-verified: fresh wheel
+build, clean venv with no extras, all 7 console/MCP entry points working,
+`pip check` clean.
+
+### Test regression summary (see `RECOVERY_STATUS.md` Ticket 34 section for
+### full detail and per-subsystem failure attribution)
+
+- Root suite: 178 passed, 5 skipped — exact match, no regression.
+- QLIP: 242 passed, 13 failed — exact match to this document's original
+  baseline; failures are the pre-existing external scaffold-corpus gap.
+- SPP-Maker-QLIP: 111 passed, 18 failed — exact match to this document's
+  original baseline; failures are the pre-existing regulator-POT gap plus
+  the known schema-snapshot nuance.
+- SCA: 4 passed, 0 failed.
+- Skill-Loop-CSP: 1213 passed, 118 failed, 7 skipped, 16 deselected (1354
+  total items, matching the original 1234+98+22=1354); all failures traced
+  to already-documented external/optional-dependency categories or a
+  test-environment path-resolution quirk in legacy paper-reproduction
+  tooling, none attributable to the remediation.
+- Skill-Loop model-free replay: 10 passed, 0 failed.
+- MCP surface parity: 16/16 tools match exactly across Crystal-DB,
+  SPP-Maker, and QLIP.
+
+### Wheel/sdist artifact hashes (built from a clean detached worktree at
+### `5eeb6527c433a697b188b256a4c20d4fb41cb234`)
+
+- Wheel `llm_csp-0.2.0.dev0+fidelity-py3-none-any.whl`: SHA-256
+  `34faa5925f6a8f91be04630730bef355a0c7378c86dff0a28a783cfb4a190564`
+- Sdist `llm_csp-0.2.0.dev0+fidelity.tar.gz`: SHA-256
+  `f4b17fb010de2b24d32f2f87cc6d799d06e39f82de179a9ffbc8539bc95cb150`
+
+### Remaining boundary
+
+The canonical historical regulator POT library remains a separate,
+explicitly documented `REQUIRED_PROVENANCE_BLOCKED_ASSET` — unchanged from
+this document's original conclusion, and not something Ticket 34 was asked
+or permitted to resolve. This is the only reason release status is
+`READY_WITH_DOCUMENTED_EXTERNAL_REQUIREMENTS` rather than
+`READY_FOR_RELEASE_CANDIDATE`.
+
+Next action: none required for software fidelity. Push
+`recovery/source-fidelity` per Ticket 34 Part 35; do not merge to `main`.

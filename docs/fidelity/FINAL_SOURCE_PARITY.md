@@ -41,3 +41,33 @@ text is confined to frozen historical campaign provenance/tests, not active
 server selection or imports.
 
 Scientific outcome: `NO_SCIENTIFIC_BEHAVIOR_CHANGE`.
+
+## Ticket 34 — final remediation parity
+
+Overall: `SOURCE_FIDELITY_RESTORED` /
+`READY_WITH_DOCUMENTED_EXTERNAL_REQUIREMENTS`.
+
+Remediation commit `9be55e904078d4ad33a595f142352f64b0cd5f85` plus one
+correction commit `5eeb6527c433a697b188b256a4c20d4fb41cb234` (unconditional
+`sca` CLI imports moved from the optional `validation` extra to base
+dependencies — a genuine defect found during clean-room verification, not
+one of Ticket 33's five, fixed under the correction workflow and
+independently re-verified).
+
+| Subsystem / surface | State | Evidence |
+|---|---|---|
+| SPP-Maker-QLIP package namespace | `EXACT` (was `PATH_ONLY_DIFFERENCE` / colliding) | Installed `spp_maker_qlip` resolves to the full 5-module source package (incl. `required_pair_extraction`), not the 2-module Skill-Loop compatibility shim. |
+| Skill-Loop skill-card schema | `EXACT` | `schema.skillcard.v1.json` present in the installed wheel, SHA-256-identical to source. |
+| Crystal bootstrap sdist reconstructibility | `EXACT` | Extracted-sdist dry-run parses; live build without `MP_API_KEY` fails explicitly (exit 2). |
+| Skill-Loop corpus registry sibling dependency | `EXACT` (was `RUNTIME_SIBLING_DEPENDENCY`) | Zero `github_parent` entries remain (0 of 21); registry resolves from the installed package's own location or explicit config; imports/registry-load succeed with no sibling repositories present. |
+| Canonical ICSD regulator | `EXTERNAL_SERVICE_REQUIRED` (unchanged) | Still hash-frozen, still not redistributed; boundary now explicitly documented in README/`external_assets.md` and wired through `SKILL_LOOP_REGULATOR_SPP_ROOT`. |
+| `sca` console script | `EXACT` (new defect found + fixed) | Was broken (`ModuleNotFoundError: typer`) on a plain install; fixed by moving `pandas`/`typer`/`click`/`rich` to base dependencies; now works from a clean, extras-free install. |
+| MCP tool surfaces (Crystal-DB, SPP-Maker, QLIP) | `EXACT` | Installed server tool registrations diffed byte-for-name against `docs/fidelity/*_mcp_surface.json`; zero drift, zero missing, zero invented across 16 tools. |
+| Skill-Loop bundled MCP wiring | `EXACT` | `test_skill_loop_defaults_launch_bundled_mcp_modules` passed against the installed package. |
+| Root regression suite | `EXACT` | 178 passed, 5 skipped — identical to the pre-Ticket-34 reference. |
+| QLIP / SPP-Maker-QLIP subsystem suites | `EXACT` | 242p/13f and 111p/18f respectively — identical counts to the Ticket 33 baseline; all failures trace to the same already-documented external scaffold-corpus/regulator-POT gaps. |
+| Skill-Loop-CSP subsystem suite | `PATH_ONLY_DIFFERENCE` (numeric split differs, total item count identical) | 1213p/118f/7s/16 deselected vs. documented 1234p/98f/22s (1354 total either way). All 118 failures traced to known external-artifact/optional-dependency categories or a test-environment path-resolution quirk, not to the remediation; none newly introduced by source changes. |
+
+Scientific outcome: `NO_SCIENTIFIC_BEHAVIOR_CHANGE` (unchanged from
+Tickets 27-32; Ticket 34 was packaging/path remediation only, per its own
+"do not add functionality, do not redesign anything" constraint).

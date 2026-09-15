@@ -116,3 +116,93 @@ only in this status document.
 - Crystal-DB status unchanged: `BLOCKED_PROVENANCE`.
 - v0.1.0 tag verified unchanged: dereferences to
   `2dbf5e8852dc62c42d97385bc96ea90166d0fc74`.
+
+## Ticket 34 — final remediation and clean-room verification
+
+Remediation commit: `9be55e904078d4ad33a595f142352f64b0cd5f85`.
+Correction commit (one follow-up defect found during clean-room
+verification, see below): `5eeb6527c433a697b188b256a4c20d4fb41cb234`.
+
+All five Ticket 33 blockers fixed and independently re-verified from a
+clean detached worktree at the correction commit:
+
+| Ticket 33 blocker | Status | Evidence |
+|---|---|---|
+| Incomplete SPP packaging (colliding `spp_maker_qlip` shim) | `FIXED` | `packages.find` `where` reordered so `packages/spp_maker_qlip/src` resolves last/authoritative; installed `spp_maker_qlip.__file__` and `required_pair_extraction` submodule confirmed resolving from the full 5-module source package, not the 2-module Skill-Loop compatibility shim. |
+| Missing Skill-Loop schema (`schema.skillcard.v1.json`) | `FIXED` | Added to `sok_llm_orchestrator` package-data; installed wheel copy SHA-256-identical to source. |
+| Crystal bootstrap files missing from sdist | `FIXED` | `MANIFEST.in` added; sdist contains `data/crystal_db/requests/README.md`, `default_mp_requests.txt`, `scripts/crystal_db/grab_data.py`, `packages/crystal_db/grab_mp_bulk.py`, and `packages/crystal_db/scripts/*.py`. Dry-run bootstrap parses cleanly from an extracted sdist; live build without `MP_API_KEY` fails explicitly (exit 2, clear message, not a raw traceback). |
+| Historical/sibling runtime path assumptions | `FIXED` | `github_parent` path_base removed entirely from `corpus_registry.json` (0 of 21 entries remain); `DEFAULT_REGISTRY` now resolves via the installed module's own `__file__`; `paper_final_v1.py`'s `../Crystal-DB/...` dereference replaced with a package-relative path. Installed-package import and corpus-registry load succeed with zero sibling-repository access. |
+| Canonical regulator POT provenance boundary | `HONEST_BOUNDARY_DOCUMENTED` | README.md and `docs/external_assets.md` explicitly state the historical 3,388-pair regulator is not redistributed (provenance unresolved), distinct from the 9 bundled QLIP fixture POTs. `SKILL_LOOP_REGULATOR_SPP_ROOT` is wired into real code (`contracts/spp_regularisation.py`, `workflow/runner.py`, `config/workflow/default.json`), not just documented. |
+
+One new defect was found during clean-room verification (not one of
+Ticket 33's five) and fixed under the correction workflow: the `sca`
+console script crashed with `ModuleNotFoundError: No module named 'typer'`
+on a plain `pip install llm-csp`, because `sca/cli.py`'s unconditional
+imports (`pandas`, `typer`, `click`, `rich`) lived only in the optional
+`[validation]` extra. Fixed by moving exactly those four packages to base
+`dependencies` in `pyproject.toml` (commit `5eeb6527`). Verified from a
+fresh clean-commit build: all 7 console/MCP entry points
+(`llm-csp`, `crystal-db`, `crystal-db-mcp`, `spp-maker`, `spp-maker-mcp`,
+`sca`, `sokllm`) now work with no extras installed, and `pip check` stays
+clean.
+
+Test regression check (all runs at commit `5eeb6527` or the equivalent dev
+checkout, compared against Ticket 33's documented baselines):
+
+- Root suite (`tests/`): **178 passed, 5 skipped** — exact match, no
+  regression.
+- QLIP package suite (`packages/qlip/tests`, scoped to its own directory):
+  **242 passed, 13 failed** — exact match to the Ticket 33 baseline; all 13
+  failures trace to the same pre-existing, already-documented external
+  `QLIP_SCAFFOLD_CORPUS_ROOT` data dependency (`SHOULD_BE_ARCHIVED` /
+  `PROVENANCE_BLOCKED`-adjacent, not redistributed).
+- SPP-Maker-QLIP package suite: **111 passed, 18 failed** — exact match to
+  the Ticket 33 baseline; 17 require pre-published external material
+  systems tied to the blocked regulator POT library, 1 is the known MCP
+  schema-snapshot environment-drift nuance.
+- SCA (`tests/integration/validation/test_sca_adapter.py`): **4 passed, 0
+  failed**, including the family-topology test.
+- Skill-Loop-CSP package suite (`packages/skill_loop_csp/tests`, live-LLM
+  tests marker-deselected): **1213 passed, 118 failed, 7 skipped, 16
+  deselected** (1354 total items — exact total-item match to the Ticket 33
+  baseline of 1234+98+22=1354, but the pass/fail split differs numerically
+  from the documented 1234/98/22). Investigated: the 118 failures are not
+  attributable to the remediation commit. They decompose into (a) ~39
+  failures from a "repository root discovery" helper in legacy
+  paper-reproduction tooling that only works when running from a real dev
+  checkout path, tripped here because this session's Python environment has
+  an editable install whose `__file__` resolves through a site-packages
+  stub; (b) the large majority are `FileNotFoundError` for untracked,
+  gitignored historical paper-run artifacts under
+  `packages/skill_loop_csp/artifacts/...` — the same
+  "excluded external datasets/models/historical outputs" category Ticket 33
+  already documented; (c) missing optional `megnet` package (documented
+  `OPTIONAL_FEATURE`); (d) missing bootstrapped Crystal database (requires
+  the Materials Project bootstrap, an already-documented external
+  requirement). No failure signature outside these four known categories
+  was found.
+- Skill-Loop model-free fixture/replay path: **10 passed, 0 failed**
+  (`test_agentic_chain_runtime_stub.py` + `test_agentic_c_layer_replay_e2e.py`),
+  concretely exercising Planner (`planner_result`), Run Manager
+  (`run_manager_log`), Orchestrator (`orchestrator_decision`), Evaluator
+  evidence, and an ordered tool-execution step sequence (`c_steps`).
+- Skill-Loop bundled-MCP-modules wiring test
+  (`test_skill_loop_defaults_launch_bundled_mcp_modules`): **passed**.
+- MCP tool-surface parity (installed server registrations vs. recorded
+  snapshots): Crystal-DB 6/6 exact, SPP-Maker 4/4 exact, QLIP 6/6 exact —
+  zero missing, zero invented, zero drift.
+- Real clean E2E: the source SrTiO3 SPP→QLIP→Gurobi fixture
+  (`tests/integration/spp/test_srtio3_qlip.py`, real
+  `pyo.SolverFactory("gurobi")`, not mocked) is part of the passing root
+  178.
+
+Final wheel/sdist inclusion audit (built from the clean detached worktree
+at `5eeb6527`): no historical Crystal databases, no blocked regulator
+libraries beyond the 9 allowed QLIP fixture POTs, no benchmark outputs, no
+local runs, no grunt/swarm infrastructure, no developer caches in the
+wheel; all required Crystal bootstrap files and the Skill-Loop schema
+present in wheel/sdist as applicable.
+
+Overall Ticket 34 status: `SOURCE_FIDELITY_RESTORED`,
+`READY_WITH_DOCUMENTED_EXTERNAL_REQUIREMENTS`. See `PROJECT_CLOSEOUT.md`
+for the full final report.
